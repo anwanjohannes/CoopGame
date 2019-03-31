@@ -1,0 +1,1 @@
+#' @slot LPRows an S4 class (defined within this package) containing information about the rows of all later LPs.

@@ -1,0 +1,31 @@
+
+P=c(12,  3,  2, 16,  1,  4, 13,  3, 11, 19, 16, 18,  6, 16,  3)
+
+test_that("Check 74.1 - test nucleolusOLD against prenucleolusOLD" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,15,replace = TRUE)
+    result=nucleolusOLD(P)
+    result2=prenucleolusOLD(P)
+    print(P)
+    expect_equal(result, result2)
+  }
+})
+
+test_that("Check 74.2 - test nucleolusOLD against prenucleolusOLD" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P1_n=sample(1:8,3,replace = TRUE)
+    P=c(P1_n,sample(max(P1_n):50,4,replace = TRUE))
+    if(isBalancedGame(P)){
+      result=nucleolus(P)
+      result2=prenucleolus(P)
+      print(P)
+      expect_equal(result, result2)
+    }
+  }
+})

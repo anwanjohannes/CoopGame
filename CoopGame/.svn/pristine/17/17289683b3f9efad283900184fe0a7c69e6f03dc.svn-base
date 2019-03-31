@@ -1,0 +1,85 @@
+boolSkip=F
+
+test_that("Check 75.1 - epsiloncoreVertices - 3 players",{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A <- c(2, 4, 5, 18, 24, 9, 24)
+  V1 <- c(25, 4, 5)
+  V2 <- c(14, 4, 16)
+  V3 <- c(8, 10, 16)
+  V4 <- c(19, 10, 5)
+  result = epsiloncoreVertices(A, -10)
+  expect_equal(result[1, ], V1)
+  expect_equal(result[2, ], V2)
+  expect_equal(result[3, ], V3)
+  expect_equal(result[4, ], V4)
+})
+
+test_that("Check 75.2 - epsiloncoreVertices - 3 players",{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A <- c(0, 0, 0, 40, 50, 20, 100) 
+  V1 <- c(70, 0, 20)
+  V2 <- c(40, 0, 50)
+  V3 <- c(0, 40, 50)
+  V4 <- c(50, 40, 0)
+  V5 <- c(70, 20, 0)
+  result = epsiloncoreVertices(A,10)
+  expect_equal(result[1, ], V1)
+  expect_equal(result[2, ], V2)
+  expect_equal(result[3, ], V3)
+  expect_equal(result[4, ], V4)
+  expect_equal(result[5, ], V5)
+})
+
+test_that("Check 75.3 - epsiloncoreVertices - 4 players",{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A <- c(0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 12, 12, 12, 12, 22)
+  V1 <- c(5, 2, 5, 5)
+  V2 <- c(2, 5, 5, 5)
+  V3 <- c(5, 5, 5, 2)
+  result = epsiloncoreVertices(A,5)
+  expect_equal(result[1, ], V1)
+  expect_equal(result[2, ], V2)
+  expect_equal(result[3, ], V3)
+})
+
+test_that("Check 75.4 - epsiloncoreVertices - 4 players",{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A <- c(1, 2, 3, 4, 5, 3, 6, 7, 7, 8, 10, 16, 32, 12, 66)
+  V1 <- c(34, 4, 4, 4)
+  V2 <- c(34, 2, 5, 5)
+  V3 <- c(9, 2, 30, 5)
+  V4 <- c(3, 2, 30, 11)
+  V5 <- c(1, 4, 30, 11)
+  V6 <- c(1, 14, 3, 28)
+  V7 <- c(24, 14, 4, 4)
+  result = epsiloncoreVertices(A,20)
+  expect_equal(result[1, ], V1)
+  expect_equal(result[2, ], V2)
+  expect_equal(result[3, ], V3)
+  expect_equal(result[4, ], V4)
+  expect_equal(result[5, ], V5)
+  expect_equal(result[6, ], V6)
+  expect_equal(result[7, ], V7)
+})
+
+test_that("Check 75.5 - epsiloncoreVertices - 5 players",{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A <- generateGameVector(func = cFuncQuota, n = 5, w = c(4,2,2,1,1), q = 6)
+  V1 <- c(1, 0, 0, 0, 1)
+  V2 <- c(0.5, 0.5, 0.5, 0.5, 0)
+  V3 <- c(1, 1, 0, 0, 0)
+  result = epsiloncoreVertices(A,-1)
+  expect_equal(result[1, ], V1)
+  expect_equal(result[2, ], V2)
+  expect_equal(result[3, ], V3)
+})

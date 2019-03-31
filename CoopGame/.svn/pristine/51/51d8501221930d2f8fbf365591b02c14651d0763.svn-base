@@ -1,0 +1,121 @@
+#' @title Constructor for LPRows
+#' @name LPRows
+#' @template author/JA
+#' @export
+LPRows<-function(rlb,rub,rtype){methods::new("LPRows",rlb=rlb,rub=rub,rtype=rtype)}
+
+#' @title LPRows - Managing rows of lp
+#' @template author/JA
+#' @description An S4 class representing an utility for rows of a linear programme
+#' as often used in the Game Theory package CoopGame and its derived packages.
+#' @slot rlb numeric vector with lower bounds
+#' @slot rub numeric vector with upper bounds
+#' @slot rtype numeric vector indicating the row types
+#' @exportClass LPRows
+
+
+#Class LPRows definition
+setClass(
+  "LPRows",
+  representation(
+        rlb="numeric",
+        rub="numeric",
+        rtype="numeric"
+  ),
+  validity = function(object){
+    retVal=TRUE
+    lengthRlb=length(object@rlb)
+    lengthRub=length(object@rub)
+    lengthRtype=length(object@rtype)
+    if(!all(c(lengthRub,lengthRlb)==lengthRtype)){
+      retVal=FALSE
+    }else if(log2(lengthRub+1)%%1!=0){
+      retVal=FALSE
+    }
+    return(retVal)
+  }
+)
+
+
+
+
+setGeneric("getRlb",function(.Object){standardGeneric("getRlb")})
+setMethod(
+  "getRlb",
+  signature = "LPRows",
+  definition = function(.Object){
+    return(.Object@rlb)
+  }
+)
+
+
+#Class LPRows setter rlb
+setGeneric("setRlb<-",function(.Object,value){standardGeneric("setRlb<-")})
+setReplaceMethod(
+  f="setRlb",
+  signature="LPRows",
+  definition=function(.Object,value){
+    .Object@rlb<-value
+    return(.Object)
+  }
+)
+
+
+#' @title getRub
+#' @noRd
+#' @description getRub
+#Class LPRows getter rub
+setGeneric("getRub",function(.Object){standardGeneric("getRub")})
+setMethod(
+  "getRub",
+  signature = "LPRows",
+  definition = function(.Object){
+    return(.Object@rub)
+  }
+)
+
+#' @title setRub
+#' @noRd
+#' @description setRub
+#' @name setRub
+#' @template author/JA
+#' @template author/JS
+#' @exportMethod setRub<-
+
+
+#Class LPRows setter rub
+setGeneric("setRub<-",function(.Object,value){standardGeneric("setRub<-")})
+setReplaceMethod(
+  f="setRub",
+  signature="LPRows",
+  definition=function(.Object,value){
+    .Object@rub<-value
+    return(.Object)
+  }
+)
+
+
+
+#Class LPRows getter rtype
+setGeneric("getRtype",function(.Object){standardGeneric("getRtype")})
+setMethod(
+  "getRtype",
+  signature = "LPRows",
+  definition = function(.Object){
+    return(.Object@rtype)
+  }
+)
+
+
+
+#Class LPRows setter rtype
+setGeneric("setRtype<-",function(.Object,value){standardGeneric("setRtype<-")})
+
+setReplaceMethod(
+  f="setRtype",
+  signature="LPRows",
+  definition=function(.Object,value){
+    .Object@rtype<-value
+    return(.Object)
+  }
+)

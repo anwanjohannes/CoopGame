@@ -1,0 +1,116 @@
+#' @name raeIndex
+#' @title raeIndex
+#' @description Calculates the Rae Index for a specified simple TU game.
+#' @aliases raeIndex
+#' @export raeIndex
+#' @template author/JS
+#' @template cites/RAE_1969
+#' @templateVar RAE_1969_P pp. 40 -- 56
+#' @inheritParams CoopGameBaseParams
+#' @return Rae Index for specified simple game 
+#' @examples 
+#' A=c(0,0,0,1,1,0,1)
+#' raeIndex(A) 
+#' #result: [1] 0.8 0.6 0.6
+#' # Note that in general the Rae index is not an efficient vector, 
+#' # i.e. the sum of its entries is not always 1.
+raeIndex<-function(A){
+  rae=raeConcept(A)
+  return(calculatePointSolution(rae))
+}
+
+
+#' @name raeValue
+#' @title raeValue
+#' @description raeValue is a solution concept based on the Rae Index
+#' @aliases raeValue
+#' @export raeValue
+#' @template author/JS
+#' @template cites/RAE_1969
+#' @templateVar RAE_1969_P pp. 40 -- 56
+#' @inheritParams CoopGameBaseParams
+#' @return The return value is a vector which contains for each player the calculated Public Help value
+#' @examples 
+#' A=c(0,0,0,1,1,0,1)
+#' raeValue(A)
+#' #result: [1] 0.8 0.6 0.6
+#' # Note that in general the Rae value is not an efficient vector,
+#' # i.e. the sum of its entries is not always 1.
+raeValue<-function(A){
+  if(!isSimpleGame(A)){
+    print("Game is not simple. Therefore no Rae Index can be retrieved")
+  }
+  else
+  {
+    phv=raeConcept(A)
+    return(calculatePointSolution(phv))
+  }
+}
+
+
+logicRaeIndex=function(A){
+  if(!isSimpleGame(A)){
+    print("Game is not simple. Therefore no Public Help Chi Index can be retrieved")
+  }
+  else
+  {
+    n=getNumberOfPlayers(A)
+    banzhafV = banzhafValue(A)
+    rae = 0.5 + 0.5 * banzhafV
+    return(rae)
+  }
+}
+
+#' @title raeConcept
+#' @noRd
+#' @description raeConcept
+#' @include PointSolutionConcept.R
+# @exportClass raeConcept
+
+setClass(
+  "raeConcept",
+  contains = "PointSolutionConcept"
+)
+
+#' @rdname calculatePowerIndex-methods
+#' @aliases calculatePowerIndex,raeConcept-method
+setMethod(
+  "calculatePointSolution",
+  signature="raeConcept",
+  definition=function(.Object){
+    A<-.Object@A
+    return(logicRaeIndex(A))
+  }
+)
+
+#' @title Constructor for raeConcept
+#' @noRd
+#' @template author/JS
+#' @name raeConcept
+#' #@export
+raeConcept<-function(A){
+  retraeIndex=methods::new("raeConcept",A)
+  return(retraeIndex)
+}
+
+
+
+#' @name drawRaeValue
+#' @title drawRaeValue for n players
+#' @description drawRaeValue draws the rae value for n players. IS THIS SENSIBLE??
+#' @aliases drawRaeValue
+#' @export drawRaeValue
+#' @template author/JS
+#' @template cites/RAE_1969
+#' @templateVar RAE_1969_P pp. 40 -- 56
+#' @inheritParams CoopGameBaseParams
+#' @inheritParams visualize
+#' @return Visualization of Rae value for 3- or 4-player game
+#' @examples
+#' A=c(0,0,0,1,1,0,1)
+#' drawRaeValue(A) 
+drawRaeValue<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = "Public Help Value"){
+  A=GameVector(A)
+  sm=raeValue(A);
+  visualize(A, pointsToDraw=sm, holdOn=holdOn, colour = colour , label=label, name = name)
+}

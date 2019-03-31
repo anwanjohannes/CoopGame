@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name colemanInitiativePowerIndex\n#' @title Coleman Initiative Power Index\n#' @description Calculates the Coleman Initiative Power Index for a specified simple TU game.\n#' Note that in general the Coleman Initiative Power Index is not an efficient vector, \n#' i.e. the sum of its entries is not always 1.\n#' Hence no drawing routine for the Coleman Initiative Power Index is provided.\n#' @aliases colemanInitiativePowerIndex\n#' @export colemanInitiativePowerIndex\n#' @template author/JS\n#' @template cites/COLEMAN_1971\n#' @templateVar COLEMAN_1971_P pp. 269 -- 300\n#' @template cites/CHAKRAVARTY_ET_AL_2015\n#' @templateVar CHAKRAVARTY_ET_AL_2015_P pp. 120 -- 123\n#' @template cites/DE_KEIJZER_2008\n#' @templateVar DE_KEIJZER_2008_P p. 18\n#' @inheritParams CoopGameBaseParams\n#' @return Coleman Initiative Power Index for specified simple game \n#' @examples \n#' A=c(0,0,0,1,1,0,1)\n#' colemanInitiativePowerIndex(A) \n#' #result: [1] 0.6 0.2 0.2\n#' \ncolemanInitiativePowerIndex<-function(A){\n  colemanInitiativePower=ColemanInitiativePowerConcept(A)\n  return(calculatePointSolution(colemanInitiativePower))\n}\n\n\n\nlogicColemanInitiativePowerIndex=function(A){\n  retVal=NULL\n  if(!isSimpleGame(A)){\n    print(\"Game is not simple. Therefore no Coleman Initiative Power Index can be retrieved.\")\n  }\n  else\n  {\n    n=getNumberOfPlayers(A)\n    bm=createBitMatrix(n,A)\n    numerator = numeric(n)\n    numerator = rawBanzhafIndex(A)\n    #the winning coalitions\n    wcs=bm[bm[,\"cVal\"]>0,,drop=FALSE]\n    commonDenominator = as.numeric(2^n - nrow(wcs))\n    colemanInitiativePower =sapply(c(1:n),function(i){numerator[i]/commonDenominator})\n    retVal=colemanInitiativePower\n  }\n  return(retVal)\n}\n\n#' @title ColemanInitiativePowerConcept\n#' @noRd\n#' @description ColemanInitiativePowerConcept\n#' @include PointSolutionConcept.R\n# @exportClass ColemanInitiativePowerConcept\n\nsetClass(\n  \"ColemanInitiativePowerConcept\",\n  contains = \"PointSolutionConcept\"\n)\n\n#' @rdname calculatePowerIndex-methods\n#' @aliases calculatePowerIndex,ColemanInitiativePowerConcept-method\nsetMethod(\n  \"calculatePointSolution\",\n  signature=\"ColemanInitiativePowerConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    return(logicColemanInitiativePowerIndex(A))\n  }\n)\n\n#' @title Constructor for ColemanInitiativePowerConcept\n#' @noRd\n#' @template author/JS\n#' @name ColemanInitiativePowerConcept\n#' #@export\nColemanInitiativePowerConcept<-function(A){\n  retcolemanInitiativePowerIndex=methods::new(\"ColemanInitiativePowerConcept\",A)\n  return(retcolemanInitiativePowerIndex)\n}\n\n\n\n\n",
+    "created" : 1534322070251.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "255228445",
+    "id" : "267254B7",
+    "lastKnownWriteTime" : 1536426668,
+    "last_content_update" : 1536426668,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/ColemanInitiativeConcept.R",
+    "project_path" : "R/ColemanInitiativeConcept.R",
+    "properties" : {
+    },
+    "relative_order" : 74,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

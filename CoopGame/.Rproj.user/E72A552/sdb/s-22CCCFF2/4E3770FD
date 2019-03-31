@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name isSymmetricGame\n#' @title isSymmetricGame - check if a TU game is symmetric.\n#' @description isSymmetricGame checks if a TU game is symmetric.\n#' A TU game is symmetric if and only if the values of all  \n#' coalitions containing the same number of players are identical.\n#' @aliases isSymmetricGame\n#' @export isSymmetricGame\n#' @template author/JS\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 12\n#' @template cites/CHAKRAVARTY_ET_AL_2015\n#' @templateVar CHAKRAVARTY_ET_AL_2015_P p. 26\n#' @inheritParams CoopGameBaseParams\n#' @return \\code{TRUE} if the game is symmetric, else \\code{FALSE}.\n#' @examples\n#' #Example of a symmetric game\n#' library(CoopGame) \n#' A<-c(3,3,3,10,10,10,17)\n#' isSymmetricGame(A)\n#'\n#' #Example of a game which is not symmetric \n#' library(CoopGame) \n#' A=c(1:7)\n#' isSymmetricGame(A)\n#' \nisSymmetricGame<-function(A){\n  isSymm=GamePropertySymmetry(A)\n  return(determineProperty(isSymm))\n}\n\nlogicIsSymmetricGame=function(A){\n  boolRetVal=TRUE\n  n=getNumberOfPlayers(A)\n  N=length(A)\n  bm=as.data.frame(createBitMatrix(n,A))\n  players=1:n\n  tolerance <- 1e-12\n  i <- 1\n  numberOfCurrSetOld <- 1\n  valueComp <- A[i]\n  while (i < N){\n    i <- i+1\n    # Use structure of bitMatrix bm\n    # with i increasing, the number of players involved in nondecreasing\n    numberOfCurrSet<-sum(bm[i,1:n])\n    if (numberOfCurrSet > numberOfCurrSetOld)\n    {\n      valueComp <- A[i]\n      numberOfCurrSetOld <- numberOfCurrSet\n    }\n    else \n    {\n      value <- bm[[i,\"cVal\"]]\n      if (abs(value-valueComp)>tolerance)\n      {\n        boolRetVal <- FALSE\n      }\n    }\n  }\n  return(boolRetVal)\n}\n\n#' @title GamePropertySymmetry\n#' @noRd\n#' @include GameProperty.R\n#' #@exportClass GamePropertySymmetry\n\nsetClass(\n  \"GamePropertySymmetry\",\n  contains = \"GameProperty\"\n)\n\n#' @title Constructor for GamePropertySymmetry\n#' @noRd\n#' @template author/JS\n#' @name GamePropertySymmetry\n#' #@export\nGamePropertySymmetry<-function(A){\n  retGamePropertySymmetry=methods::new(\"GamePropertySymmetry\",A)\n  return(retGamePropertySymmetry)\n}\n\n#' @rdname determineProperty-methods\n#' @aliases determineProperty,GamePropertySymmetry-method\nsetMethod(\n  \"determineProperty\",\n  signature=\"GamePropertySymmetry\",\n  definition=function(.Object){\n    A<-.Object@A\n    result=logicIsSymmetricGame(A)\n    return(result)\n  }\n)\n",
+    "created" : 1534322789139.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "162735195",
+    "id" : "4E3770FD",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/GamePropertySymmetry.R",
+    "project_path" : "R/GamePropertySymmetry.R",
+    "properties" : {
+    },
+    "relative_order" : 81,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

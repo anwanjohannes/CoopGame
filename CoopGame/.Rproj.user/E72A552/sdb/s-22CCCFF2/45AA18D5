@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name isEssentialGame\n#' @title isEssentialGame\n#' @description Checks if a TU game for n players is essential.\n#' A game is said to be essential, if the players generate more in the grand coalition   \n#' than the sum of the values of the singleton coalitions.\n#' A game is essential, if \\deqn{v(N) > \\sum v({i})}. \\cr\n#' For an essential game the imputation set is nonempty and consists of more than one point.\n#' @aliases isEssentialGame\n#' @export isEssentialGame\n#' @template author/MM\n#' @template author/JS\n#' @template cites/CHAKRAVARTY_ET_AL_2015\n#' @templateVar CHAKRAVARTY_ET_AL_2015_P p. 23\n#' @template cites/NARAHARI_2015\n#' @templateVar NARAHARI_2015_P p. 408 \n#' @inheritParams CoopGameBaseParams\n#' @return \\code{TRUE} if the game is essential, else \\code{FALSE}. \n#' @examples\n#' # Example of an essential game\n#' library(CoopGame)\n#' A <- c(0,0,0,60,60,60,72)\n#' isEssentialGame(A)\n#'\n#' # Example of a game that is not essential  \n#' library(CoopGame)\n#' B <- c(30,30,15,60,60,60,72)\n#' isEssentialGame(B)\n#'\n#' # Example of a game that is not essential \n#' library(CoopGame)\n#' C <- c(20,20,32,60,60,60,72)\n#' isEssentialGame(C)\n#'\nisEssentialGame<-function(A){\n  isE=GamePropertyEssentiality(A)\n  return(determineProperty(isE))\n}\n\nlogicIsEssentialGame <- function(A) {\n  numberOfPlayers <- getNumberOfPlayers(A)\n  isEssential <- FALSE\n  scVal <- sum(A[1:numberOfPlayers])\n  gcVal <- A[length(A)]\n\n  if (gcVal > scVal) {\n    isEssential <- TRUE\n  } else {\n    isEssential <- FALSE\n  }\n\n  return(isEssential)\n}\n\n#' @title GamePropertyEssentiality\n#' @noRd\n#' @description Class for implementation of essentiality concept\n#' @include GameProperty.R\n#' #@exportClass GamePropertyEssentiality\n\nsetClass(\n  \"GamePropertyEssentiality\",\n  contains = \"GameProperty\"\n)\n\n#' @title Constructor for GamePropertyEssentiality\n#' @noRd\n#' @template author/JA\n#' @name GamePropertyEssentiality\n#' #@export\nGamePropertyEssentiality<-function(A){\n  retGamePropertyEssentiality=methods::new(\"GamePropertyEssentiality\",A)\n  return(retGamePropertyEssentiality)\n}\n\n#' @rdname determineProperty-methods\n#' @aliases determineProperty,GamePropertyEssentiality-method\nsetMethod(\n  \"determineProperty\",\n  signature=\"GamePropertyEssentiality\",\n  definition=function(.Object){\n    A<-.Object@A\n    result=logicIsEssentialGame(A)\n    return(result)\n  }\n)\n\n\n\n",
+    "created" : 1536404933518.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "54932961",
+    "id" : "45AA18D5",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/GamePropertyEssentiality.R",
+    "project_path" : "R/GamePropertyEssentiality.R",
+    "properties" : {
+    },
+    "relative_order" : 99,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

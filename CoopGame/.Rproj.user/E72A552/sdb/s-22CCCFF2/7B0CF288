@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @slot A Numeric vector of length 2^n - 1 representing the number of\n#' coalitions of an n-player TU game (\\linkS4class{GameVector}).\n",
+    "created" : 1536405721351.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3050577988",
+    "id" : "7B0CF288",
+    "lastKnownWriteTime" : 1536422534,
+    "last_content_update" : 1536422534164,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/man-roxygen/slot/A.R",
+    "project_path" : "man-roxygen/slot/A.R",
+    "properties" : {
+    },
+    "relative_order" : 103,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

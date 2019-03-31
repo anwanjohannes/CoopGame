@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#Institution: Hochschule Kempten\n#Subject: Software Architecture\n#Presentation: Resource Description Framework (RDF) \n#Code Description: Example showing deforestation in the Brazilian Amazon Rainforest during 2007 using SPARQL endpoint\n#Author: Johannes Anwander\n#Date: 20160628\n#\n#\n#\n# Description of used Dataset (KAUPINNEN et alt. 2012)\n#\n# \"The data can be accessed in a Linked Data fashion via \n# a SPARQL-endpoint, and via dereferenciable URIs. \n# The data consists of 8250 cells-each of size of 25 km * 25 \n# km-capturing the observations of deforestation in the Brazilian\n# Amazon Rainforest and a number of related and relevant variables.\n# This spatiotemporal  deforestation data was created using a \n# number of aggregation methods from different sources. \n# The data covers  the whole Brazilian Amazon Rainforest.\"\n\n#References:\n#KAUPPINEN, T.; GR?LER, B. & MIRA, G.(2012): Linked Brazilian Amazon Rainforest Data.\n#URL: http://kauppinen.net/tomi/kauppinen-et-al-linked-remote-sensing-data-2012.pdf\n\n\n#Steps:\n#\n# 0 - Setting up prerequirements\n# 1 - Building the query\n# 2 - Running the query\n# 3 - Preparing received data for visualisation\n# 4 - Depict deforestation \n\n#Step 0: Setting up prerequirements\n\n#library for query to sparql endpoint and handling sparql data\nlibrary(SPARQL)\n\n#library to cope with spatial data and depict data graphically\nlibrary(sp)\n\n# setting the endpoint\nendpoint <- \"http://spatial.linkedscience.org/sparql\"\n\n\n#Step 1: Building the query\n\n#Needed Information:\n\n#Any item in statistical data, that one wants to provide values for. \n#identifier:\thttp://linkedscience.org/lsv/ns#Item\n\n#Deforestation data of Amazonas in 2007\n#identifier: http://spatial.linkedscience.org/context/amazon/DEFOR_2007\n\n#Column number of cell\n#identifier: http://spatial.linkedscience.org/context/amazon/Col\n\n#Row number of cell\n#identifier: http://spatial.linkedscience.org/context/amazon/Lin\n\n#Property to relate a border to an item.\n#identifier:\thttp://linkedscience.org/lsv/ns#border\n\n\n\n#Defining the query\n\nq <- \"SELECT ?cell ?row ?col ?polygon ?DEFOR_2007\nWHERE { \n?cell a <http://linkedscience.org/lsv/ns#Item> ;\n<http://spatial.linkedscience.org/context/amazon/DEFOR_2007> ?DEFOR_2007;\n<http://spatial.linkedscience.org/context/amazon/Lin> ?row ;\n<http://spatial.linkedscience.org/context/amazon/Col> ?col ;\n<http://linkedscience.org/lsv/ns#border> ?polygon .\n}\"\n\n#Step 2: Running the query\nres <- SPARQL(url=endpoint, q)$results\namazon <- res\n\n\n#Step 4: Preparing received data for visualisation\n\n# For correct visualisation of map swap y-axis\n# because otherwise north side would be shown at the bottom\n# and south side at top\namazon$row <- -amazon$row \n\n#creates spatial object data frame\ncoordinates(amazon) <- ~ col+row\n\n#Creates grid out of coordinates and adds to dataframe\ngridded(amazon) <- TRUE\n\n\n#Step 5: Depict deforestation \n\n#Visualised Colors:\n# Create a vector of 17 contiguous colors, \n# put them in reverse order and let drop first one \n# (due to getting appropriate colors)\nheatColors=rev(heat.colors(17))[-1]\n\n#depict graph\nspplot(amazon,\"DEFOR_2007\",col.regions=heatColors, at=(0:16)/100,\n       main=\"Relative Deforestation in Amazonas during 2007\")\n",
+    "created" : 1526218434252.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1545579115",
+    "id" : "F69A3478",
+    "lastKnownWriteTime" : 1467228694,
+    "last_content_update" : 1467228694,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/3_Semester/SWA/RDF_VORTRAG/___FINAL/Abgabe/RDF_JohannesAnwander/Praesentation_RDF_Codebeispiel/LinkedData_DEFOR_2007_Amazonas.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 24,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

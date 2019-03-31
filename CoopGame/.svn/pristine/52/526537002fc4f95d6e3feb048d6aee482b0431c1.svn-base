@@ -1,0 +1,80 @@
+#' @name koenigBraeuningerIndex
+#' @title koenigBraeuningerIndex
+#' @description Calculates the Koenig-Braeuninger Index for a specified simple TU game.
+#' @aliases koenigBraeuningerIndex
+#' @export koenigBraeuningerIndex
+#' @template author/JS
+#' @template cites/KOENIG_ET_BRAEUNINGER_1998
+#' @templateVar KOENIG_ET_BRAEUNINGER_1998_P pp. 125 -- 142
+#' @template cites/NEVISON_ET_AL_1978
+#' @templateVar NEVISON_ET_AL_1978_P pp. 130 -- 131
+#' @inheritParams CoopGameBaseParams
+#' @return Koenig-Braeuninger Index for specified simple game 
+#' @examples 
+#' A=c(0,0,0,1,1,0,1)
+#' koenigBraeuningerIndex(A) 
+#' #result: [1] 1.0000000 0.6666667 0.6666667
+#' # Note that in general the Koenig-Braeuninger index is not an efficient vector, 
+#' # i.e. the sum of its entries is not always 1.
+koenigBraeuningerIndex<-function(A){
+  koenigBraeuninger=koenigBraeuningerConcept(A)
+  return(calculatePointSolution(koenigBraeuninger))
+}
+
+
+
+logickoenigBraeuningerIndex=function(A){
+  retVal = NULL
+  if(!isSimpleGame(A)){
+    print("Game is not simple. Therefore no Koenig Braeuninger Index can be retrieved")
+    return(retVal)
+  }
+  else
+  {
+    n=getNumberOfPlayers(A)
+    bm=createBitMatrix(n,A)
+    #the winning coalitions
+    wcs=bm[bm[,"cVal"]>0,,drop=FALSE]
+    #the values of corresponding where 
+    temp=sapply(c(1:n),function(i){sum(wcs[wcs[,i]==1,"cVal"])})
+    koenigBraeuninger =sapply(c(1:n),function(i){temp[i]/nrow(wcs)})
+    retVal = koenigBraeuninger
+    return(retVal)
+  }
+}
+
+#' @title koenigBraeuningerConcept
+#' @noRd
+#' @description koenigBraeuningerConcept
+#' @include PointSolutionConcept.R
+# @exportClass koenigBraeuningerConcept
+
+setClass(
+  "koenigBraeuningerConcept",
+  contains = "PointSolutionConcept"
+)
+
+#' @rdname calculatePowerIndex-methods
+#' @aliases calculatePowerIndex,koenigBraeuningerConcept-method
+setMethod(
+  "calculatePointSolution",
+  signature="koenigBraeuningerConcept",
+  definition=function(.Object){
+    A<-.Object@A
+    return(logickoenigBraeuningerIndex(A))
+  }
+)
+
+#' @title Constructor for koenigBraeuningerConcept
+#' @noRd
+#' @template author/JS
+#' @name koenigBraeuningerConcept
+#' #@export
+koenigBraeuningerConcept<-function(A){
+  retkoenigBraeuningerIndex=methods::new("koenigBraeuningerConcept",A)
+  return(retkoenigBraeuningerIndex)
+}
+
+
+
+

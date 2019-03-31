@@ -1,0 +1,14 @@
+---
+title: "The Class NucleolusBase"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### The Class NucleolusBase
+
+The previous section described the class `LPCoopGameUtils`, which provides the basis for easy handling of all responsibilities in the context of linear programs. By contrast, the virtual class `NucleolusBase` holds the responsibility for implementing the algorithm for calculating the respective nucleolus derivatives. Since this is a virtual class, it can not be created an instance of it - just for its child classes. The calculations of the various derivatives have in common that they are determined by a series of linear programs, the optimal solution point. Differences, on the other hand, can be found in the calculation of the derivatives both in the initial initialization or later update of the coefficient matrix, different termination criteria, border types and in the linear program border values.
+The virtual class `NucleolusBase` realizes the calculation of the nucleolus as a starting point for the other derivates.
+In which points and how strongly the various derivatives differ from each other can be very different.
+The following section discusses how the class `NucleolusBase` is designed with the aim of making the implementation of the nucleolus derivatives as flexible and simple as possible, and which considerations were particularly relevant here.
+

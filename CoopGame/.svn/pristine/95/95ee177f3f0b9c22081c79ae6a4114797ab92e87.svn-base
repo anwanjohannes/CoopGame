@@ -1,0 +1,1 @@
+#' @slot LPBndsObjCoefs an S4 class (defined within this package) containing information about the columns and the objective functions of all later LPs.

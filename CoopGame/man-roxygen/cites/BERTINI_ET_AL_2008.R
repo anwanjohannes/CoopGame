@@ -1,0 +1,1 @@
+#' @references Bertini C., Gambarelli G. and Stach I. (2008) "A public help index", In: Braham, M., and Steffen, F. (Eds): Power, freedom, and voting: Essays in Honour of Manfred J. Holler <%=BERTINI_ET_AL_2008_P%>

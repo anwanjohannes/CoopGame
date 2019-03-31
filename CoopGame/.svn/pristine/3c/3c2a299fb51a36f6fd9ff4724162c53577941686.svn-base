@@ -1,0 +1,29 @@
+---
+title: 'The Definition of the Public Good Index'
+author: "Johannes Anwander"
+date: "21 April 2018"
+output: pdf_document
+---
+
+### The Definition of the Public Good Index
+Before redistributing the value of the CIP, this section explains how it is composed.
+Because the PGI is based on the minimum profit coalitions and profit coalitions, these are indispensable for the PGI concept and are briefly characterized.
+According to WIESE (2005: 91), winning coalitions are all coalitions K that have a coalition value of 1 for a simple game (eg a voting game), for coalitions K with v \ left (K \ right) = 0 corresponding to loss coalitions , As a generalized modification of the definition of a win coalition v for simple games according to WIESE (2005: 91), the amount of all winning coalitions - based on all games (N, v) - can be defined as in formula 32.
+
+$W\left(v\right)=\left\{K\ \subseteq N\ \right|v\left(K\right)>0\}$
+
+The expression W_i \ left (v \ right) here describes the subset of the winning coalitions in which the player i \ in \ N participates.
+
+$W_i\left(v\right)=\{K\ \subseteq N\ \left|v\left(K\right)>0\ \land i\ \in K\right\}$
+
+Minimum Profit Coalitions are coalitions composed solely of critical players. If only a single player falls away, the profit coalition turns into a losing coalition, where no common value is earned. Minimum profit coalitions can be defined as in Formula 34 (Holler & Illing 2006: 323).
+
+$M\left(v\right)=\left\{K\ \subseteq\ N\ \right|v\left(K\right)>0\ and\ v\left(L\right)=0,\ \forall\ L\subset\ K\}$
+
+The sum of all coalition values v (K) for all K \ in \ M (v) \ and the player \ i \ \ in \ K will be listed as c_i (v) in Formula 35 below.
+
+
+
+From the collective acceptance and the limitation to minimum profit coagulations, the PGI is therefore derived according to formula 34 and formula 35 as defined in formula 36 (Holler & Illing 2006: 325f).
+
+$\{PGI\}_i(v)=\frac\{c_i(v)\}\{\sum_\{j\in N\}\{c_j(v)\}\} und \sum_\{j\in N\}\{\{PGI\}_i(v)\}=1$

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name getMinimumWinningCoalitions\n#' @title getMinimumWinningCoalitions\n#' @description The function getMinimumWinningCoalitions identifies all minimal winning coalitions.\n#' These coalitions are characterized by the circumstance that \n#' if any player break aways from them, then the coalition\n#' generates no value (then also called a losing coalition) - all players\n#' in the coalition can therefore be described as critical players.\n#' @aliases getMinimumWinningCoalitions\n#' @export getMinimumWinningCoalitions\n#' @template author/JA\n#' @template author/JS\n#' @template cites/DEEGAN_ET_PACKEL_1978\n#' @templateVar DEEGAN_ET_PACKEL_1978_P pp. 151-161\n#' @template cites/PETERS_2015\n#' @templateVar PETERS_2015_P p. 295\n#' @template param/A\n#' @return A data frame containing all minimum winning coalitions for a simple game.\n#' @examples\n#' library(CoopGame)\n#' A=cFuncQuotaVector(n=3,w=c(1,2,3),q=5)\n#'getMinimumWinningCoalitions(A)\n#'# Output:\n#'#   V1 V2 V3 cVal\n#'# 6  0  1  1    1\n#'# => the coalition containing player 2 and 3 is minimal \n#'\n\n\ngetMinimumWinningCoalitions=function(A){\n\n  paramCheckResult=getEmptyParamCheckResult()\n  stopOnInvalidGameVectorA(paramCheckResult,A)\n  if(!isSimpleGame(A)){\n    print(\"Game is not simple therefore no minimum winning coalitions can be retrieved.\")\n    return(NULL)\n  }else{\n    bitMatrix=as.data.frame(createBitMatrix(n=getNumberOfPlayers(A),A))\n    criticalMatrix=bitMatrix\n    numberOfPlayers=getNumberOfPlayers(A)\n    criticalCoalitions=c()\n    rowsToBeRemoved=c()\n    minimumWinningCoalitions=c()\n    for(player in 1:numberOfPlayers){\n      #get all critical coalitions of player \n      criticalCoalitions=getCriticalCoalitionsOfPlayer(player,A)[,\"bmRow\"]\n      #define all entries as 0 for player column\n      criticalMatrix[,player]=0\n      \n      #set 1 where player is critical\n      criticalMatrix[criticalCoalitions,player]=1\n    }\n    #compare every row of bitMatrix and criticalMatrix\n    for(bmIx in 1:nrow(bitMatrix)){\n      #if coalition is mwc both rows are identical\n      if(identical(bitMatrix[bmIx,],criticalMatrix[bmIx,])){\n        minimumWinningCoalitions=c(minimumWinningCoalitions,bmIx)\n      }\n    }\n    return(bitMatrix[minimumWinningCoalitions,,drop=FALSE])\n  }\n}",
+    "created" : 1525209200734.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1503433866",
+    "id" : "946C87B1",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/getMinimumWinningCoalitions.R",
+    "project_path" : "R/getMinimumWinningCoalitions.R",
+    "properties" : {
+    },
+    "relative_order" : 19,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

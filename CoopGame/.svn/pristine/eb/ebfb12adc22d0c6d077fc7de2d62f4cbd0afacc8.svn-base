@@ -1,0 +1,49 @@
+---
+title: "The Class SetSolutionConcept"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### The Class SetSolutionConcept
+From the class SetSolutionConcept all set valued solution concepts in CoopGame are derived. Out of this reason it implements the calculateSolution of the parent class and also provides the additional methods calculateSetSolution and getSolutionVertices.
+While calculateSetSolution determines the set solution by calling the method getSetSolutionVertices and creates a PayoffSpace object, calculateSolution is solely a wrapper of calculateSetSolution. 
+The class PayoffSpace represents the set solution by its slot VRepMatrix a matrix where each row represents one vertex of the convex polyhedron. Furthermore by isElementOfPayoffSpace a method is supplied by the class PayoffSpace to check if an allocation x is located within the corresponding convex polyhedron.
+As an example for how to implement a set solution class CoreConcept is looked upon.
+```{r, eval=FALSE}
+setClass(
+  "CoreConcept",
+  contains = "SetSolutionConcept"
+)
+```
+The method getSetSolutionVertices needs to be implemented as it provides the logic for retrieving the vertices of the convex polyhedron representing the core solution of a cooperative TU-game. 
+```{r, eval=FALSE}
+setMethod(
+  "getSetSolutionVertices",
+  signature="CoreConcept",
+  definition=function(.Object){
+    A<-.Object@A
+    VRep=(logicCoreVertices(A))
+    return(VRep)
+  }
+)
+```
+The logic for retrieving the core vertices is here defined inside the function logicCoreVertices.
+By the definition of the wrapper functions coreVertices, belongsToCore and drawCore the user easily can easily determine the core solution, check if an allocation belongs to the core and visualize the core solution.
+```{r, eval=FALSE}
+#Defining one game
+A = c(0,0,0,60,80,100,135)
+
+#Determining the vertices of the core
+core_vertices = coreVertices(A)
+
+#Check if allocation x=(20,45,70) belongs to core
+belongsToCore(x=c(20,45,70),A)
+
+#Visualize the core
+drawCore(A)
+
+
+
+
+```

@@ -1,0 +1,41 @@
+#' @name getMinimalRights
+#' @title getMinimalRights
+#' @description Calculates the utopia payoff for each player. \cr
+#' Marginal contribution of player i in grand coalition: \deqn{M_{i} = v(N) - v(N \ {i})}
+#' Minimum right of player i: \deqn{m_{i} = \max { v(S) - \sum M_{j} } }
+#' @aliases getMinimalRights
+#' @export getMinimalRights
+#' @template author/JA
+#' @template author/MM
+#' @template cites/BRANZEI_ET_AL_2006
+#' @templateVar BRANZEI_ET_AL_2006_P p. 31
+#' @param A  is a numeric vector of dimension 1x((2^n) - 1), n = number of players
+#' @return utopia payoffs for each player
+#' @examples
+#' A <- c(0,0,0,60,60,60,72)
+#' getUtopiaPayoff(A)
+#'
+#' B <- c(2,4,5,18,14,9,24) 
+#' getUtopiaPayoff(B)
+getMinimalRights<-function(A){
+  n=getNumberOfPlayers(A)
+  N=length(A)
+  bm=createBitMatrix(n,A)
+  M=getUtopiaPayoff(A)
+  
+  m=sapply(1:n, function(i){
+    bmIndices=which(bm[,i]==1,1)
+    max(
+      apply(
+        bm[bmIndices,,drop=FALSE],
+        1,
+        function(bmRow){
+          jPlayers=getPlayersFromBMRow(bmRow)
+          jPlayers=jPlayers[jPlayers!=i]
+          bmRow["cVal"]-sum(M[jPlayers])
+        }
+      )
+    )
+  })
+  return(m)
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Coalition - Class for representing coalition\n#' @description Class for coalition. Constructor is provided by function \\link{Coalition}.\n#' @exportClass Coalition\n\nsetClass(\n  \"Coalition\",\n  contains = \"numeric\",\n  validity = function(object){\n    paramCheckResult=getEmptyParamCheckResult()\n    stopOnInvalidCoalitionS(paramCheckResult,S=(object))\n  }\n)\n\n\n\n#' @title Constructor for Coalition\n#' @description Constructor for instance of class \\linkS4class{Coalition}\n#' @template author/JA\n#' @template param/S\n#' @name Coalition\n#' @export Coalition\n#' @examples \n#' #Coalition S consising of player 3, 5 and 8\n#' library(CoopGame)\n#' Coalition(c(3,5,8))\n#' #An object of class \"Coalition\"\n#' #[1] 3 5 8\n#' \nCoalition<-function(S){\n  retNoP=methods::new(\"Coalition\",S)\n  methods::validObject(retNoP)\n  return(retNoP)\n}",
+    "created" : 1534252051710.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1160027557",
+    "id" : "55AEEA6A",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/Coalition.R",
+    "project_path" : "R/Coalition.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 61,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

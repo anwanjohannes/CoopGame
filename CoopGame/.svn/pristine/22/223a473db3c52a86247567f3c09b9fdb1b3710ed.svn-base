@@ -1,0 +1,278 @@
+---
+author: | 
+  | Johannes Anwander, Jochen Staudacher
+  | (Hochschule Kempten)
+  | Contact: jochen.staudacher@hs-kempten.de
+title: "Using CoopGame"
+date: "`r Sys.Date()`"
+output: rmarkdown::pdf_document
+toc: true
+numbersections: true
+geometry: margin=3.8cm
+papersize: A4
+vignette: >
+  %\VignetteIndexEntry{Using CoopGame}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib
+csl: institute-of-mathematical-statistics.csl
+---
+```{r child = 'chapter1.Rmd'}
+```
+```{r child = 'chapter2.Rmd'}
+```
+# Motivation 
+The field of cooperative game theory is exciting.
+
+The package EvolutionaryGames focusses on single-population games 
+with two, three or four phenotypes. (The first author hopes 
+to address multi-population games in a separate package based
+
+## Computing Evolutionary Stable Strategies (ESS)
+
+The concept of evolutionary stable strategies (ESS) was first 
+proposed by Maynard Smith and Price in. An incumbent 
+strategy $x$ is said to be evolutionary stable if 
+
+- it is either a unique best reply to itself or   
+- in case there exists an alternative best reply $y$ to $x$,
+then $x$ is a better reply to this mutant strategy $y$ than 
+$y$ is to itself.  
+
+If $x$ is a strict Nash equilibrium, then $x$ must also be an ESS.  
+Using our package EvolutionaryGames one can compute ESS 
+for both $2$ x $2$ and $3$ x $3$ symmetric matrix games.
+The function **ESS.R** receives three input arguments:
+
+- `A` : A matrix specifying the symmetric game
+- `strategies`: A vector of strings of length $2$ or $3$ 
+specifying the names of all strategies
+- `floats`: A logical value that handles number representation. If floats 
+is set to `TRUE` (default), a floating-point number will be used for the 
+output, otherwise the output will be 
+specified as fractions.
+
+Let us first take a look at a classical Hawk-Dove game.
+
+```{r, fig.show='hold'}
+library(CoopGame)
+```
+
+It is well known that there are games which do not possess 
+an ESS. A classical example is the game Rock-Scissors-Paper.
+In such a case our function **ESS.R** will return NULL.
+
+```{r, fig.show='hold'}
+library(CoopGame)
+```
+
+
+# Computing and drawing evolutionarily stable sets
+
+The concept of evolutionarily stable sets 
+was first discussed by B. Thomas in. 
+A very readable introduction can also be found in the book 
+by Weibull [@PetersBook], section 2.4.1.  
+An evolutionarily stable set is a nonempty closed set 
+of symmetric Nash equilibrium strategies $X$ such that 
+each strategy $x \in X$ earns at least the same payoff 
+against any nearby alternative best reply $y$ as 
+$y$ earns against itself with equal payoffs limited 
+to the case $y \in X$. Note that any evolutionary stable 
+strategy (ESS) constitutes an evolutionarily stable set and 
+that the union of evolutionarily stable sets is again an 
+evolutionarily stable set. See the book by Weibull [@PetersBook], 
+section 2.4.1, for further details.  
+Evolutionarily stable sets are not easy to compute and to plot.
+The package EvolutionaryGames computes evolutionarily stable sets of a 
+game with two players and three strategies in the case that the game has 
+an evolutionary stable strategy (ESS). If the two player three strategy 
+game has no ESS, then the code returns a message stating that 
+our algorithm cannot calculate evolutionarily stable sets for models 
+that do not have a proper ESS. The authors are very well aware 
+that there are games having evolutionarily stable sets but no proper ESS.
+Still, as our package is not devoted to finding all symmetric 
+Nash equilibria of a game and as there currently is no package 
+for this task on CRAN, we decided only to handle the case of 
+games with two players and three strategies possessing at least one 
+proper ESS. Within our algorithm, we need a proper ESS as a 
+starting point for our computations. The authors feel that the 
+possibility of computing and drawing evolutionarily stable sets in 
+such cases is precious for teaching (and research) purposes. However, 
+note that computing and drawing evolutionarily stable sets is 
+time consuming and is clearly the most elaborate task currently 
+performed by the package EvolutionaryGames. Finally, here is an 
+example of an evolutionarily stable set 
+together with a plot 
+including sample trajectories (-- the example itself is 
+taken from the book [@PetersBook], p. 52):
+
+```{r, fig.show='hold'}
+library(CoopGame)
+A <- matrix(c(-2, 5, 10/9, 0, 5/2, 10/9, -10/9, 35/9, 10/9), 3, byrow=TRUE)
+strategies <- c("Hawk", "Dove", "Mixed ESS")
+```
+
+
+## The various evolutionary dynamics available in EvolutionaryGames
+
+The basic game-theoretic model of biological natural selection is 
+the replicator dynamic [@geometry]. Still, various alternative 
+dynamics have been proposed and investigated for different applications. 
+Our package currently focusses on continuous dynamics only. 
+The following itemization states which evolutionary dynamics are 
+currently available in our package EvolutionaryGames:
+
+- **Replicator.R** : The standard replicator dynamic
+- **BNN.R** : The Brown-von Neumann-Nash dynamic 
+- **BR.R** : The Best Reponse dynamic by Gilboa and Matsui 
+- **ILogit.R** : The imitative Logit dynamic by Weibull 
+It requires the parameter `eta`. 
+- **Logit.R** : The Logit dynamic by Fudenberg and Levine. It 
+requires the parameter `eta`.
+- **MSReplicator.R** : The Maynard-Smith dynamic 
+- **Smith.R** : The Smith dynamic 
+
+## Drawing phase diagrams for two, three and four strategies
+
+### Two Strategies
+Drawing phase diagrams for single-population games 
+with two, three or 
+four phenotypes with different dynamics is the main feature of 
+the package EvolutionaryGames.
+We start with a rather simple Hawk-Dove game we studied before
+when analyzing for its ESS. Using **phaseDiagram2S.R** we 
+obtain a phase diagram for the 
+population share of hawks invading a population of doves under 
+the replicator dynamics.
+
+```{r, fig.show='hold'}
+library(CoopGame)
+A <- matrix(c(-1, 4, 0, 2), 2, byrow=TRUE)
+```
+
+For similar phase diagrams, see e.g. the book by Peters [@PetersBook].  
+
+### Three Strategies
+In the phase diagrams for the three strategies the user 
+may specify the following parameters for **phaseDiagram3S.R**:
+
+- `A`: A Numeric matrix of size $3$ x $3$ representing the number of 
+strategies of a symmetric matrix game.    
+- `dynamic`: A function representing an evolutionary dynamic.  
+- `params`: A numeric vector with additional parameters for the 
+evolutionary dynamic, like e.g. in the cases of the Logit or ILogit 
+dynamics.  
+- `trajectories`: A numeric matrix of size $m$ x $3$. Each row represents 
+the initial values for the trajectory to be examined.  
+- `contour`: A logical value that handles contour diagram presentation. 
+By default `FALSE`, a nicely coloured contour plot will only be 
+shown if the user sets `contour = TRUE`.  
+- `vectorField`: A logical value that handles vector field presentation. 
+By default `FALSE`, a vector field will only be 
+shown if the user sets `vectorField = TRUE`. 
+- `strategies`: A vector of strings of length $3$ 
+specifying the names of all strategies. By default 
+`strategies = c("1","2","3")`. 
+
+In the following we see three plots of the game Rock-Scissors-Paper 
+under the Replicator dynamics with the same initial state:
+
+```{r, fig.show='hold'}
+library(CoopGame)
+A <- matrix(c(1, 2, 0, 0, 1, 2, 2, 0, 1), 3, byrow=T)
+state <- matrix(c(0.7, 0.2, 0.1), 1, 3, byrow=TRUE)
+RSP <- c("Rock", "Scissors", "Paper")
+```
+
+### Four strategies
+Finally, there is also the function **phaseDiagram4S.R** for the case 
+of a symmetric matrix game with four strategies. Its parameters 
+are rather similar to those of **phaseDiagram3S.R** 
+except for the facts that `trajectory` is a numeric vector 
+of size $4$ (rather than a matrix) and that there is 
+no possibility to enable contour plots or to plot 
+vector fields. Instead, there is an additional logical value 
+`noRGL` handling diagram rotation. By default `TRUE`, the diagram 
+will only be constructed using rgl and thus 
+become rotatable if the user specifies `noRGL = FALSE`. 
+Finally, we present an example using the Smith dynamic. 
+
+```{r, fig.show='hold'}
+library(CoopGame)
+A <- matrix(c(5, -9, 6, 8, 20, 1, 2, -18, -14, 0, 2, 20, 13, 0, 4, -13), 4, 4, byrow=TRUE)
+state <- c(0.6, 0.15, 0.1, 0.15)
+```
+
+# How to use our package and write your own dynamics
+
+EvolutionaryGames offers you to create your own dynamics. 
+In particular, it is easy to write your own continuous dynamics. 
+First of all, a  dynamic is nothing other than a function that is passed 
+as a parameter to the corresponding function for creating phase diagrams. 
+The following code fragment shows you the minimum necessary structure of 
+an arbitrary dynamic:
+
+Any dynamic requires the parameters `time`, `state` and `parameters`.
+While the parameter `time` is used internally by deSolve to 
+solve the initial value problem, the other two parameters 
+`state` and `parameters` are used to specify the desired dynamic and are 
+available as numeric vectors. In this context, `state` stands for the 
+desired initial state under which the model is to be simulated and 
+`parameters` contains further parameters, such as the symmetric matrix 
+specifying the game and, depending on the dynamic, noise levels or 
+similar parameters.
+
+As can be seen in the example, the return value of a specified dynamic 
+has to be a numerical list. Each component represents the corresponding 
+rate of change of a phenotype under the respective dynamic. 
+
+
+We now show how to implement a very well known dynamic, the replicator 
+dynamics. Our function definition is as follows: 
+
+
+
+The above game and an initial value is passed as a parameter to a function
+for the generation of phase diagrams and made retrievable within the 
+dynamic. A small limitation, however, is that our matrix needs 
+to be converted into a vector due to certain constraints in our 
+internal usage of the package deSolve. We recommend that you first 
+transfer this vector back into a matrix and maintain the original game. 
+This can be done as follows:
+
+
+
+
+We now come to the actual part of the implementation. We first calculate 
+the rate of change of each phenotype depending on the other phenotypes. 
+Immediately afterwards, we calculate the average fitness of 
+each phenotype  and then set up the actual replicator dynamics:
+
+
+Our dynamics is now applicable within the predefined functions for 
+generating phase diagrams.
+
+## Packages used in CoopGame
+We made use of various packages of the CRAN ecosystem. 
+In particular, it was of paramount importance not to write any 
+differential equation solvers ourselves, but to make use of 
+an established solver, instead.
+
+
+
+### rgl
+We use the package rgl [@rgl], i.e. the R interface to OpenGL, for the 
+four strategies case, because here the phase diagram represents a 
+three-dimensional simplex. Our users have the possibility to follow 
+the development of a game under a given dynamic for all phenotypes by 
+rotating the three-dimensional simplex generated by rgl.
+
+### geometry 
+The R package geometry [@geometry] helped us with the conversion from 
+barycentric to cartesian coordinates for drawing trajectories. Solving 
+the initial value problem returns the rates of change of the model, 
+which have to be converted into cartesian coordinates before they can be 
+drawn into the phase diagram in order to finally form a trajectory.
+
+# Literature

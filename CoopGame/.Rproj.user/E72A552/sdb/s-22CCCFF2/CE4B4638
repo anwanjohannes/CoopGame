@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name isSemiConvexGame\n#' @title isSemiConvexGame - check if TU game is semiconvex.\n#' @description isSemiConvexGame checks if a TU game is semiconvex.\n#' A TU game is semiconvex if and only if the following conditions hold true:\n#' The gap function of any single player \\code{i} is minimal among the gap \n#' function values of coalitions \\code{S} containing player \\code{i}. \n#' Also, the gap function itself is required to be nonnegative.\n#' @aliases isSemiConvexGame\n#' @export isSemiConvexGame\n#' @template author/JS\n#' @template cites/DRIESSEN_TIJS_1985\n#' @templateVar DRIESSEN_TIJS_1985_P p. 229--247\n#' @template cites/DRIESSEN_1998\n#' @templateVar DRIESSEN_1998_P p. 76\n#' @inheritParams CoopGameBaseParams\n#' @return \\code{TRUE} if the game is semiconvex, else \\code{FALSE}. \n#' @examples\n#' #Example of a semiconvex game \n#' library(CoopGame)\n#' A<-c(3,4,5,9,10,11,18)\n#' isSemiConvexGame(A)\n#'\n#' #Example of a game which not semiconvex \n#' library(CoopGame)\n#' A=c(1:7)\n#' isSemiConvexGame(A)\n#' \nisSemiConvexGame<-function(A){\n  isSemiC=GamePropertySemiConvexity(A)\n  return(determineProperty(isSemiC))\n}\n\nlogicIsSemiConvexGame=function(A){\n  N <- length(A)\n  n <- getNumberOfPlayers(A)\n  bm <- createBitMatrix(n,A)\n  result <- TRUE\n  gapFunction <- getGapFunctionCoefficients(A)\n  minGap <- min(gapFunction)\n  if (minGap < 0){\n    result <- FALSE\n    return(result)\n  }\n  for (i in 1:n) {\n    bmIndices=which(bm[,i]==1,1)\n    gap_i = gapFunction[i]\n    for (j in bmIndices){\n      if (gapFunction[j] < gap_i){\n        result <- FALSE\n        return(result)\n      }\n    }\n  }\n  return(result)\n}\n\n#' @title GamePropertySemiConvexity\n#' @noRd\n#' @include GameProperty.R\n#' #@exportClass GamePropertySemiConvexity\n\nsetClass(\n  \"GamePropertySemiConvexity\",\n  contains = \"GameProperty\"\n)\n\n#' @title Constructor for GamePropertySemiConvexity\n#' @noRd\n#' @template author/JS\n#' @name GamePropertySemiConvexity\n#' #@export\nGamePropertySemiConvexity<-function(A){\n  retGamePropertySemiConvexity=methods::new(\"GamePropertySemiConvexity\",A)\n  return(retGamePropertySemiConvexity)\n}\n\n#' @rdname determineProperty-methods\n#' @aliases determineProperty,GamePropertySemiConvexity-method\nsetMethod(\n  \"determineProperty\",\n  signature=\"GamePropertySemiConvexity\",\n  definition=function(.Object){\n    A<-.Object@A\n    result=logicIsSemiConvexGame(A)\n    return(result)\n  }\n)\n",
+    "created" : 1534253471649.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3545385423",
+    "id" : "CE4B4638",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/GamePropertySemiConvexity.R",
+    "project_path" : "R/GamePropertySemiConvexity.R",
+    "properties" : {
+    },
+    "relative_order" : 63,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

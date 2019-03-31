@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title PointSolutionConcept - Virtual class for point valued solution concepts\n#' @description Virtual class for point valued solution concepts, inherits methods and slots from class\n#' \\linkS4class{CoopGameSolution}\n#' @include CoopGameSolution.R\n#' @exportClass PointSolutionConcept\n\nsetClass(\n  \"PointSolutionConcept\",\n  representation(\"VIRTUAL\"),\n  contains = \"CoopGameSolution\"\n)\n\n\n\n#' @title Method calculatePointSolution\n#' @description This method calculates the allocation of a unique solution concept.\n#' @rdname calculatePointSolution-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod calculatePointSolution\nsetGeneric(\n  \"calculatePointSolution\",\n  function(.Object){\n    standardGeneric(\"calculatePointSolution\")\n  }\n)\n\n#' @rdname calculatePointSolution-methods\n#' @aliases calculatePointSolution,PointSolutionConcept-method\nsetMethod(\n  \"calculatePointSolution\",\n  signature=\"PointSolutionConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    N<-length(A)\n    powerIndex<-calculatePowerIndex(.Object)\n    return((powerIndex*A[N])/sum(powerIndex))\n  }\n)\n\n#' @rdname calculateSolution-methods\n#' @aliases calculateSolution,PointSolutionConcept-method\nsetMethod(\n  \"calculateSolution\",\n  signature=\"PointSolutionConcept\",\n  definition=function(.Object){\n    calculatePointSolution(.Object)\n  }\n)\n\n#' @title Method calculatePowerIndex\n#' @description This method calculates the power index of a unique solution concept.\n#' @rdname calculatePowerIndex-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod calculatePowerIndex\nsetGeneric(\n  \"calculatePowerIndex\",\n  function(.Object){\n    standardGeneric(\"calculatePowerIndex\")\n  }\n)\n\n\n#' @rdname calculatePowerIndex-methods\n#' @aliases calculatePowerIndex,PointSolutionConcept-method\nsetMethod(\n  \"calculatePowerIndex\",\n  signature=\"PointSolutionConcept\",\n  definition=function(.Object){\n    pointSolution=calculatePointSolution(.Object)\n    return(pointSolution)\n  }\n)\n",
+    "created" : 1537294393089.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "112418396",
+    "id" : "8927018F",
+    "lastKnownWriteTime" : 1536687166,
+    "last_content_update" : 1536687166,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/PointSolutionConcept.R",
+    "project_path" : "R/PointSolutionConcept.R",
+    "properties" : {
+        "source_window_id" : "",
+        "tempName" : "Untitled6"
+    },
+    "relative_order" : 139,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

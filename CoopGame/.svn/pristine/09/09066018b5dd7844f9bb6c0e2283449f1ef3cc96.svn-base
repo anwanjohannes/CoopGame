@@ -1,0 +1,30 @@
+---
+author: | 
+  | Johannes Anwander, Jochen Staudacher
+  | (Hochschule Kempten)
+  | Contact: jochen.staudacher@hs-kempten.de
+title: "Using CoopGame"
+date: "`r Sys.Date()`"
+output: rmarkdown::pdf_document
+toc: true
+numbersections: true
+geometry: margin=3.8cm
+papersize: A4
+vignette: >
+  %\VignetteIndexEntry{Using CoopGame}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib
+csl: institute-of-mathematical-statistics.csl
+---
+```{r child = '01-IntroToCooperativeGames.Rmd'}
+```{r child = '02-CooperativeGamesWithSpecialStructure.Rmd'}
+```{r child = '03-GameProperties.Rmd'}
+```{r child = '04-SetSolutionConcepts.Rmd'}
+```{r child = '05-PointSolutionConcepts.Rmd'}
+```{r child = '06-VisualizationFor3And4PlayerGames.Rmd'}
+```{r child = '07-InternalStructureOfThePackage.Rmd'}
+```{r child = '08-UsageAndOutlookToFutureDevelopments.Rmd'}
+```
+  
+# Literature

@@ -1,0 +1,58 @@
+#' @title SetSolutionConcept - Virtual class for point valued solution concepts
+#' @noRd
+#' @description SetSolutionConcept
+#' @name SetSolutionConcept
+#' @include CoopGameSolution.R
+#' @exportClass SetSolutionConcept
+
+setClass(
+  "SetSolutionConcept",
+  representation("VIRTUAL"),
+  contains = "CoopGameSolution"
+)
+
+#' @title calculateSetSolution
+#' @noRd
+#' @name calculateSetSolution
+#' @description calculateSetSolution
+#' @template author/JA
+#' @exportMethod calculateSetSolution
+setGeneric(
+  "calculateSetSolution",
+  function(.Object){
+    standardGeneric("calculateSetSolution")
+  }
+)
+
+setMethod(
+  "calculateSetSolution",
+  signature="SetSolutionConcept",
+  definition=function(.Object){
+    A<-.Object@A
+    VRep=(getSetSolutionVertices(.Object))
+    payoffSpace=PayoffSpace(VRepMatrix = VRep)
+    return(payoffSpace)
+  }
+)
+
+setMethod(
+  "calculateSolution",
+  signature="SetSolutionConcept",
+  definition=function(.Object){
+    calculateSetSolution(.Object)
+  }
+)
+
+#' @title getSetSolutionVertices
+#' @name getSetSolutionVertices
+#' @noRd
+#' @description getSetSolutionVertices
+#' @template author/JA
+#' @exportMethod getSetSolutionVertices
+setGeneric(
+  "getSetSolutionVertices",
+  function(.Object){
+    standardGeneric("getSetSolutionVertices")
+  }
+)
+

@@ -1,0 +1,115 @@
+Package: CoopGame
+Type: Package
+Title: Cooperative Game Theory
+Version: 1.2.0
+Date: 2016-02-14
+Author: c(
+    person("Johannes Anwander", "Developer"),
+    person("Jochen Staudacher", "Developer"),
+    person("Alexandra Tiukkel", "Developer"),
+    person("Michael Maerz", "Developer"),
+    person("Franz Mueller", Developer),
+    person("Daniel Gebele", Developer),
+    person("Anna Merkle", "Developer"),
+    person("Kuebra Tokay", "Developer"),
+    person("Fatma Tokay", "Developer"),
+    )
+Maintainer: Prof. Dr.rer.nat. Jochen Staudacher
+    <jochen.staudacher@hs-kempten.de>
+Description: CoopGame is a package for cooperative game theory.
+License: GPL
+Depends:
+    R (>= 2.10.0),
+    rgl,
+    geometry,
+    rcdd,
+    glpkAPI
+Imports:
+    gtools,
+    hier.part,
+    methods,
+    pander
+Packaged: 2015-07-08 10:06:35 UTC; Projekt
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
+RoxygenNote: 5.0.1
+LazyData: true
+VignetteBuilder: knitr
+Collate:
+    'bitMatrix.R'
+    'GameVector.R'
+    'CoopGameBase.R'
+    'CoopGameProperty.R'
+    'AllocationProperty.R'
+    'GameProperty.R'
+    'AllocationPropertyImputation.R'
+    'CoopGameSolution.R'
+    'PointSolutionConcept.R'
+    'BanzhafConcept.R'
+    'CoopGameCFunc.R'
+    'SetSolutionConcept.R'
+    'PayoffSpace.R'
+    'CoreConcept.R'
+    'CoreCoverConcept.R'
+    'DeeganPackelConcept.R'
+    'LPBndsObjCoefs.R'
+    'LPMatrix.R'
+    'LPRows.R'
+    'LPCoopGameUtils.R'
+    'NucleolusBase.R'
+    'DisruptionNucleolus.R'
+    'GamePropertyAdditivity.R'
+    'GamePropertyBalancedness.R'
+    'GamePropertyConvexity.R'
+    'GamePropertyDegeneration.R'
+    'GamePropertyEssentiality.R'
+    'GamePropertyMonotony.R'
+    'GamePropertyQuasiBalancedness.R'
+    'GamePropertySuperadditivity.R'
+    'GamePropertyWeakSuperadditivity.R'
+    'GatelyConcept.R'
+    'ImputationsetConcept.R'
+    'JohnstonConcept.R'
+    'LexicalGatelyValue.R'
+    'Modiclus.R'
+    'Nucleolus.R'
+    'NumberOfPlayers.R'
+    'ParameterChecks_CoopGame.R'
+    'PerCapitaNucleolus.R'
+    'PreNucleolus.R'
+    'ProportionalNucleolus.R'
+    'PublicGoodConcept.R'
+    'PublicHelpConcept.R'
+    'ShapleyConcept.R'
+    'SimplifiedModiclus.R'
+    'TauConcept.R'
+    'Visualizer.R'
+    'Visualizer3Point.R'
+    'Visualizer3Set.R'
+    'Visualizer4Point.R'
+    'Visualizer4Set.R'
+    'WebersetConcept.R'
+    'cFuncApex.R'
+    'cFuncCardinality.R'
+    'cFuncCostSharing.R'
+    'cFuncUnanimity.R'
+    'cFuncDictator.R'
+    'cFuncDivideTheDollar.R'
+    'cFuncGlove.R'
+    'cFuncMajoritySingleVeto.R'
+    'cFuncQuota.R'
+    'checkNumberOfPlayers.R'
+    'examples.R'
+    'getCoalitionsWherePlayerCritical.R'
+    'getMarginalContributions.R'
+    'getMinimalRights.R'
+    'getMinimumWinningCoalitions.R'
+    'getUnanimityCoefficients.R'
+    'getUtopiaPayoff.R'
+    'imputationsetDraw.R'
+    'indexCalculations.R'
+    'labelImputationVertices4.R'
+    'linearCombinationUnanimity.R'
+    'setLabels.R'

@@ -1,0 +1,38 @@
+---
+author: | 
+  | Johannes Anwander, Jochen Staudacher
+  | (Hochschule Kempten)
+  | Contact: jochen.staudacher@hs-kempten.de
+title: "Using the R package CoopGame for the analysis, solution and visualization of cooperative games with transferable utility"
+date: "`r Sys.Date()`"
+output: rmarkdown::pdf_document
+toc: true
+numbersections: true
+geometry: margin=3.8cm
+papersize: A4
+vignette: >
+  %\VignetteIndexEntry{Using CoopGame}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib
+csl: biomed-central.csl
+abstract: "This document gives a few use cases for our 
+package CoopGame and this abstract will be finalized 
+at the very end of the vignette.\n\n**Keywords**: 
+Cooperative game theory, simple games, unanimity games, 
+cost games, bankruptcy games, 
+game properties, set-valued solution concepts, 
+point-valued solution 
+concepts, Shapley Value, nucleolus, nucleolus derivatives, 
+modiclus, Gately point, power indices, 
+imputation, core, Weber set, S4 classes."
+header-includes:
+- \usepackage{titling}
+- \preauthor{\begin{center}\large\includegraphics[width=15cm]{media/CoopGameLogo.png}\\[\smallskipamount]}
+- \postauthor{\end{center}}
+---
+```{r eval=TRUE, echo=FALSE}
+child_docs <- list.files(path="chapters",recursive = TRUE, pattern=".Rmd", full.names = TRUE)
+```
+```{r, child = child_docs}
+

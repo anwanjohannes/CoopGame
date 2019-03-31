@@ -1,0 +1,1 @@
+#' @references Kopelowitz A. (1967) "Computation of the kernels of simple games and the nucleolus of n-person games", Technical Report, Department of Mathematics, The Hebrew University of Jerusalem, 45 pages.

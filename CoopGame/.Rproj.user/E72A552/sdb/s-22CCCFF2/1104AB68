@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Class AllocationProperty\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n### The Class AllocationProperty\nClasses in CoopGame implementing allocation properties are derived from **AllocationProperty** and have the prefix **AllocationProperty** in their class-name. \nDifferent from the class **GameProperty** further information in the shape of one slot for the allocation needs to be added.\n```{r,  eval= FALSE}\nsetClass(\n  \"AllocationProperty\",\n  representation(x=\"Allocation\",\"VIRTUAL\"),\n  contains = \"CoopGameProperty\"\n)\n```\nBecause of this also the **initialize** method is overwritten and now additionally initializes the allocation slot before calling the parent method **initialize**.\n```{r,  eval= FALSE}\nsetMethod(\n  f=\"initialize\",\n  signature = \"AllocationProperty\",\n  definition =  function(.Object, ..., x=x) {\n    .Object@x<-Allocation(x)\n    .Object<-methods::callNextMethod(.Object, ...)\n    return(.Object)\n  }\n)\n```\n**GamePropertyEssentiality** implements the method **determineProperty**.\nOne example for one implemented allocation property in CoopGame is **AllocationPropertyImputation** which checks if an specified allocation is an imputation, therefore it implements the **determineProperty** method.\n```{r,  eval= FALSE}\nsetMethod(\n  \"determineProperty\",\n  signature=\"AllocationPropertyImputation\",\n  definition=function(.Object){\n    A<-.Object@A\n    x<-.Object@x\n    return(logicIsImputation(A,x))\n  }\n)\n```\nIn the referred function **logicIsImputation** the logic for this check is stored.",
+    "created" : 1534239305721.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3019590409",
+    "id" : "1104AB68",
+    "lastKnownWriteTime" : 1537466501,
+    "last_content_update" : 1537466501797,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/03/02/#The_Class_Allocation_Property.Rmd",
+    "project_path" : "vignettes/chapters/07/03/02/#The_Class_Allocation_Property.Rmd",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 53,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

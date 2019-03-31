@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @slot LPBndsObjCoefs An S4 class object (\\linkS4class{LPBndsObjCoefs}) containing information about the columns and the objective functions of all later LPs.\n",
+    "created" : 1536421706382.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2082416380",
+    "id" : "A008A413",
+    "lastKnownWriteTime" : 1536424117,
+    "last_content_update" : 1536424117505,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/man-roxygen/slot/LPBndsObjCoefs.R",
+    "project_path" : "man-roxygen/slot/LPBndsObjCoefs.R",
+    "properties" : {
+    },
+    "relative_order" : 108,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Visualizing convex polyhedra\n#' @description Draws a convex polyhedron with 3 players\n#' @aliases Visualizer3Set\n#' @importFrom graphics plot plot.new polygon\n#' @param  A contains a game vector\n#' @param  pointsToDraw contains the points to draw\n#' @param  colour draws the polyhedron with this colour\n#' @param  label activates the label for the figur\n#' @param  name set a name for the label\n#' @template author/FM\n\nVisualizer3Set <- function(A, pointsToDraw, colour , label, name ){ \n  \n  #vertices of isosceles triangle in R2\n  X=rbind(c(0,0),c(1,0),c(0.5, sqrt(0.75)))\n  vertices = bary2cart(X,pointsToDraw)\n  vertices = t(vertices)\n  \n  x = vertices[1,]\n  y = vertices[2,]\n  \n\n  p= graphics::polygon(x, y, density=-1, col=colour)\n  \n  \n  #Label\n  if(label == TRUE)\n  {\n    setLabels(A, pointsToDraw, name)\n  }\n  \n}",
+    "created" : 1525209094163.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "741431336",
+    "id" : "14ACEBA",
+    "lastKnownWriteTime" : 1517064717,
+    "last_content_update" : 1517064717,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/Visualizer3Set.R",
+    "project_path" : "R/Visualizer3Set.R",
+    "properties" : {
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

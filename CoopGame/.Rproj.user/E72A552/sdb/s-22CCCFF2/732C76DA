@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name raeIndex\n#' @title raeIndex\n#' @description Calculates the Rae Index for a specified simple TU game. \n#' Note that in general the Rae Index is not an efficient vector, \n#' i.e. the sum of its entries is not always 1.\n#' Hence no drawing routine for the Rae Index is provided.\n#' @aliases raeIndex\n#' @export raeIndex\n#' @template author/JS\n#' @template cites/RAE_1969\n#' @templateVar RAE_1969_P pp. 40 -- 56\n#' @template cites/CHAKRAVARTY_ET_AL_2015\n#' @templateVar CHAKRAVARTY_ET_AL_2015_P pp. 119 -- 120\n#' @inheritParams CoopGameBaseParams\n#' @return Rae Index for specified simple game \n#' @examples \n#' A=c(0,0,0,1,1,0,1)\n#' raeIndex(A) \n#' #result: [1] 0.8 0.6 0.6\n#' \nraeIndex<-function(A){\n  rae=RaeConcept(A)\n  return(calculatePointSolution(rae))\n}\n\n\nlogicRaeIndex=function(A){\n  retval = NULL\n  if(!isSimpleGame(A)){\n    print(\"Game is not simple. Therefore no Rae Index can be retrieved.\")\n  }\n  else\n  {\n    n=getNumberOfPlayers(A)\n    banzhafV = normalizedBanzhafIndex(A)\n    rae = 0.5 + 0.5 * banzhafV\n    retVal = rae\n  }\n  return(retVal)\n}\n\n#' @title RaeConcept\n#' @noRd\n#' @description RaeConcept\n#' @include PointSolutionConcept.R\n# @exportClass RaeConcept\n\nsetClass(\n  \"RaeConcept\",\n  contains = \"PointSolutionConcept\"\n)\n\n#' @rdname calculatePowerIndex-methods\n#' @aliases calculatePowerIndex,RaeConcept-method\nsetMethod(\n  \"calculatePointSolution\",\n  signature=\"RaeConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    return(logicRaeIndex(A))\n  }\n)\n\n#' @title Constructor for RaeConcept\n#' @noRd\n#' @template author/JS\n#' @name RaeConcept\n#' #@export\nRaeConcept<-function(A){\n  retraeIndex=methods::new(\"RaeConcept\",A)\n  return(retraeIndex)\n}\n",
+    "created" : 1534235489969.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "86114445",
+    "id" : "732C76DA",
+    "lastKnownWriteTime" : 1536426668,
+    "last_content_update" : 1536426668,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/RaeConcept.R",
+    "project_path" : "R/RaeConcept.R",
+    "properties" : {
+    },
+    "relative_order" : 42,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

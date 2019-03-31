@@ -1,0 +1,1 @@
+#' @references Gately D. (1974) "Sharing the Gains from Regional Cooperation. A Game Theoretic Application to Planning Investment in Electric Power", International Economic Review 15(1) <%=GATELY_1974_P%>

@@ -1,0 +1,66 @@
+---
+title: "CoopGameClassDiagram"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+# The Internal Structure of CoopGame and its S4-classes
+
+### The class CoopGameBase 
+
+### The class CoopGameCfunc
+
+### The class CoopGameProperty
+
+#### AllocationProperty
+
+#### GameProperty
+
+### The class CoopGameSolution
+
+#### The class SetSolutionConcept
+
+#### The class PointSolutionConcept
+
+## The Nucleolus S4 Framework
+
+### Solving Linear Programmes in CoopGame
+
+#### The R Package glpkAPI
+
+#### The Class LPCoopGameUtils
+
+##### The Class LPRows
+
+##### The Class LMatrix
+
+##### The Class LPBndsObjCoefs
+
+### The Implementation of the Nucleolus Derivates
+
+#### The Class NucleolusBase
+
+##### The Design-Layout of the Class NucleolusBase
+
+##### The Abstract Calculation Algorithm of Nucleolus Derivates
+
+#### The Implementation of the Nucleolus
+
+#### The Implementation of the Prenucleolus
+
+#### The Implementation of the Per Capita Nucleolus
+
+#### The Implementation of the Modiclus
+
+#### The Implementation of the Simplified Modiclus
+
+#### The Implementation of the Disruption Nucleolus
+
+#### The Implementation of the Lexical Gately Point
+
+
+
+
+
+

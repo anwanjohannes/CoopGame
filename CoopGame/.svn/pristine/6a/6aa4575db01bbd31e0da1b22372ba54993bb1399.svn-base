@@ -1,0 +1,224 @@
+boolSkip=F
+
+test_that("Check 82.1 - stopOnInvalidGameVector" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A1=NULL #1000
+  A2=1:6  #1001
+  A3=c("1","2","3","4","5","6","7") #1002
+  A4=1:15; #1003
+  A5=rep(0,7) #1004
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A1))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A2))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A3))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A4,n=3))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A5))
+})
+
+test_that("Check 82.2 - stopOnInvalidGrandCoalitionN" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  N1=NULL #1010
+  N2="3"  #1011
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N1))
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N=N2)) #TODO
+  
+})
+
+test_that("Check 82.3 - stopOnInvalidCoalitionS" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  S1=NULL #1020
+  S2=c("1","2") #1021
+  S3=c(1,2,3,4); N=c(1,2,3) #1022
+  S4=c(1,2,3,4,5); n1=3; #1023
+  paramCheckResult=c()
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=S1))
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=S2))
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=S3,N = N))
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=S4,n=n1))
+})
+
+test_that("Check 82.4 - stopOnInvalidNumberOfPlayers" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  n1=1; #1050
+  n2=21; #1051
+  #todo not numeric of length 1
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidNumberOfPlayers(paramCheckResult,n = n1))
+  expect_error(stopOnInvalidNumberOfPlayers(paramCheckResult,n = n2))
+})
+
+
+
+
+test_that("Check 82.5 - stopOnInvalidIndex" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  ix1=NULL #1070
+  ix2="2" #1071
+  ix3=15; n5=3 #1072
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidIndex(paramCheckResult,index = ix1))
+  expect_error(stopOnInvalidIndex(paramCheckResult,index = ix2))
+  expect_error(stopOnInvalidIndex(paramCheckResult,index = ix3, n=n5))
+  
+})
+
+test_that("Check 82.7 - stopOnInvalidNChooseB" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  n1=NULL    #1080
+  b1=NULL    #1081
+  n2="4"     #1082
+  b2="2"     #1083
+  n3=3; b3=5 #1084
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n = n1))
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n=4,b = b1))
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n = n2, b=2))
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n = n3, b=b3))
+})
+
+
+test_that("Check 82.8 - stopOnInvalidBoolean" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  b1=1 #1120
+  b2=logical(3) #1121
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidBoolean(paramCheckResult,boolean = b1))
+  expect_error(stopOnInvalidBoolean(paramCheckResult,boolean = b2))
+})
+
+test_that("Check 82.9 - stopOnInvalidNumber" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  num="2" #1130
+  num2=c(1,2,3) #1131
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidNumber(paramCheckResult,number = num))
+  expect_error(stopOnInvalidNumber(paramCheckResult,number = num2))
+})
+
+test_that("Check 82.10 - stopOnInvalidCoalitionFunctionV" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  v=2 #1040
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidCoalitionFunctionV(paramCheckResult,v = v))
+})
+
+test_that("Check 82.11 - stopOnInvalidLeftRightCFuncGlove" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  L1=c(1,2); R1=c(3); N1=c(1,2,3,4) #1138
+  L2=c(); R2=c(1:4); N2=c(1,2,3,4) #1139
+  L3=c(1:4); R3=c(); N3=c(1,2,3,4) #1140
+  L4=c(1,2); R4=c(2,3,4); N4=c(1,2,3,4) #1141
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidLeftRightCFuncGlove(paramCheckResult,L = L1, R = R1, N = N1)) 
+  expect_error(stopOnInvalidLeftRightCFuncGlove(paramCheckResult,L = L2, R = R2, N = N2))
+  expect_error(stopOnInvalidLeftRightCFuncGlove(paramCheckResult,L = L3, R = R3, N = N3))
+  expect_error(stopOnInvalidLeftRightCFuncGlove(paramCheckResult,L = L4, R = R4, N = N4))
+})
+
+test_that("Check 82.12 - stopOnInvalidVetoPlayer" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  vp1=NULL
+  vp2=c(1,2)
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidVetoPlayer(paramCheckResult,vetoPlayer = vp1))
+  expect_error(stopOnInvalidVetoPlayer(paramCheckResult, vetoPlayer = vp2))
+})
+
+test_that("Check 82.13 - stopOnInvalidQuota" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  q1=-1 #5020
+  q2="4" #5021
+  q3=NULL #5022
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidQuota(paramCheckResult,q = q1))
+  expect_error(stopOnInvalidQuota(paramCheckResult,q = q2))
+  expect_error(stopOnInvalidQuota(paramCheckResult,q = q3))
+})
+
+test_that("Check 82.14 - stopOnInvalidWeightVector" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  n1=4; w1=c(1,2,3)
+  n2=3; w2=c("1","2","3")
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidWeightVector(paramCheckResult, n = n1, w = w1))
+  expect_error(stopOnInvalidWeightVector(paramCheckResult, n = n2, w = w2))
+})
+
+test_that("Check 82.15 - stopOnInvalidDictator" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  dic1=NULL
+  dic2="3"
+  dic3=c(1,2,3)
+  dic4=5; n4=3 
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidDictator(paramCheckResult, dictator = dic1))
+  
+  expect_error(stopOnInvalidDictator(paramCheckResult, dictator = dic2))
+  
+  expect_error(stopOnInvalidDictator(paramCheckResult, dictator = dic3))
+  
+  expect_error(stopOnInvalidDictator(paramCheckResult, dictator = dic4, n4=3))
+})
+
+test_that("Check 82.16 - stopOnInvalidEstate" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  E=-1
+  E2="23"
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidEstate(paramCheckResult, E))
+  expect_error(stopOnInvalidEstate(paramCheckResult, E2))
+})
+
+test_that("Check 82.16 - stopOnInvalidClaimsVector" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  n1=4
+  d1=c(1,2,3)
+  n2=4
+  d2=c("1","2","3","4")
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidClaimsVector(paramCheckResult, n1,d1))
+  expect_error(stopOnInvalidClaimsVector(paramCheckResult, n2,d2))
+})

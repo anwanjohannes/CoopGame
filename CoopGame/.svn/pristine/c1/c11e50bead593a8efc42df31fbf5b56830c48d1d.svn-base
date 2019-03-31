@@ -1,0 +1,20 @@
+---
+title: "The Class LPCoopGameUtils"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### The Class LPCoopGameUtils
+
+The class `LPCoopGameUtils` handles tasks related to the linear program and GLPK or glpkAPI.
+In order to map the linear program with the class `LPCoopGameUtils`, it contains three further own defined classes as class components: LPBndsObjCoefs, LPRows and LPMatrix. The slot LPObjDir implies whether it is a minimization or maximization problem. Furthermore, the slot LP contains a pointer to an instance of the structure class glpkPtr, which in turn provides references to the C structures required by GLPK.
+While the kept instance of LPRows defines for the restrictions the border type via the slot rtype and the lower and upper bound by rlb and rub, the instance of LPMatrix manages the constraints coefficients of the lineare programme.
+Whereas the slot LPBndsObjCoefs carries the information about the decision variables of the objective function, with obj over their coefficients, with cub over their upper and with clb over their lower bounds as well as with ctype about the border types.
+In addition to the getters and setters, which are not discussed here, the class `LPCoopGameUtils` provides further methods for the management of a linear program.
+So the method `changeLPCoopGameUtilsObjDirToMin` changes the direction for the optimization to a minimization and `changeLPCoopGameUtilsObjDirToMax` according to a maximization problem.
+The method `solveLP` computes the solution of the linear program specified in the class components. Currently, the algorithm used for the solution called by the glpkAPI package is a representative of the class of the simplex algorithm method. However, it is easily possible to derive a class from `LPCoopGameUtils` and override its `solveLP` method if necessary, so that another solution algorithm is used for the linear program.
+After solving the linear program, it is possible to check with `isFeasible` whether a solution permissible for the linear program has been found. If so, `getLPDualSolution`, `getLPPrimalSolution`, `getLPObjVal` methods are available to get information about the calculated linear program.
+The primary solution provides `getLPPrimalSolution` and the corresponding dual solution `getLPDualSolution`; with `getLPObjVal`, however, the calculated target function value can be called up.
+If changes are made to the class attributes `updateLPCoopGameUtils` can be used to update the linear program.
+With the class `LPCoopGameUtils`, `LPBndsObjCoefs`, `LPRows` and `LPMatrix` all required functions for the administration of the linear program were provided.

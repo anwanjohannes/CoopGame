@@ -1,0 +1,14 @@
+---
+title: "The Class CoopGameProperty"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+## The Class CoopGameProperty
+Basically in the package CoopGame it is distinguished between allocation and game properties. 
+Out of this reason three virtual classes are designed in CoopGame:
+AllocationProperty for allocation properties, GameProperty for game properties and finally CoopGameProperty (itself sibling of CoopGameBase) where the previous classes are derived from.
+All property classes implement the method determineProperty which returns either TRUE in case the investigated property is satisfied or FALSE when it is not.
+The class AllocationProperty and GameProperty are discussed next.
+

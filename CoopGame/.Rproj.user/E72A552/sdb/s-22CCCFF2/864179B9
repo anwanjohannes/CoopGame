@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title SetSolutionConcept - Virtual class for set based solution concepts\n#' @description Virtual class for set based solution concepts, inherits methods and slots from class\n#' \\linkS4class{CoopGameSolution}\n#' @include CoopGameSolution.R\n#' @exportClass SetSolutionConcept\n\nsetClass(\n  \"SetSolutionConcept\",\n  representation(\"VIRTUAL\"),\n  contains = \"CoopGameSolution\"\n)\n\n#' @title calculateSetSolution\n#' @name calculateSetSolution\n#' @description calculateSetSolution\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod calculateSetSolution\nsetGeneric(\n  \"calculateSetSolution\",\n  function(.Object){\n    standardGeneric(\"calculateSetSolution\")\n  }\n)\n\n#' @title Method calculateSetSolution\n#' @description This method calculates the allocation to an set based solution concept.\n#' @rdname calculateSetSolution-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod calculateSetSolution\nsetMethod(\n  \"calculateSetSolution\",\n  signature=\"SetSolutionConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    VRep=(getSetSolutionVertices(.Object))\n    payoffSpace=PayoffSpace(VRepMatrix = VRep)\n    return(payoffSpace)\n  }\n)\n\n#' @rdname calculateSolution-methods\n#' @aliases calculateSolution,SetSolutionConcept-method\nsetMethod(\n  \"calculateSolution\",\n  signature=\"SetSolutionConcept\",\n  definition=function(.Object){\n    calculateSetSolution(.Object)\n  }\n)\n\n#' @title Method getSetSolutionVertices\n#' @description This method retrieves the vertices of the v-Representation.\n#' @rdname getSetSolutionVertices-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod getSetSolutionVertices\nsetGeneric(\n  \"getSetSolutionVertices\",\n  function(.Object){\n    standardGeneric(\"getSetSolutionVertices\")\n  }\n)\n\n",
+    "created" : 1525208996656.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1381048507",
+    "id" : "864179B9",
+    "lastKnownWriteTime" : 1536423787,
+    "last_content_update" : 1536423787039,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/SetSolutionConcept.R",
+    "project_path" : "R/SetSolutionConcept.R",
+    "properties" : {
+        "tempName" : "Untitled6"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

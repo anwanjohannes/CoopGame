@@ -1,0 +1,43 @@
+---
+title: "The Class AllocationProperty"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### The Class AllocationProperty
+Classes in CoopGame implementing allocation properties are derived from AllocationProperty and have the prefix AllocationProperty in their class-name. 
+Different from the class GameProperty further information in the shape of one slot for the allocation needs to be added.
+```{r,  eval= FALSE}
+setClass(
+  "AllocationProperty",
+  representation(x="Allocation","VIRTUAL"),
+  contains = "CoopGameProperty"
+)
+```
+Because of this also the initialize method is overwritten and now additionally initializes the allocation slot before calling the parent method initialize.
+```{r,  eval= FALSE}
+setMethod(
+  f="initialize",
+  signature = "AllocationProperty",
+  definition =  function(.Object, ..., x=x) {
+    .Object@x<-Allocation(x)
+    .Object<-methods::callNextMethod(.Object, ...)
+    return(.Object)
+  }
+)
+```
+GamePropertyEssentiality implements the method determineProperty.
+One example for one implemented allocation property in CoopGame is AllocationPropertyImputation which checks if an specified allocation is an imputation, therefore it implements the determineProperty method.
+```{r,  eval= FALSE}
+setMethod(
+  "determineProperty",
+  signature="AllocationPropertyImputation",
+  definition=function(.Object){
+    A<-.Object@A
+    x<-.Object@x
+    return(logicIsImputation(A,x))
+  }
+)
+```
+In the referred function logicIsImputation the logic for this check is stored.

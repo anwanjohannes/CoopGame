@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name koenigBraeuningerIndex\n#' @title koenigBraeuningerIndex\n#' @description Calculates the Koenig-Braeuninger Index for a specified simple TU game.\n#' Note that in general the Koenig-Braeuninger Index is not an efficient vector, \n#' i.e. the sum of its entries is not always 1. \n#' Hence no drawing routine for the Koenig-Braeuninger Index is provided.\n#' @aliases koenigBraeuningerIndex\n#' @export koenigBraeuningerIndex\n#' @template author/JS\n#' @template cites/KOENIG_ET_BRAEUNINGER_1998\n#' @templateVar KOENIG_ET_BRAEUNINGER_1998_P pp. 125 -- 142\n#' @template cites/NEVISON_ET_AL_1978\n#' @templateVar NEVISON_ET_AL_1978_P pp. 130 -- 131\n#' @template cites/BERTINI_ET_STACH_2015\n#' @templateVar BERTINI_ET_STACH_2015_P pp. 9 -- 25\n#' @inheritParams CoopGameBaseParams\n#' @return Koenig-Braeuninger Index for specified simple game \n#' @examples \n#' A=c(0,0,0,1,1,0,1)\n#' koenigBraeuningerIndex(A) \n#' #result: [1] 1.0000000 0.6666667 0.6666667\n#' \nkoenigBraeuningerIndex<-function(A){\n  koenigBraeuninger=KoenigBraeuningerConcept(A)\n  return(calculatePointSolution(koenigBraeuninger))\n}\n\n\n\nlogickoenigBraeuningerIndex=function(A){\n  retVal = NULL\n  if(!isSimpleGame(A)){\n    print(\"Game is not simple. Therefore no Koenig Braeuninger Index can be retrieved\")\n    return(retVal)\n  }\n  else\n  {\n    n=getNumberOfPlayers(A)\n    bm=createBitMatrix(n,A)\n    #the winning coalitions\n    wcs=bm[bm[,\"cVal\"]>0,,drop=FALSE]\n    temp=sapply(c(1:n),function(i){sum(wcs[wcs[,i]==1,\"cVal\"])})\n    koenigBraeuninger =sapply(c(1:n),function(i){temp[i]/nrow(wcs)})\n    retVal = koenigBraeuninger\n    return(retVal)\n  }\n}\n\n#' @title KoenigBraeuningerConcept\n#' @noRd\n#' @description KoenigBraeuningerConcept\n#' @include PointSolutionConcept.R\n# @exportClass KoenigBraeuningerConcept\n\nsetClass(\n  \"KoenigBraeuningerConcept\",\n  contains = \"PointSolutionConcept\"\n)\n\n#' @rdname calculatePowerIndex-methods\n#' @aliases calculatePowerIndex,KoenigBraeuningerConcept-method\nsetMethod(\n  \"calculatePointSolution\",\n  signature=\"KoenigBraeuningerConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    return(logickoenigBraeuningerIndex(A))\n  }\n)\n\n#' @title Constructor for KoenigBraeuningerConcept\n#' @noRd\n#' @template author/JS\n#' @name KoenigBraeuningerConcept\n#' #@export\nKoenigBraeuningerConcept<-function(A){\n  retkoenigBraeuningerIndex=methods::new(\"KoenigBraeuningerConcept\",A)\n  return(retkoenigBraeuningerIndex)\n}\n\n\n\n\n",
+    "created" : 1534234853717.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2497733245",
+    "id" : "B45A7F5C",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/KoenigBraeuningerConcept.R",
+    "project_path" : "R/KoenigBraeuningerConcept.R",
+    "properties" : {
+    },
+    "relative_order" : 35,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

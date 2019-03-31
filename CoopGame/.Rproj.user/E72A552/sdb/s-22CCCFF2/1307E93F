@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Class NucleolusBase\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n### The Class NucleolusBase\n\nThe previous section described the class **LPCoopGameUtils**, which provides the basis for easy handling of all responsibilities in the context of linear programs. By contrast, the virtual class **NucleolusBase** holds the responsibility for implementing the algorithm for calculating the respective nucleolus derivatives. Since this is a virtual class, it can not be created an instance of it - just for its child classes. The calculations of the various derivatives have in common that they are determined by a series of linear programs, the optimal solution point. Differences, on the other hand, can be found in the calculation of the derivatives both in the initial initialization or later update of the coefficient matrix, different termination criteria, border types and in the linear program border values.\nThe virtual class **NucleolusBase** realizes the calculation of the nucleolus as a starting point for the other derivates.\nIn which points and how strongly the various derivatives differ from each other can be very different.\nThe following section discusses how the class **NucleolusBase** is designed with the aim of making the implementation of the nucleolus derivatives as flexible and simple as possible, and which considerations were particularly relevant here.\n\n",
+    "created" : 1537392468092.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3255662168",
+    "id" : "1307E93F",
+    "lastKnownWriteTime" : 1537466068,
+    "last_content_update" : 1537466068135,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/05/03/#The_Class_NucleolusBase.Rmd",
+    "project_path" : "vignettes/chapters/07/05/03/#The_Class_NucleolusBase.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 147,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

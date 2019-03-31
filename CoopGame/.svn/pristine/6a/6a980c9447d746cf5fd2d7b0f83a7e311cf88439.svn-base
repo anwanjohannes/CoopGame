@@ -1,0 +1,82 @@
+boolSkip=F
+
+#depreciated functions
+additivegame3 <- function(A){      
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v12=A[4]
+  v13=A[5]
+  v23=A[6]
+  v123=A[7]
+  
+  #Code orientiert sich an TugLab. Dateiname: additivegame 
+  #Funktion: additivegame3 Zeile: 81
+  S= ((v13-v3)==v1 & (v12-v2)==v1 & (v23-v2)==v3 & (v123-v23)==v1 & (v123-v12)==v3 & (v123-v13)==v2);
+  
+  if(S == TRUE){
+    return(1);
+  }
+  else{
+    return(0);
+  }
+}
+
+
+
+additivegame4 <- function(A){
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v4=A[4]
+  v12=A[5]
+  v13=A[6]
+  v14=A[7]
+  v23=A[8]  
+  v24=A[9]
+  v34=A[10]
+  v123=A[11]
+  v124=A[12]
+  v134=A[13]
+  v234=A[14]
+  v1234=A[15]
+  
+  #Code orientiert sich an TugLab. Dateiname: additivegame 
+  #Funktion: additivegame4 Zeile: 106-108
+  S= ((v13-v3)==v1 & (v12-v2)==v1 & (v14-v4)==v1 & (v23-v2)==v3 & (v24-v2)==v4 & (v34-v3)==v4 & (v123-v23)==v1 & (v123-v12)==v3 & (v123-v13)==v2 & 
+        (v124-v24)==v1 & (v124-v12)==v4 & (v124-v14)==v2 & (v134-v34)==v1 & (v134-v13)==v4 & (v134-v14)==v3 &
+        (v234-v24)==v3 & (v234-v23)==v4 & (v234-v34)==v2 & (v1234-v124)==v3 & (v1234-v123)==v4 & (v1234-v134)==v2 & (v1234-v234)==v1);
+  
+  if(S == TRUE){
+    return(1);
+  }
+  else{
+    return(0);
+  }
+}
+
+
+test_that("Check xxxx.1 - test isAdditiveGame against additivegame3" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,7,replace = TRUE)
+    result=additivegame3(P)
+    result2=isAdditiveGame(P)
+    expect_equal(result&1, result2)
+  }
+})
+
+
+test_that("Check xxxx.1 - test isAdditiveGame against additivegame3" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,15,replace = TRUE)
+    result=additivegame4(P)
+    result2=isAdditiveGame(P)
+    expect_equal(result&1, result2)
+  }
+})

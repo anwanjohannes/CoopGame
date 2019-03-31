@@ -1,0 +1,30 @@
+---
+title: "Example of the Shapley Value"
+author: "Johannes Anwander"
+date: "7 April 2018"
+output: pdf_document
+---
+
+### Example of the Shapley Value
+For the shapley value example, a voting game with four players and their weights w = (35,21,15,15) and the quota of q = 51 to be fulfilled serves.
+This results in the coalition values described below.
+
+Values of single player's coalitions:
+$v\left(1\right)=v\left(2\right)=v\left(3\right)=v\left(4\right)=0$
+Values of two players' coalitions:
+$v\left(1,2\right)=1;v\left(1,3\right)=v\left(1,4\right)=0;\left(2,3\right)=v\left(2,4\right)=0;v\left(3,4\right)=0$
+Values of three players' coalitions:
+$v\left(1,2,3\right)=v\left(1,2,4\right)=v\left(1,3,4\right)=1;v\left(2,3,4\right)=1$
+Wert der Großen Koalition:
+$v\left(1,2,3,4\right)=1$
+
+Since a voting game is a simple game in which the marginal contribution $MB_i$ of a player i is either numbered 1 or 0, it is sufficient to determine the Shapley point in this simple example. How many times player i appears as a pivot player. A pivot player is a critical player who, by joining a coalition K, decides whether a loss (v (K) = 0) becomes a winning coalition (v (K) = 1).
+The Shapley Value results in a simple game for a player by dividing the number of his pivots by the total number of permutations.
+
+For the given example and with the number of player pivots of (8,8,4,4), the Shapley Values is  $\phi_1=\phi_2=\frac{1}{3}$ and $\phi_3=\phi_4=\frac{1}{6}$.
+
+```{r, eval=TRUE, echo=TRUE}
+A<-cFuncQuotaVector(n=4, w=c(35,21,15,15),q=51)
+shapleyValue(A)
+
+```

@@ -1,0 +1,114 @@
+#' @name lexicalGatelyValue
+#' @title lexicalGatelyValue for n-player TU games
+#' @description Computes the Lexical Gately Value of a TU game with n players.
+#' @aliases lexicalGatelyValue
+#' @export lexicalGatelyValue
+#' @template cites/STAUDACHER_ET_ANWANDER_2018
+#' @template author/JA
+#' @inheritParams CoopGameBaseParams
+#' @template param/enableTermOutLP
+#' @return Numeric vector of length n representing the Lexical Gately Value
+#' @examples
+#' A=c(0, 0, 0, 1, 1, 0, 1) 
+#' lexicalGatelyValue(A) #returns: 1 0 0
+
+
+lexicalGatelyValue <- function(A, enableTermOutLP = FALSE){
+  retVal=NULL
+  if(isQuasiBalancedGame(A)){
+    mn=LexicalGatelyValue(A=A)
+    retVal=(calculateNucleolus(mn,enableTermOutLP=enableTermOutLP))
+  }else{
+    print("Game is not quasi-balanced therefore uniqueness can not be ensured. ")
+    return(retVal)
+  }
+  return(retVal)
+}
+
+
+#' @title Constructor for LexicalGatelyValue
+#' @noRd
+#' @template author/DG
+#' @name LexicalGatelyValue
+#' #@export
+LexicalGatelyValue<-function(A, enableTermOutLP = FALSE){
+  retLexicalGatelyValue=methods::new("LexicalGatelyValue",A=A)
+  return(retLexicalGatelyValue)
+}
+
+#' @title LexicalGatelyValue
+#' @noRd
+#' @include NucleolusBase.R
+#' @name LexicalGatelyValue
+#' #@exportClass LexicalGatelyValue
+
+setClass(
+  "LexicalGatelyValue",
+  contains="DisruptionNucleolus"
+)
+
+#' @rdname initLPMatrix-methods
+#' @aliases initLPMatrix,LexicalGatelyValue-method
+setMethod(
+  "initLPMatrix",
+  signature="LexicalGatelyValue",
+  definition=function(.Object){
+    lpCoopGameUtils<-.Object@LPCoopGameUtils
+    excess<-determineExcessCoefficients(.Object)
+    coeffMat<-diag(1,length(excess)-1)
+    coeffMat<-rbind(coeffMat,rep(1,ncol(coeffMat)))
+    coeffMat<-cbind(coeffMat,cVal=excess)
+    setMatrix(lpCoopGameUtils)<-coeffMat
+    eval.parent(substitute(.Object@LPCoopGameUtils<-lpCoopGameUtils))
+  }
+)
+
+#' @rdname determineExcessCoefficients-methods
+#' @aliases determineExcessCoefficients,LexicalGatelyValue-method
+setMethod(
+  "determineExcessCoefficients",
+  signature="LexicalGatelyValue",
+  definition=function(.Object){
+    A=.Object@A
+    n=getNumberOfPlayers(A)
+    N=length(A)
+    tfac=sapply(1:n,function(ix){A[N]-A[ix]-A[N-ix]})
+    tfac=c(tfac,0)
+    return(tfac)
+  }
+)
+
+#' @rdname initLPRows-methods
+#' @aliases initLPRows,LexicalGatelyValue-method
+setMethod(
+  "initLPRows",
+  signature="LexicalGatelyValue",
+  definition=function(.Object){
+    lpCoopGameUtils<-.Object@LPCoopGameUtils
+    A<-.Object@A
+    N<-length(A)
+    n<-getNumberOfPlayers(A)
+    setRlb(lpCoopGameUtils)<-c(A[1:n],A[N])
+    setRub(lpCoopGameUtils)<-c(rep(Inf, n), A[N])
+    setRtype(lpCoopGameUtils)<-c(rep(GLP_LO, n), GLP_FX)
+    eval.parent(substitute(.Object@LPCoopGameUtils<-lpCoopGameUtils))
+  }
+)
+
+#' @name drawLexicalGatelyValue
+#' @title drawLexicalGatelyValue for 3 or 4 players
+#' @description drawLexicalGatelyValue draws the Lexical Gately Value for 3 or 4 players.
+#' @aliases drawLexicalGatelyValue
+#' @export drawLexicalGatelyValue
+#' @template author/JA
+#' @template cites/STAUDACHER_ET_ANWANDER_2018
+#' @inheritParams CoopGameBaseParams
+#' @inheritParams visualize
+#' @examples
+#' A=c(0, 0, 0, 1, 1, 0, 1) 
+#' drawLexicalGatelyValue(A)
+drawLexicalGatelyValue<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = "Lexical Gately Value"){
+  A=GameVector(A)
+  lgv=lexicalGatelyValue(A);
+  visualize(A, pointsToDraw=lgv, holdOn=holdOn, colour = colour , label=label, name = name)
+}

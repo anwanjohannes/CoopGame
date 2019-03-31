@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title CoopGameBase Parameters - Basic parameters for CoopGame \n#' @name CoopGameBaseParams\n#' @description In the package CoopGame all solution, allocation and game property as well as utility concepts\n#' share at least the game vector A which represents a cooperative game.\n#' @template param/A\nNULL \n\n#' @title CoopGameBase - Virtual class as base for abstract concepts from classical cooperative game theory\n#' @description A virtual class as base for abstract concepts from classical cooperative game theory.\n#' @include GameVector.R\n#' @template slot/A\n#' @exportClass CoopGameBase\nsetClass(\n  \"CoopGameBase\",\n  representation(A=\"GameVector\", \"VIRTUAL\"),\n  validity=function(object){\n    paramCheckResult=getEmptyParamCheckResult()\n    stopOnInvalidGameVectorA(paramCheckResult,object@A)\n  }\n  \n)\n\nsetMethod(\n    f=\"initialize\",\n    signature = \"CoopGameBase\",\n    definition =  function(.Object, A){\n      A=GameVector(A)\n      .Object@A=A\n      #methods::validObject(.Object)\n      return(.Object)\n    }\n)\n\n\n\n#' @title Method setA.\n#' @description This method sets the object's slot to a game vector.\n#' @rdname setA-methods\n#' @name setA<-\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @template param/value\n#' @exportMethod setA<-\nsetGeneric(\n  \"setA<-\",\n  function(.Object, value){\n    standardGeneric(\"setA<-\")\n  }\n  \n)\n\n#' @rdname setA-methods\n#' @aliases setA<-,CoopGameBase-method\nsetReplaceMethod(\n  \"setA\",\n  signature=\"CoopGameBase\",\n  definition=function(.Object, value){\n    .Object@A<-value\n    return(.Object)\n  }\n)\n\n\n#' @title Method getA.\n#' @description This method returns a game vector of the slot of the object.\n#' @rdname getA-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @exportMethod getA\nsetGeneric(\n  \"getA\",\n  function(.Object){\n    standardGeneric(\"getA\")\n  }\n)\n\n#' @rdname getA-methods\n#' @aliases getA,CoopGameBase-method\nsetMethod(\n  \"getA\",\n  signature=\"CoopGameBase\",\n  definition=function(.Object){\n    return(.Object@A)\n  }\n)",
+    "created" : 1534251009789.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1788986043",
+    "id" : "11992E34",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/CoopGameBase.R",
+    "project_path" : "R/CoopGameBase.R",
+    "properties" : {
+    },
+    "relative_order" : 55,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

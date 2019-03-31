@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name cFuncCardinalityValue\n#' @title cFuncCardinalityValue\n#' @description \\strong{Coalition value for a cardinality game:} \\cr\n#' For further information see \\link{cFuncCardinality} \n#' @export cFuncCardinalityValue\n#' @template author/JA\n#' @template author/JS\n#' @template param/S\n#' @return The return value is the cardinality of S\n#' @examples\n#' library(CoopGame)\n#' S=c(1,2,4,5)\n#' cFuncCardinalityValue(S)\n#' # Output:\n#' # [1] 4\n\ncFuncCardinalityValue<-function(S){\n  paramCheckResult=getEmptyParamCheckResult()\n  stopOnInvalidCoalitionS(paramCheckResult,S)\n  logicCFuncCardinalityValue(S)\n}\n\n#' @name cFuncCardinalityVector\n#' @title cFuncCardinalityVector\n#' @description \\strong{Game vector for a cardinality game:} \\cr\n#' For further information see \\link{cFuncCardinality}\n#' @aliases cFuncCardinalityVector\n#' @export cFuncCardinalityVector\n#' @template author/JA\n#' @template author/JS\n#' @template param/n\n#' @return The return is a numeric vector for the cardinality game\n#' @examples \n#' library(CoopGame)\n#' (A <- cFuncCardinalityVector(n=4))\n#' #An object of class \"GameVector\"\n#' #[1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4\n#'\ncFuncCardinalityVector<-function(n){\n  gameVector <- cFuncCardinality(n)@A\n  return(gameVector)\n}\n\nlogicCFuncCardinalityValue=function(S){\n  return(length(S))\n}\n\n#' @title cFuncCardinality - class for cardinality functions\n#' @description Coalition function returning number of coalition's members as value, \n#' inherits methods and slots from class \\linkS4class{CoopGameCFunc}.\n#' @include CoopGameCFunc.R\n#' @exportClass cFuncCardinality\n\nsetClass(\n  \"cFuncCardinality\",\n  contains = \"CoopGameCFunc\"\n)\n\nsetMethod(\n  f=\"initialize\",\n  signature = \"cFuncCardinality\",\n  definition=function(.Object,...){\n    .Object<-methods::callNextMethod(.Object, ...)\n    return(.Object)\n  }\n)\n\n#' @title Constructor for cFuncCardinality\n#' @description \\strong{Constructor for specified cardinality game:} \\cr\n#' For a cardinality game the worth of each coalition \n#' is simply the number of the members of the coalition.\n#' @template author/JA\n#' @template author/JS\n#' @template param/n\n#' @name cFuncCardinality\n#' @return An S4 object representing the specified cardinality game\n#' @export\n#' @section Related Functions: \n#' \\link{cFuncCardinalityValue}, \\link{cFuncCardinalityVector}\n#' @examples \n#' library(CoopGame)\n#' #Example: Cardinality function for four players\n#' (v<-cFuncCardinality(n=4))\n#' #An object of class \"cFuncCardinality\"\n#' #Slot \"A\":\n#' #An object of class \"GameVector\"\n#' # [1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4\n#' #\n#' #Slot \"n\":\n#' # [1] 4\ncFuncCardinality<-function(n){\n  retCFuncCardinality=methods::new(\"cFuncCardinality\",n=n)\n  return(retCFuncCardinality)\n}\n\n#' @rdname getCoalitionValue-methods\n#' @aliases getCoalitionValue,cFuncCardinality-method\nsetMethod(\n  \"getCoalitionValue\",\n  signature=\"cFuncCardinality\",\n  definition=function(.Object,S,...){\n    return(logicCFuncCardinalityValue(S))\n  }\n)\n\n\n\n",
+    "created" : 1536399680870.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2951646803",
+    "id" : "602245B0",
+    "lastKnownWriteTime" : 1537387818,
+    "last_content_update" : 1537387818,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/cFuncCardinality.R",
+    "project_path" : "R/cFuncCardinality.R",
+    "properties" : {
+    },
+    "relative_order" : 90,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

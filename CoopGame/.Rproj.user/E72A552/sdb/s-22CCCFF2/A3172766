@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name centroidCore\n#' @title centroidCore\n#' @description Calculates the centroid of the core for specified game.\n#' @aliases centroidCore\n#' @export centroidCore\n#' @template author/JS\n#' @template cites/AUMANN_1961\n#' @templateVar AUMANN_1961_P pp. 539--552\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 27\n#' @template cites/MASCHLER_ET_SOLAN_ET_ZAMIR_2013\n#' @templateVar MASCHLER_ET_SOLAN_ET_ZAMIR_2013_P p. 686 ff.\n#' @template cites/OSBORNE_ET_RUBINSTEIN_1994\n#' @templateVar OSBORNE_ET_RUBINSTEIN_1994_P p. 257 ff.\n#' @inheritParams CoopGameBaseParams\n#' @return Calculates the centroid of the core for a game specified by a game vector A.\n#' @examples\n#' #Example for centroid of the core\n#' A=c(0,0,0,2,2,3,5)\n#' centroidCore(A) \n#' #[1] 1 2 2\n#' \ncentroidCore<-function(A){\n  tv=CentroidCoreConcept(A)\n  return(calculatePointSolution(tv))\n}\n\nlogicCentroidCore<-function(A){\n  retVal=NULL\n  n=getNumberOfPlayers(A)\n  N=length(A)\n  retVal=NULL\n  if(!isBalancedGame(A)){\n    print(\"Game is not balanced therefore no centroid of the core can be retrieved\")\n  }else{\n    setVertices=coreVertices(A)\n    centroid=colSums(setVertices)/nrow(setVertices)\n    retVal = centroid\n  }\n  return(retVal)\n}\n\n\n#' @title CentroidCoreConcept - S4 class for centroid core concept\n#' @name CentroidCoreConceptClass\n#' @noRd\n#' @description S4 class containing logic for solving centroid core concept\n#' @include PointSolutionConcept.R\n#' #@exportClass CentroidCoreConcept\n\nsetClass(\n  \"CentroidCoreConcept\",\n  contains = \"PointSolutionConcept\"\n)\n\n#' @title Constructor for CentroidCoreConcept\n#' @noRd\n#' @template author/JS\n#' @name CentroidCoreConcept\n#' @inheritParams CoopGameBaseParams\n#'# @export\nCentroidCoreConcept<-function(A){\n  retCentroidCoreConcept=methods::new(\"CentroidCoreConcept\",A)\n  return(retCentroidCoreConcept)\n}\n#' @rdname calculatePointSolution-methods\n#' @aliases calculatePointSolution,centroidCoreConcept-method\nsetMethod(\n  \"calculatePointSolution\",\n  signature=\"CentroidCoreConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    return(logicCentroidCore(A))\n  }\n)\n\n#' @name drawCentroidCore\n#' @title drawCentroidCore for 3 or 4 players\n#' @family CentroidCoreConcept\n#' @family PointSolutionConcept\n#' @description drawCentroidCore draws the centroid of the core for 3 or 4 players.\n#' @aliases drawCentroidCore\n#' @export drawCentroidCore\n#' @template author/JS\n#' @template cites/AUMANN_1961\n#' @templateVar AUMANN_1961_P pp. 539--552\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 27\n#' @template cites/MASCHLER_ET_SOLAN_ET_ZAMIR_2013\n#' @templateVar MASCHLER_ET_SOLAN_ET_ZAMIR_2013_P p. 686 ff.\n#' @template cites/OSBORNE_ET_RUBINSTEIN_1994\n#' @templateVar OSBORNE_ET_RUBINSTEIN_1994_P p. 257 ff.\n#' @inheritParams CoopGameBaseParams\n#' @inheritParams visualize\n#' @examples\n#' A=c(0,0,5,4,8,9,12)\n#' drawCentroidCore(A,colour=\"green\")\ndrawCentroidCore<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = \"centroid of core\"){\n  A=GameVector(A)\n  pcn=centroidCore(A);\n  visualize(A, pointsToDraw=pcn, holdOn=holdOn, colour = colour , label=label, name = name)\n}\n",
+    "created" : 1534321654846.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3062681743",
+    "id" : "A3172766",
+    "lastKnownWriteTime" : 1536426668,
+    "last_content_update" : 1536426668,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/CentroidCoreConcept.R",
+    "project_path" : "R/CentroidCoreConcept.R",
+    "properties" : {
+    },
+    "relative_order" : 67,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

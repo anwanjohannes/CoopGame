@@ -1,0 +1,76 @@
+#' @title Visualizing convex polyhedra
+#' @description Draws a convex polyhedron with 3 players
+#' @aliases Visualizer3Set
+#' @importFrom graphics plot plot.new polygon
+#' @param  A contains a game vector
+#' @param  pointsToDraw contains the points to draw
+#' @param  holdOn draws in a given screen
+#' @param  colour draws the polyhedron with this colour
+#' @param  label activates the label for the figur
+#' @param  name set a name for the label
+#' @template author/FM
+
+Visualizer3Set <- function(A, pointsToDraw, holdOn=FALSE, colour = NA , label=TRUE, name = NULL){ 
+  
+  #Eckpoints of isosceles triangle in R2
+  X=rbind(c(0,0),c(1,0),c(0.5, sqrt(0.75)))
+  vertices = bary2cart(X,pointsToDraw)
+  vertices = t(vertices)
+  
+  x = vertices[1,]
+  y = vertices[2,]
+  
+  #If holdOn=TRUE, it draws in the old window
+  
+  #Selcetope is greater than imputation set, that's why the selectope is drawn first
+  if(name == "selectope")
+  {
+    #Build a grater draw area
+    xMark = c(x[1],x[1])
+    yMark = c(y[1],y[1])
+    
+    for(i in 1:(nrow(pointsToDraw)-1))
+    {
+      if(x[i+1] < xMark[1])
+      {
+        xMark[1] = x[i+1]
+      }
+      if(x[i+1] > xMark[2])
+      {
+        xMark[2] = x[i+1]
+      }
+      
+      if(y[i+1] < yMark[1])
+      {
+        yMark[1] = y[i+1]
+      }
+      if(y[i+1] > yMark[2])
+      {
+        yMark[2] = y[i+1]
+      }
+    }
+    edgeX = c((xMark[1] - (xMark[2] - xMark[1])/ 5) , (xMark[2] + (xMark[2] - xMark[1])/ 5))
+    edgeY = c((yMark[1] - (yMark[2] - yMark[1])/ 5) , (yMark[2] + (yMark[2] - yMark[1])/ 5))
+    
+    #Gives a new window to draw
+    graphics::plot.new()
+    graphics::plot(x, y,type="n", axes = FALSE, ann = FALSE, xlim = edgeX , ylim = edgeY)
+    p= graphics::polygon(x, y, density=-1, col=colour)
+    imputationsetDraw(A, label, holdOn = TRUE)
+  }
+  else
+  {
+    if(holdOn == FALSE){
+      imputationsetDraw(A, label, holdOn)
+    }
+    
+    p= graphics::polygon(x, y, density=-1, col=colour)
+  }
+  
+  #Label
+  if(label == TRUE)
+  {
+    setLabels(A, pointsToDraw, name)
+  }
+  
+}

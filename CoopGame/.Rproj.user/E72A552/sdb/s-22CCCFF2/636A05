@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Class CoopGameProperty\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n## The Class CoopGameProperty\nBasically in the package CoopGame it is distinguished between allocation and game properties. \nOut of this reason three virtual classes are designed in CoopGame:\n**AllocationProperty** for allocation properties, **GameProperty** for game properties and finally **CoopGameProperty** (itself sibling of CoopGameBase) where the previous classes are derived from.\nAll property classes implement the method **determineProperty** which returns either **TRUE** in case the investigated property is satisfied or **FALSE** when it is not.\nThe class **AllocationProperty** and **GameProperty** are discussed next.\n\n",
+    "created" : 1537391420301.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1402609308",
+    "id" : "636A05",
+    "lastKnownWriteTime" : 1538064322,
+    "last_content_update" : 1538064322474,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/03/#The_Class_CoopGameProperty.Rmd",
+    "project_path" : "vignettes/chapters/07/03/#The_Class_CoopGameProperty.Rmd",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 142,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

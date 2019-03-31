@@ -1,0 +1,46 @@
+boolSkip=F
+
+test_that("Check 80.1 - isDegeneratedGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(10,20,80,40,50,20,110)
+  result=isDegeneratedGame(A)
+  expect_equal(result, TRUE)
+})
+
+test_that("Check 80.2 - isDegeneratedGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(10,10,80,40,50,20,100)
+  result=isDegeneratedGame(A)
+  expect_equal(result, TRUE)
+})
+
+test_that("Check 80.3 - isDegeneratedGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=1:7
+  result=isDegeneratedGame(A)
+  expect_equal(result, TRUE)
+})
+
+test_that("Check 80.4 - isDegeneratedGame with 3 players, return FALSE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(1,2,3,5,6,7,12)
+  result=isDegeneratedGame(A)
+  expect_equal(result, FALSE)
+})
+
+test_that("Check 80.5 - isDegeneratedGame with 3 players, return FALSE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(2,3,4,7,8,9,13)
+  result=isDegeneratedGame(A)
+  expect_equal(result, FALSE)
+})

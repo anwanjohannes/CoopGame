@@ -1,0 +1,25 @@
+---
+title: "The Internal Structure of CoopGame and its S4-classes"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+
+# The Internal Structure of CoopGame and its S4-classes
+The package CoopGame comprises both object-orientated as well as procedural programming concepts.
+On the one hand, the procedural exported functions serve first of all as interface to the simple user; without the user even knowing of S4 classes and object orientation, he simply can use functionalities of CoopGame. Therefore the provided functions are meant as wrappers for hidding S4 classes and its methods calls. 
+But on the other hand, object-orientation is used for structuring and supplying a higher degree of modularization of the individual concepts, especially of the nucleolus and its derivatives.
+R has several object-oriented approaches for instance with the S3 and S4 Classes or the Reference Classes R6 but for CoopGame the S4 system was chosen based on its formal definition of representation and inheritance as well as the possibility for methods with muliple dispatch.
+Below the structure of the package CoopGame is shown and later own 
+
+
+![Class Diagramme of CoopGame](media/class_diagramme.PNG) {#PCDOCG}
+
+
+Mainly all concepts in CoopGame, as long as they require a defined game vector, are derived from the virtual class CoopGameBase, which contains the game vector as attribute. 
+The game vector represents the cooperative game and either can be created by the user definining each coalition value himself or using one of the provided coalition function classes which is derived from the virtual class CoopGameCFunc. 
+The concepts can be categorized either as solution concepts or as property concepts. 
+For the property concepts represented by the virtual class CoopGameProperty again is differed between game properties (class GameProperty) and allocation properties (class AllocationProperty). 
+The solution concepts (class CoopGameSolution) however can be looked at once as set based (represented by class SetSolutionConcept) and secondly as point based (represented by PointSolutionConcept).
+The class virtual NucleolusBase constitutes the framework for solving the nucleolus solution as well as of its derivatives and is derived from the virtual class PointSolutionConcepts as it also under normal conditions an unique solution concept. 

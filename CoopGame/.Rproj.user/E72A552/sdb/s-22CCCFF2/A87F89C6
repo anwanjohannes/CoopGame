@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"CoopGameClassDiagram\"\nauthor: \"Jochen Staudacher\"\ndate: \"16 September 2018\"\noutput: pdf_document\n---\n\n# Usage and Outlook to Future Developments\n\nThe field of cooperative game theory is exciting.\n\nMention upcoming packages ...\n\nFinally tell the story of the package CoopGame and thank students\nfor their contributions. ",
+    "created" : 1537735228868.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2495546849",
+    "id" : "A87F89C6",
+    "lastKnownWriteTime" : 1537387818,
+    "last_content_update" : 1537387818,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/08/#UsageAndOutlookToFutureDevelopments.Rmd",
+    "project_path" : "vignettes/chapters/08/#UsageAndOutlookToFutureDevelopments.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 158,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

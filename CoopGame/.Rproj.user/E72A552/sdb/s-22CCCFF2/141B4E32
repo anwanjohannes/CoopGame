@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title simplifiedModiclus for n-player TU games\n#' @description Computes the simplifiedModiclus of a TU game with n players.\n#' @name simplifiedModiclus\n#' @aliases simplifiedModiclus\n#' @export simplifiedModiclus\n#' @template author/JA\n#' @template cites/TARASHNINA_2011\n#' @templateVar TARASHNINA_2011_P pp. 150 -- 166.\n#' @inheritParams CoopGameBaseParams\n#' @template param/enableTermOutLP\n#' @return Numeric vector of length n representing the modified nucleolus\n#' @examples\n#' simplifiedModiclus(c(0, 0, 0, 1, 1, 0, 1))\nsimplifiedModiclus <- function(A, enableTermOutLP = FALSE){\n  mn=SimplifiedModiclus(A=A)\n  return(calculateNucleolus(mn,enableTermOutLP=enableTermOutLP))\n}\n\n\n#' @title Constructor for SimplifiedModiclus\n#' @noRd\n#' @template author/DG\n#' @name SimplifiedModiclus\n#' #@export\nSimplifiedModiclus<-function(A){\n  retSimplifiedModiclus=methods::new(\"SimplifiedModiclus\",A=A)\n  return(retSimplifiedModiclus)\n}\n\n#' @title SimplifiedModiclus - S4 class for Simplified Modiclus Concept\n#' @noRd\n#' @description Class for the implementation of the simplified modiclus concept\n#' @template author/JA\n#' @include NucleolusBase.R\n#'# @exportClass SimplifiedModiclus\nsetClass(\n  \"SimplifiedModiclus\",\n  contains=\"NucleolusBase\"\n)\n\n\n#' @rdname initLPMatrix-methods\n#' @aliases initLPMatrix,SimplifiedModiclus-method\nsetMethod(\n  \"initLPMatrix\",\n  signature=\"SimplifiedModiclus\",\n  definition=function(.Object){\n    lpCoopGameUtils<-.Object@LPCoopGameUtils\n    n=getNumberOfPlayers(.Object@A)\n    N=length(.Object@A)\n    lpMatrix=createBitMatrix(n)\n    lpMatrix[lpMatrix==0]=-1\n    lpMatrix[,(n+1)]=1\n    lpMatrix[N,(n+1)]=0\n    setMatrix(lpCoopGameUtils)<-lpMatrix\n    eval.parent(substitute(.Object@LPCoopGameUtils<-lpCoopGameUtils))\n  }\n)\n\n\n\n#' @rdname initLPRows-methods\n#' @aliases initLPRows,SimplifiedModiclus-method\nsetMethod(\n  \"initLPRows\",\n  signature=\"SimplifiedModiclus\",\n  definition=function(.Object){\n    lpCoopGameUtils<-.Object@LPCoopGameUtils\n    N<-length(.Object@A)\n    n<-getNumberOfPlayers(.Object@A)\n    A<-.Object@A\n    rlb<-sapply(1:(N-1), FUN=function(ix){A[ix]-A[N-ix]})\n    rlb<-c(rlb,A[N])\n    setRlb(lpCoopGameUtils)<-rlb\n    setRub(lpCoopGameUtils)<-c(rep(Inf, length(rlb) - 1), .Object@A[N])\n    setRtype(lpCoopGameUtils)<-c(rep(GLP_LO, length(rlb) - 1), GLP_FX)\n    eval.parent(substitute(.Object@LPCoopGameUtils<-lpCoopGameUtils))\n  }\n)\n\n\n\n\ndetermineSimplifiedModiclusMatrix<-function(A){\n\n  n=getNumberOfPlayers(A)\n  N=length(A)\n    \n  lpMatrix=createBitMatrix(n)\n  lpMatrix[lpMatrix==0]=-1\n  lpMatrix[,(n+1)]=1\n  lpMatrix[N,(n+1)]=0\n  return(lpMatrix)\n}\n\n\ndetermineSimplifiedModiclusRlb<-function(A){\n  rlb<-c()\n  N=length(A)\n  rlb<-sapply(1:(N-1), FUN=function(ix){A[ix]-A[N-ix]})\n  rlb<-c(rlb,A[N])\n  return(rlb)\n}\n\n\n#' @name drawSimplifiedModiclus\n#' @title drawSimplifiedModiclus for for 3 or 4 players\n#' @description drawSimplifiedModiclus draws the modiclus for 3 or 4 players.\n#' @aliases drawSimplifiedModiclus\n#' @export drawSimplifiedModiclus\n#' @template author/JA\n#' @template cites/TARASHNINA_2011\n#' @templateVar TARASHNINA_2011_P pp. 150 -- 166.\n#' @inheritParams CoopGameBaseParams\n#' @inheritParams visualize\n#' @return calculated simplified modiclus for given game vector with n players\n#' @examples\n#' A=c(0, 0, 0, 1, 1, 0, 1)\n#' drawSimplifiedModiclus(A)\ndrawSimplifiedModiclus<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = \"Simplified Modiclus\"){\n  A=GameVector(A)\n  sm=simplifiedModiclus(A);\n  visualize(A, pointsToDraw=sm, holdOn=holdOn, colour = colour , label=label, name = name)\n}",
+    "created" : 1525208922243.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "127018487",
+    "id" : "141B4E32",
+    "lastKnownWriteTime" : 1534235552,
+    "last_content_update" : 1534235552343,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/SimplifiedModiclus.R",
+    "project_path" : "R/SimplifiedModiclus.R",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

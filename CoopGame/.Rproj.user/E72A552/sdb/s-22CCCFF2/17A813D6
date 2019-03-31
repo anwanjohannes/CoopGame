@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "boolSkip=F\n\n\ntest_that(\"Check 24.1 - test deeganPackelIndex Holler & Illing 6.3.3 example\",{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=generateGameVector(v=cFuncQuota,n=5,w=c(35,20,15,15,15),q=51)\n  dp=deeganPackelIndex(A)\n  expect_equal(dp,c(18/60,9/60,11/60,11/60,11/60))\n})",
+    "created" : 1534236167833.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1109804887",
+    "id" : "17A813D6",
+    "lastKnownWriteTime" : 1534236186,
+    "last_content_update" : 1534236186819,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/tests/testthat/test_24_deeganPackelIndex.R",
+    "project_path" : "tests/testthat/test_24_deeganPackelIndex.R",
+    "properties" : {
+    },
+    "relative_order" : 43,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

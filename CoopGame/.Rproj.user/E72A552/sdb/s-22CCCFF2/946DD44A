@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Implementation of the Prenucleolus\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n#### The Implementation of the Prenucleolus {#H_TIOTPRENUC}\n\nUnlike the nucleolus, the prenucleolus takes into account not the imputation but the pre-imputation amount as a permissible disbursement space. This is the only difference between the two concepts.\nTherefore, only the **initLPBndsObjCoefs** method had to be over-written to set the decision value bounds according to the pre-imputation set as payoff space.\nIf the restrictions in the Nucleolus implementation were still limited by the demanded property of the individual rationality for imputations, the demand falls away with the larger scope for the preimputation set. \n",
+    "created" : 1537467889445.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1132026591",
+    "id" : "946DD44A",
+    "lastKnownWriteTime" : 1538064323,
+    "last_content_update" : 1538064323789,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/05/04/02/#The_Implementation_of_the_Prenucleolus.Rmd",
+    "project_path" : "vignettes/chapters/07/05/04/02/#The_Implementation_of_the_Prenucleolus.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 155,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

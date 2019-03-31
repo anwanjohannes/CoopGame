@@ -1,0 +1,20 @@
+---
+title: "CoopGameClassDiagram"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+
+# Game Properties
+
+Our package CoopGame provides users with the possibility to check 
+a given game vector $v$ for a number of different game properties.
+In this chapter of our vignette we like to give the readers of our 
+vignette a quick overview of these game properties and the 
+precise definitions we use.
+
+
+<!-- Get rid of this at the very end -->
+
+$n\ast\ v\left(N\right)=\sum_{S:\ \left|S\right|=1}\ v\left(N-S\right)+\sum_{S:\ \left|S\right|=1}\ v\left(S\right)$

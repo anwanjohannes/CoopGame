@@ -1,0 +1,1651 @@
+#  ##grep -h "^" * | grep --line-buffered -v " @" > examples.R
+#  #no imputation
+#  isImputation(x=c(1,1,1),A=c(1:7))
+#  
+# 
+#  banzhafValue(cFuncQuotaVector(n=3,w=c(50,30,20),q=67))
+#  #[1] 0.6 0.2 0.2
+#  #Apex Spiel n=4 apexSpieler=1 of Wiese F. 11.3
+#  A=generateGameVector(v=cFuncApex, n = 4,apexPlayer=3)
+#  banzhafIndex(A=A)
+#  
+#  #N=c(1,2,3), w=(50,49,1), q=51   
+#  A=cFuncQuotaVector(n=3, w=c(50,49,1),q=51)
+#  banzhafIndex(A)
+#  #[1] 0.6 0.2 0.2
+#  
+#  A<-cFuncQuotaVector(n=3,w=c(50,30,20),q=c(67))
+#  banzhafValue(A)
+#  #[1] 0.6 0.2 0.2
+#  #@export
+#  A<-cFuncQuotaVector(n=3,w=c(50,30,20),q=c(67))
+#  drawBanzhafValue(A)
+# 
+#  A=cFuncQuotaVector(n=3,w=c(1,2,3),q=5)
+#  bm=createBitMatrix(3,A)
+#  bm
+# # Output:
+# #            cVal
+# # [1,] 1 0 0    0
+# # [2,] 0 1 0    0
+# # [3,] 0 0 1    0
+# # [4,] 1 1 0    0
+# # [5,] 1 0 1    0
+# # [6,] 0 1 1    1
+# # [7,] 1 1 1    1
+#   bm=createBitMatrix(n=3,A=c(1:7))
+#  #Corresponding bit matrix:
+#  #           cVal
+#  #[1,] 1 0 0    1
+#  #[2,] 0 1 0    2
+#  #[3,] 0 0 1    3
+#  #[4,] 1 1 0    4
+#  #[5,] 1 0 1    5 <=Specified bit index
+#  #[6,] 0 1 1    6
+#  #[7,] 1 1 1    7
+# 
+#  #Determine players from bit matrix row by index 5
+#   players=getPlayersFromBMRow(bmRow=bm[5,])
+#  #Result:
+#   players  [1] 1 4
+#  For further information see \link{cFuncApex} 
+#  cFuncApexValue(c(1,2,3,4),4,3)
+# # Output:
+# # [1] 1
+#  For further information see \link{cFuncApex} 
+#  (A <- cFuncApexVector(n=4,apexPlayer=3))
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 0 0 1 0 1 0 1 1 1 1 1 1
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \linkS4class{CoopGameCFunc}.
+#  A coalition can only win (and hence obtain the value \code{1}) 
+#  if it \cr
+#  a) contains both the apex player and one additional player \cr
+#  or \cr
+#  b) contains all players except for the apex player. \cr
+#  Any non-winning coalitions obtain the value \code{0}.
+#  \link{cFuncApexValue}, \link{cFuncApexVector}
+# #Example with four players, apex player is number 3
+# (v<-cFuncApex(n=4,apexPlayer=3))
+# #An object of class "cFuncApex"
+# #Slot "apexPlayer":
+# #[1] 3
+# 
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 0 1 0 1 0 1 1 1 1 1 1
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncCardinality} 
+#  S=c(1,2,4,5)
+#  cFuncCardinalityValue(S)
+# # Output:
+# # [1] 4
+#  For further information see \link{cFuncCardinality}
+#  (A <- cFuncCardinalityVector(n=4))
+#  #An object of class "GameVector"
+#  #[1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  For a cardinality game the worth of each coalition 
+#  is simply the number of the members of the coalition.
+#  \link{cFuncCardinalityValue}, \link{cFuncCardinalityVector}
+# #Example: Cardinality function for four players
+# (v<-cFuncCardinality(n=4))
+# #An object of class "cFuncCardinality"
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncCostSharing} 
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings when A and B share appartment
+#  cFuncCostSharingValue(S=c(1,2),Costs=c(300,270,280,410,410,410,550))
+# #Output: 160
+# 
+#  For further information see \link{cFuncCostSharing} 
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings for all combinations sharing appartment
+#  (A=cFuncCostSharingVector(n=3, Costs=c(300,270,280,410,410,410,550)))
+# #Output: 0   0   0 160 170 140 300
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  The user may specify the cost function of a cost allocation
+#  problem. A corresponding savings game will be calculated.
+#  The savings game specified by the game vector \code{A} 
+#  will work like an ordinary TU game.
+#  \link{cFuncCostSharingValue}, \link{cFuncCostSharingVector}
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings for all combinations sharing appartment
+#  (v <- cFuncCostSharing(n=3, Costs=c(300,270,280,410,410,410,550)))
+# #An object of class "cFuncCostSharing"
+# #Output:
+# #Slot "Costs":
+# #[1] 300 270 280 410 410 410 550
+# #
+# #Slot "A":
+# #An object of class "GameVector"
+# #[1]   0   0   0 160 170 140 300
+# #
+# #Slot "n":
+# #[1] 3
+# 
+#  For further information see \link{cFuncDictator} 
+#  cFuncDictatorValue(S=c(1,2,3),dictator=2)
+#  #Output:
+#  #[1] 1
+#  For further information see \link{cFuncApex} 
+#  cFuncDictatorVector(n=3,dictator=2)
+#  #Output:
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  Any coalitions including the dictator receive coalition 
+#  value \code{1}. All the other coalitions, i.e. each and 
+#  every coalition not containing the dictator, receives 
+#  coalition value \code{0}.
+#  \link{cFuncDictatorValue}, \link{cFuncDictatorVector}
+#  cFuncDictator(n=3,dictator=2)
+#  For further information see \link{cFuncDivideTheDollar} 
+#  S <- c(1,2)
+#  cFuncDivideTheDollarValue(S, n = 3)
+# #Output: 1
+#  For further information see \link{cFuncDivideTheDollar} 
+#  (A <- cFuncDivideTheDollarVector(n=3))
+# #Output: 
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  Returns a divide-the-dollar game with \code{n} players: \cr
+#  This sample majority game is taken from the book 'Social and Economic Networks' by Matthew O. Jackson (see p. 413 ff.). 
+#  If coalition \code{S} has at least \code{n/2} members it generates a value of \code{1}, otherwise \code{0}. 
+#  \link{cFuncDivideTheDollarValue}, \link{cFuncDivideTheDollarVector}
+# #Example with four players
+# (v<-cFuncDivideTheDollar(n=4))
+# #An object of class "cFuncDivideTheDollar"
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncGlove}
+#  cFuncGloveValue(S=c(1,2), L=c(1,2), R=c(3)) 
+#  #return 0
+#  For further information see \link{cFuncGlove}
+# #Example with three players, players 1 and 2 hold 
+# #a left-hand glove, player 3 holds a right-hand glove
+#  (A <- cFuncGloveVector(3, L=c(1,2), R=c(3)))
+# #An object of class "GameVector"
+# #[1]  0 0 0 0 1 1 1
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  We have a set of players \code{L} with left-hand gloves and 
+#  a set of players \code{R} with right-hand gloves
+#  The worth of a coalition \code{S} equals the number of 
+#  pairs of gloves the members of \code{S} can make.
+#  \link{cFuncGloveValue}, \link{cFuncGloveVector}
+# #Example with three players, players 1 and 2 hold 
+# #a left-hand glove, player 3 holds a right-hand glove
+# (v<-cFuncGlove(n=3,L=c(1,2), R=c(3)))
+# #An object of class "cFuncGlove"
+# #Slot "L":
+# #[1] 1 2
+# #
+# #Slot "R":
+# #[1] 3
+# #
+# #Slot "A":
+# #An object of class "GameVector"
+# #[1] 0 0 0 0 1 1 1
+# #
+# #Slot "n":
+# # [1] 3
+#  For further information see \link{cFuncMajoritySingleVeto}
+#  cFuncMajoritySingleVetoValue(S=c(1,2), vetoPlayer=1)
+#  #Output
+#  #[1] 1
+#  cFuncMajoritySingleVetoVector(n=3, vetoPlayer=1)
+#  #Output
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 1 1 0 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  If coalition 'S' has at least 2 members and if the veto player is part of the\cr
+#  coalition it generates a value of \code{1}, otherwise \code{0}
+#  \link{cFuncMajoritySingleVetoValue}, \link{cFuncMajoritySingleVetoVector}
+#  cFuncMajoritySingleVeto(n=3, vetoPlayer=1)
+#  #Output
+#  #An object of class "cFuncMajoritySingleVeto"
+#  #Slot "vetoPlayer":
+#  #  [1] 1
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 0 0 1 1 0 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#  For further information see \link{cFuncQuota}
+#  else \code{0}
+#  cFuncQuotaValue(S=c(1,2,3),w=c(1,2,3),q=4)
+#  #Output
+#  #[1] 1
+#  For further information see \link{cFuncQuota}
+#  else \code{0}
+#  cFuncQuotaVector(n=3,w=c(1,2,3),q=4)
+#  #Output
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 0 1 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \link{cFuncQuotaValue}, \link{cFuncQuotaVector}
+#  cFuncQuota(n=3,w=c(1,2,3),q=4)
+#  #Output
+#  #An object of class "cFuncQuota"
+#  #Slot "w":
+#  #  [1] 1 2 3
+#  #
+#  #Slot "q":
+#  #  [1] 4
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 0 0 0 1 1 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#  For further information see \link{cFuncUnanimity}
+#  else \code{0}
+#  cFuncUnanimityValue(S=c(1,2,3),T=c(2))
+#  #Output:
+#  #[1] 1
+#  For further information see \link{cFuncUnanimity}
+#  else \code{0}
+#  cFuncUnanimityVector(n=3,T=c(2))
+#  #Output:
+#  #An object of class "GameVector"
+#  #[1] 0 1 0 1 0 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \link{cFuncUnanimityValue}, \link{cFuncUnanimityVector}
+#  cFuncUnanimity(n=3,T=c(2))
+#  #Output
+#  #An object of class "cFuncUnanimity"
+#  #Slot "T":
+#  #  [1] 2
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 1 0 1 0 1 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#               and determine the number of players
+#         or 1x15 (4 players)
+#          the function returns a 0.
+#  A=c(0,0,0,40,50,20,100)
+#  A= c(0,0,0,0,1,2,1,1,1,1,4,3,2,1,7)
+#  checkNumberOfPlayers(A)
+#  share at least some certain parameters. These common parameters are either the game vector A or a coalition function v which 
+#  by further specified information equivalently can represent a cooperative game.
+#  game function concepts like e.g. Apex games, cost sharing games, ...
+#  \linkS4class{CoopGameBase}.
+#  convexhull from core
+#  A = c(0,1,2,3,4,5,6)
+#  A = c(0,0,0,60,80,100,135)
+#  A = c(5,2,4,7,15,15,15,15,15,15,20,20,20,20,35)
+#  A = c(0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,15,15,15,15,15,15,15,15,15,15,30,30,30,30,30,60)
+#  #@export
+#  A = c(0,1,2,3,4,5,6)
+#  A = c(0,0,0,60,80,100,135)
+#  A = c(5,2,4,7,15,15,15,15,15,15,20,20,20,20,25)
+#  A = c(1,3,2,2,4,5,5,5,5,5,5,5,5,5,5,15,15,15,15,15,15,15,15,15,15,25,25,25,25,25,60)
+#  NULL
+#  convexhull from core
+#  A <- c(0,0,0,3,3,3,6)
+#  coreCoverVertices(A)
+#  #       [,1] [,2] [,3]
+#  # [1,]    3    0    3
+#  # [2,]    0    3    3
+#  # [3,]    3    3    0
+#  #@exportClass CoreCoverConcept
+#  #@export
+#  A <- c(0,0,0,3,3,3,6)
+#  belongsToCoreCover(x=c(2,2,2),A)
+#  #[1] TRUE
+#  belongsToCoreCover(x=c(1,2,4),A)
+#  #[1] FALSE
+#  A <- c(0,0,0,3,3,3,6)
+#  drawCoreCover(A)
+#  (A<-cFuncQuotaVector(3,w=c(1,2,3),q=5))
+#  # An object of class "GameVector"
+#  # [1] 0 0 0 0 0 1 1
+#  deeganPackelValue(A)
+#   #Example out of HOLLER & ILLING (2006), chapter 6.3.3
+#   # v=(51;35,20,15,15,15) => dpv=(18/60,9/60,11/60,11/60,11/60)
+#   A=generateGameVector(v =cFuncQuota,n = 5, w=c(35,20,15,15,15), q=51)
+#   deeganPackelIndex(A)
+#   #Output (same to expected as in HOLLER & ILLING chapter 6.3.3) :
+#   #[1] 0.3000000 0.1500000 0.1833333 0.1833333 0.1833333
+# 
+#  #@exportClass DeeganPackelConcept
+#  #@export
+#  A<-c(0,0,0,0,2,3,4,1,3,2,8,11,6.5,9.5,14)
+#  drawDeeganPackelValue(A)
+#  
+#  A1<-c(0, 0, 0, 1, 1, 0, 1)
+#  disruptionNucleolus(A1)
+#  # [1] 1 0 0
+#  
+#  A2<-c(0,0,0,0,2,3,4,1,3,2,8,11,6.5,9.5,14)
+#  disruptionNucleolus(A2)
+#  #[1] 3.193548 4.754839 2.129032 3.922581
+#  #@export
+#  #@exportClass DisruptionNucleolus
+#  A<-c(0,0,0,0,2,3,4,1,3,2,8,11,6.5,9.5,14)
+#  drawDisruptionNucleolus(A)
+#  
+#  #no imputation
+#  isImputation(x=c(1,1,1),A=c(1:7))
+# 
+#  #@export
+#  \linkS4class{CoopGameProperty}.
+#               The Banzhaf value itself is an alternative to the Shapley value. \cr
+#               Conceptually, the Banzhaf value is very similar to the Shapley value. \cr 
+#               Its main difference from the Shapley value is the factor with which we multiply the marginal contributions. \cr
+#               Shapley factor: \eqn{((k-1)!*(n-k))}\cr
+#               Banzhaf factor: \eqn{(1/(2^(n-1))} 
+# 
+#  banzhafValue(cFuncQuotaVector(n=3,w=c(50,30,20),q=67))
+#  #[1] 0.6 0.2 0.2
+#  #Apex Spiel n=4 apexSpieler=1 of Wiese F. 11.3
+#  A=generateGameVector(v=cFuncApex, n = 4,apexPlayer=3)
+#  banzhafIndex(A=A)
+#  
+#  #N=c(1,2,3), w=(50,49,1), q=51   
+#  A=cFuncQuotaVector(n=3, w=c(50,49,1),q=51)
+#  banzhafIndex(A)
+#  #[1] 0.6 0.2 0.2
+#  
+#  A<-cFuncQuotaVector(n=3,w=c(50,30,20),q=c(67))
+#  banzhafValue(A)
+#  #[1] 0.6 0.2 0.2
+#  #@export
+#  A<-cFuncQuotaVector(n=3,w=c(50,30,20),q=c(67))
+#  drawBanzhafValue(A)
+#  characterisitc vector of player.
+#               Each player is represented by a column which describes if this player is either participating (by value 1) or non-participating (by value 0).
+#               The last column (named cVal) contains the values created by each coalition.
+#               According to that each row expresses a coalition as a subset of all players
+# 
+#  A=cFuncQuotaVector(n=3,w=c(1,2,3),q=5)
+#  bm=createBitMatrix(3,A)
+#  bm
+# # Output:
+# #            cVal
+# # [1,] 1 0 0    0
+# # [2,] 0 1 0    0
+# # [3,] 0 0 1    0
+# # [4,] 1 1 0    0
+# # [5,] 1 0 1    0
+# # [6,] 0 1 1    1
+# # [7,] 1 1 1    1
+#   bm=createBitMatrix(n=3,A=c(1:7))
+#  #Corresponding bit matrix:
+#  #           cVal
+#  #[1,] 1 0 0    1
+#  #[2,] 0 1 0    2
+#  #[3,] 0 0 1    3
+#  #[4,] 1 1 0    4
+#  #[5,] 1 0 1    5 <=Specified bit index
+#  #[6,] 0 1 1    6
+#  #[7,] 1 1 1    7
+# 
+#  #Determine players from bit matrix row by index 5
+#   players=getPlayersFromBMRow(bmRow=bm[5,])
+#  #Result:
+#   players  [1] 1 4
+#  For further information see \link{cFuncApex} 
+#  cFuncApexValue(c(1,2,3,4),4,3)
+# # Output:
+# # [1] 1
+#  For further information see \link{cFuncApex} 
+#  (A <- cFuncApexVector(n=4,apexPlayer=3))
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 0 0 1 0 1 0 1 1 1 1 1 1
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \linkS4class{CoopGameCFunc}.
+#  A coalition can only win (and hence obtain the value \code{1}) 
+#  if it \cr
+#  a) contains both the apex player and one additional player \cr
+#  or \cr
+#  b) contains all players except for the apex player. \cr
+#  Any non-winning coalitions obtain the value \code{0}.
+#  \link{cFuncApexValue}, \link{cFuncApexVector}
+# #Example with four players, apex player is number 3
+# (v<-cFuncApex(n=4,apexPlayer=3))
+# #An object of class "cFuncApex"
+# #Slot "apexPlayer":
+# #[1] 3
+# 
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 0 1 0 1 0 1 1 1 1 1 1
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncCardinality} 
+#  S=c(1,2,4,5)
+#  cFuncCardinalityValue(S)
+# # Output:
+# # [1] 4
+#  For further information see \link{cFuncCardinality}
+#  (A <- cFuncCardinalityVector(n=4))
+#  #An object of class "GameVector"
+#  #[1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  For a cardinality game the worth of each coalition 
+#  is simply the number of the members of the coalition.
+#  \link{cFuncCardinalityValue}, \link{cFuncCardinalityVector}
+# #Example: Cardinality function for four players
+# (v<-cFuncCardinality(n=4))
+# #An object of class "cFuncCardinality"
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 1 1 1 1 2 2 2 2 2 2 3 3 3 3 4
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncCostSharing} 
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings when A and B share appartment
+#  cFuncCostSharingValue(S=c(1,2),Costs=c(300,270,280,410,410,410,550))
+# #Output: 160
+# 
+#  For further information see \link{cFuncCostSharing} 
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings for all combinations sharing appartment
+#  (A=cFuncCostSharingVector(n=3, Costs=c(300,270,280,410,410,410,550)))
+# #Output: 0   0   0 160 170 140 300
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  The user may specify the cost function of a cost allocation
+#  problem. A corresponding savings game will be calculated.
+#  The savings game specified by the game vector \code{A} 
+#  will work like an ordinary TU game.
+#  \link{cFuncCostSharingValue}, \link{cFuncCostSharingVector}
+#  #Example on 3 students sharing appartment:
+#  #-------------------------------
+#  #| costs     |  A  |  B  |  C  |
+#  #- -----------------------------
+#  #|single     | 300 | 270 | 280 |
+#  #|appartment |     |     |     |
+#  #-------------------------------
+#  #
+#  #Appartment for 2 persons => costs: 410
+#  #Appartment for 3 persons => costs: 550
+#  
+#  #Savings for all combinations sharing appartment
+#  (v <- cFuncCostSharing(n=3, Costs=c(300,270,280,410,410,410,550)))
+# #An object of class "cFuncCostSharing"
+# #Output:
+# #Slot "Costs":
+# #[1] 300 270 280 410 410 410 550
+# #
+# #Slot "A":
+# #An object of class "GameVector"
+# #[1]   0   0   0 160 170 140 300
+# #
+# #Slot "n":
+# #[1] 3
+# 
+#  For further information see \link{cFuncDictator} 
+#  cFuncDictatorValue(S=c(1,2,3),dictator=2)
+#  #Output:
+#  #[1] 1
+#  For further information see \link{cFuncApex} 
+#  cFuncDictatorVector(n=3,dictator=2)
+#  #Output:
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  Any coalitions including the dictator receive coalition 
+#  value \code{1}. All the other coalitions, i.e. each and 
+#  every coalition not containing the dictator, receives 
+#  coalition value \code{0}.
+#  \link{cFuncDictatorValue}, \link{cFuncDictatorVector}
+#  cFuncDictator(n=3,dictator=2)
+#  For further information see \link{cFuncDivideTheDollar} 
+#  S <- c(1,2)
+#  cFuncDivideTheDollarValue(S, n = 3)
+# #Output: 1
+#  For further information see \link{cFuncDivideTheDollar} 
+#  (A <- cFuncDivideTheDollarVector(n=3))
+# #Output: 
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  Returns a divide-the-dollar game with \code{n} players: \cr
+#  This sample majority game is taken from the book 'Social and Economic Networks' by Matthew O. Jackson (see p. 413 ff.). 
+#  If coalition \code{S} has at least \code{n/2} members it generates a value of \code{1}, otherwise \code{0}. 
+#  \link{cFuncDivideTheDollarValue}, \link{cFuncDivideTheDollarVector}
+# #Example with four players
+# (v<-cFuncDivideTheDollar(n=4))
+# #An object of class "cFuncDivideTheDollar"
+# #Slot "A":
+# #An object of class "GameVector"
+# # [1] 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+# #
+# #Slot "n":
+# # [1] 4
+#  For further information see \link{cFuncGlove}
+#  cFuncGloveValue(S=c(1,2), L=c(1,2), R=c(3)) 
+#  #return 0
+#  For further information see \link{cFuncGlove}
+# #Example with three players, players 1 and 2 hold 
+# #a left-hand glove, player 3 holds a right-hand glove
+#  (A <- cFuncGloveVector(3, L=c(1,2), R=c(3)))
+# #An object of class "GameVector"
+# #[1]  0 0 0 0 1 1 1
+# 
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  We have a set of players \code{L} with left-hand gloves and 
+#  a set of players \code{R} with right-hand gloves
+#  The worth of a coalition \code{S} equals the number of 
+#  pairs of gloves the members of \code{S} can make.
+#  \link{cFuncGloveValue}, \link{cFuncGloveVector}
+# #Example with three players, players 1 and 2 hold 
+# #a left-hand glove, player 3 holds a right-hand glove
+# (v<-cFuncGlove(n=3,L=c(1,2), R=c(3)))
+# #An object of class "cFuncGlove"
+# #Slot "L":
+# #[1] 1 2
+# #
+# #Slot "R":
+# #[1] 3
+# #
+# #Slot "A":
+# #An object of class "GameVector"
+# #[1] 0 0 0 0 1 1 1
+# #
+# #Slot "n":
+# # [1] 3
+#  For further information see \link{cFuncMajoritySingleVeto}
+#  cFuncMajoritySingleVetoValue(S=c(1,2), vetoPlayer=1)
+#  #Output
+#  #[1] 1
+#  cFuncMajoritySingleVetoVector(n=3, vetoPlayer=1)
+#  #Output
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 1 1 0 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  If coalition 'S' has at least 2 members and if the veto player is part of the\cr
+#  coalition it generates a value of \code{1}, otherwise \code{0}
+#  \link{cFuncMajoritySingleVetoValue}, \link{cFuncMajoritySingleVetoVector}
+#  cFuncMajoritySingleVeto(n=3, vetoPlayer=1)
+#  #Output
+#  #An object of class "cFuncMajoritySingleVeto"
+#  #Slot "vetoPlayer":
+#  #  [1] 1
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 0 0 1 1 0 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#  For further information see \link{cFuncQuota}
+#  else \code{0}
+#  cFuncQuotaValue(S=c(1,2,3),w=c(1,2,3),q=4)
+#  #Output
+#  #[1] 1
+#  For further information see \link{cFuncQuota}
+#  else \code{0}
+#  cFuncQuotaVector(n=3,w=c(1,2,3),q=4)
+#  #Output
+#  #An object of class "GameVector"
+#  #[1] 0 0 0 0 1 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \link{cFuncQuotaValue}, \link{cFuncQuotaVector}
+#  cFuncQuota(n=3,w=c(1,2,3),q=4)
+#  #Output
+#  #An object of class "cFuncQuota"
+#  #Slot "w":
+#  #  [1] 1 2 3
+#  #
+#  #Slot "q":
+#  #  [1] 4
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 0 0 0 1 1 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#  For further information see \link{cFuncUnanimity}
+#  else \code{0}
+#  cFuncUnanimityValue(S=c(1,2,3),T=c(2))
+#  #Output:
+#  #[1] 1
+#  For further information see \link{cFuncUnanimity}
+#  else \code{0}
+#  cFuncUnanimityVector(n=3,T=c(2))
+#  #Output:
+#  #An object of class "GameVector"
+#  #[1] 0 1 0 1 0 1 1
+#  inherits methods and slots from class \linkS4class{CoopGameCFunc}.
+#  \link{cFuncUnanimityValue}, \link{cFuncUnanimityVector}
+#  cFuncUnanimity(n=3,T=c(2))
+#  #Output
+#  #An object of class "cFuncUnanimity"
+#  #Slot "T":
+#  #  [1] 2
+#  #
+#  #Slot "A":
+#  #  An object of class "GameVector"
+#  #[1] 0 1 0 1 0 1 1
+#  #
+#  #Slot "n":
+#  #  [1] 3
+#               and determine the number of players
+#         or 1x15 (4 players)
+#          the function returns a 0.
+#  A=c(0,0,0,40,50,20,100)
+#  A= c(0,0,0,0,1,2,1,1,1,1,4,3,2,1,7)
+#  checkNumberOfPlayers(A)
+#  share at least some certain parameters. These common parameters are either the game vector A or a coalition function v which 
+#  by further specified information equivalently can represent a cooperative game.
+#  game function concepts like e.g. Apex games, cost sharing games, ...
+#  \linkS4class{CoopGameBase}.
+#  convexhull from core
+#  A = c(0,1,2,3,4,5,6)
+#  A = c(0,0,0,60,80,100,135)
+#  A = c(5,2,4,7,15,15,15,15,15,15,20,20,20,20,35)
+#  A = c(0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,15,15,15,15,15,15,15,15,15,15,30,30,30,30,30,60)
+#  #@export
+#  A = c(0,1,2,3,4,5,6)
+#  A = c(0,0,0,60,80,100,135)
+#  A = c(5,2,4,7,15,15,15,15,15,15,20,20,20,20,25)
+#  A = c(1,3,2,2,4,5,5,5,5,5,5,5,5,5,5,15,15,15,15,15,15,15,15,15,15,25,25,25,25,25,60)
+#  NULL
+#  convexhull from core
+#  A <- c(0,0,0,3,3,3,6)
+#  coreCoverVertices(A)
+#  #       [,1] [,2] [,3]
+#  # [1,]    3    0    3
+#  # [2,]    0    3    3
+#  # [3,]    3    3    0
+#  #@exportClass CoreCoverConcept
+#  #@export
+#  A <- c(0,0,0,3,3,3,6)
+#  belongsToCoreCover(x=c(2,2,2),A)
+#  #[1] TRUE
+#  belongsToCoreCover(x=c(1,2,4),A)
+#  #[1] FALSE
+#  A <- c(0,0,0,3,3,3,6)
+#  drawCoreCover(A)
+#  (A<-cFuncQuotaVector(3,w=c(1,2,3),q=5))
+#  # An object of class "GameVector"
+#  # [1] 0 0 0 0 0 1 1
+#  deeganPackelValue(A)
+#   #Example out of HOLLER & ILLING (2006), chapter 6.3.3
+#   # v=(51;35,20,15,15,15) => dpv=(18/60,9/60,11/60,11/60,11/60)
+#   A=generateGameVector(v =cFuncQuota,n = 5, w=c(35,20,15,15,15), q=51)
+#   deeganPackelIndex(A)
+#   #Output (same to expected as in HOLLER & ILLING chapter 6.3.3) :
+#   #[1] 0.3000000 0.1500000 0.1833333 0.1833333 0.1833333
+# 
+#  #@exportClass DeeganPackelConcept
+#  #@export
+#  A<-c(0,0,0,0,2,3,4,1,3,2,8,11,6.5,9.5,14)
+#  drawDeeganPackelValue(A)
+#  
+#  A1<-c(0, 0, 0, 1, 1, 0, 1)
+#  disruptionNucleolus(A1)
+#  # [1] 1 0 0
+#  
+#  In an additive game for any two disjoint coalitions 
+#  \code{S} and \code{T} the value of the union of 
+#  \code{S} and \code{T} equals the sum of the values  
+#  of \code{S} and \code{T}. In other words, additive games 
+#  are constant-sum and the imputation set of an 
+#  additive game consists of exactly one point.
+# 
+#  A=c(0,0,0,40,50,20,100) #return FALSE
+#  A=c(1,1,1,1, 2,2,2,2,2,2, 3,3,3,3, 4) #return TRUE
+# 
+#  isAdditiveGame(A)
+#  #@exportClass GamePropertyAdditivity
+#  #@export
+#               A game is balanced if the core is a nonempty set. \cr 
+#               This routine uses the 'dual' characterization 
+#               of balancedness via the Bondareva-Shapley theorem 
+#               and minimal balanced collections.
+#  
+#  #Example of unbalanced game with 3 players
+#  A=c(1,1,1,2,3,4,3)
+#  isBalancedGame(A)
+#  
+#  #Example of balanced game with 3 players
+#  A=c(0,0,0,40,50,20,100)
+#  isBalancedGame(A)
+#  
+#  #Example of unbalanced game with 4 players
+#  A=c(0, 0, 0, 0, 1, 0, 0, 0, 0, 3, 3, 3, 3, 3, 4)
+#  isBalancedGame(A)
+#  
+#  #Example of balanced game with 4 players
+#  A= c(0,0,0,0,1,0,0,0,0,3,3,3,3,3,4)
+#  isBalancedGame(A)
+#  #@exportClass GamePropertyBalancedness
+#  #@export
+#   A TU game is convex if and only if each player's marginal 
+#  contribution to any coalition is monotone nondecreasing 
+#  with respect to set-theoretic inclusion.
+#  #Stictly convex game (WIESE D.2.7 - p. 100)
+#  A=c(0,0,0,1,2,1,4)
+#  isConvexGame(A)
+# 
+#  #Nonconvex game
+#  A=c(1:7)
+#  isConvexGame(A)
+#  #@exportClass GamePropertyConvexity
+#  #@export
+#  A game is said to be essential, if the players in the grand coalition generate more  
+#  the same value as the sum of the values of the singleton coalitions
+#  A game is degenerate, if \deqn{v(N) = \sum v({i})}
+# 
+#  A <- c(0,0,0,60,60,60,72)
+# 
+#  isDegenerateGame(A)
+#  returns [1] TRUE FALSE
+# 
+#  B <- c(30,30,15,60,60,60,72)
+# 
+#  isDegenerateGame(B)
+#  returns [1] FALSE FALSE
+# 
+#  C <- c(20,20,32,60,60,60,72)
+# 
+#  isDegenerateGame(C)
+#  returns [1] TRUE TRUE
+#  #@exportClass GamePropertyDegeneration
+#  #@export
+#  A game is said to be essential, if the players in the grand coalition generate more \cr 
+#  or as much as the sum of the values of the singleton coalitions
+#  A game is essential, if \deqn{v(N) >= \sum v({i})}. \cr
+#  For an essential game the imputation set is nonempty.
+# 
+#  A <- c(0,0,0,60,60,60,72)
+# 
+#  isEssentialGame(A)
+#  #returns [1] TRUE FALSE
+# 
+#  B <- c(30,30,15,60,60,60,72)
+# 
+#  isEssentialGame(B)
+#  #returns [1] FALSE FALSE
+# 
+#  C <- c(20,20,32,60,60,60,72)
+# 
+#  isEssentialGame(C)
+#  #returns [1] TRUE TRUE
+#  #@export
+#  For a monotonic game a coalition \code{S} can never obtain 
+#  a larger value than another coalition  \code{T} if \code{S}
+#  is contained in \code{T}
+#  #Example for checking non monotonic game
+#  A=c(4,2,5,2,3,6,10)
+#  isMonotonicGame(A)
+#  #Output: [1] FALSE
+#  
+#  #Example for checking monotonic game
+#  A=c(2,5,7,10, 9, 13,20)
+#  isMonotonicGame(A)
+#  #Output: [1] TRUE
+#  #@exportClass GamePropertyMonotony
+#  #@export
+#  A TU game is quasi-balanced if \cr
+#  a) the components of its minimal rights vector are 
+#  less or equal than the components of its utopia payoff 
+#  vector \cr
+#  and \cr
+#  b) the sum of the components of its minimal rights vector 
+#  is less or equal the value of the grand coalition which 
+#  in turn is less or equal than the sum of the components 
+#  of its utopia payoff vector. \cr
+#  Note that any balanced game is also quasi-balanced, 
+#  but not vice versa. \cr
+#  Note that the quasi-balanced games are those games with 
+#  a non-empty core cover.
+#  Note also that quasi-balancedness is sometimes in the 
+#  literature also referred to as compromise-admissibility.
+#  #Example for quasi-balanced game:
+#  A=c(1,1,2,6,8,14,16)
+#  isQuasiBalancedGame(A)
+#  
+#  #Example for non quasi-balanced game:
+#  A=c(1:7)
+#  isQuasiBalancedGame(A)
+#  
+#  #@exportClass GamePropertyQuasiBalancedness
+#  #@export
+#  \linkS4class{CoopGameProperty}.
+#  In a superadditive game for any two disjoint coalitions 
+#  \code{S} and \code{T} the value of the union of 
+#  \code{S} and \code{T} is always greater or equal 
+#  the sum of the values of \code{S} and \code{T}. 
+#  In other words, the members of any two disjoint 
+#  coalitions \code{S} and \code{T} will never be 
+#  discouraged from collaborating.
+#  A=c(0,0,0,40,50,20,100) #return TRUE
+#  isSuperadditiveGame(A)
+#  
+#  A=c(0,0,0,40,30,130,100) #return FALSE
+#  isSuperadditiveGame(A)
+#  
+#  A=c(1,1,1,1, 2,2,2,2,2,2, 3,3,3,3, 4) #return TRUE
+#  isSuperadditiveGame(A)
+#  #@exportClass GamePropertySuperadditivity
+#  #@export
+#  Let \code{S} be a coalition and \code{i} a player not contained in \code{S}. 
+#  Then the TU game is weakly superadditive if for any \code{S} and 
+#  any \code{i} the value of the union of \code{S} and \code{i} is
+#  greater or equal the sum of the values of \code{S} and \code{i}. \cr
+#  Note that weak superadditivity is equivalent to zero-monotonicity.
+#  #Weakly superadditive game:
+#  A=c(1:15)
+#  isWeaklySuperadditiveGame(A)
+#  #Output: [1] TRUE
+#  
+#  #Non weakly superadditive game
+#  A=c(1:5,7,7)
+#  isWeaklySuperadditiveGame(A)
+#  #Output: [1] FALSE
+#  #@exportClass GamePropertyWeakSuperadditivity
+#  #@export
+#  A<-cFuncUnanimityVector(4,c(1,2))
+#  #[1] 0 0 0 0 1 0 0 0 0 0 1 1 0 0 1
+#  getDualGameVector(A)
+#  #[1] 1 1 0 0 1 1 1 1 1 0 1 1 1 1 1
+#   generateGameVector(v = cFuncUnanimity, n = 3, T=c(1,2))
+#  A=c(0,0,0,60,60,60,72)
+#  getNumberOfPlayers(A)
+#  #[1] 3
+#  A=c(0,0,0,4,0,3,6)
+#  gatelyValue(A)
+# 
+#  #Output (18/11,36/11,12/11):
+#  #1.636364 3.272727 1.090909
+#  
+#  #GATELY 1972
+#  A=c(0,0,0,1170,770,210,1530)
+#  gatelyValue(A)
+#  
+#  #Output:
+#  #827.7049 476.5574 225.7377 
+#  A=c(0,0,0,4,0,3,6)
+#  gatelyIndex(A)
+# 
+# #Output
+# # 0.2727273 0.5454545 0.1818182
+#  
+#  A=c(0,0,0,4,0,3,6)
+#  equalPropensityToDisrupt(A, k=1)
+# 
+#  #Output (5/6):
+#  #0.8333333
+#         the coalition for which the corresponding index is searched
+#  A=c(0,0,0,4,0,3,6)
+#  x=c(2,3,1)
+#  propensityToDisrupt(A,x,S=c(1))
+#  #Output
+#  #0.5
+#  propensityToDisrupt(A,x,S=c(2))
+#  #Output
+#  #1
+#  propensityToDisrupt(A,x,S=c(3))
+#  #Output
+#  #1
+#  A=getNondefiniteGameVector4GatelyValue(10,c(0,1,2,3),w=rep(99,6))
+#  equalPropensityToDisrupt(A) #-1
+#  #@exportClass GatelyConcept
+#  #@export
+#  #GATELY 1972
+#  A=c(0,0,0,1170,770,210,1530)
+#  drawGatelyValue(A)
+#  These coalitions are characterized by the circumstance that without this player the other players
+#  generate no value (then also called a losing coalition) - therefore this player is also described as a critical player.
+#  
+#  A=c(0,1,0,1,0,1,1)
+#  
+#  #Get coalitions where player 2 is critical:
+#  getCriticalCoalitionsOfPlayer(2,A)
+#  #Output are all coalitions where player 2 is involved (as 2 dictator):
+#           used and matrix with marginal contributions
+#  #glove game with l={1}, r={2,3} with 3 players
+#  A=c(0,0,0,1,1,0,1)
+# 
+#  getMarginalContributions(A)
+#  Marginal contribution of player i in grand coalition: \deqn{M_{i} = v(N) - v(N \ {i})}
+#  Minimum right of player i: \deqn{m_{i} = \max { v(S) - \sum M_{j} } }
+#  A <- c(0,0,0,60,60,60,72)
+#  getUtopiaPayoff(A)
+# 
+#  B <- c(2,4,5,18,14,9,24) 
+#  getUtopiaPayoff(B)
+#  These coalitions are characterized by the circumstance that without any coalition's casual player the other players
+#  generate no value (then also called a losing coalition) - all players can therefore be described as critical players.
+#  A=cFuncQuotaVector(n=3,w=c(1,2,3),q=5)
+#  bm=createBitMatrix(3,A)
+#  bm
+# # Output:
+# #            cVal
+# # [1,] 1 0 0    0
+# # [2,] 0 1 0    0
+# # [3,] 0 0 1    0
+# # [4,] 1 1 0    0
+# # [5,] 1 0 1    0
+# # [6,] 0 1 1    1
+# # [7,] 1 1 1    1
+# 
+# getMinimumWinningCoalitions(bm)
+# # Output:
+# #           cVal
+# #[1,] 0 1 1    1
+# # => the coalition containing player 2 and 3 is minimal 
+#  getUnanimityCoefficients(c(0,0,0,60,48,30,72))
+#  Marginal contribution of player i in grand coalition: \deqn{M_{i} = v(N) - v(N \ {i})}
+#  Minimum right of player i: \deqn{m_{i} = \max { v(S) - \sum M_{j} } }
+#  A <- c(0,0,0,60,60,60,72)
+#  getUtopiaPayoff(A)
+# 
+#  B <- c(2,4,5,18,14,9,24) 
+#  getUtopiaPayoff(B)
+#  A = c(2, 4, 5, 18, 24, 9, 24)
+#  
+#  imputationsetVertices(A)
+#  
+#  #      [,1] [,2] [,3]
+#  #[1,]   15    4    5
+#  #[2,]    2   17    5
+#  #[3,]    2    4   18
+#  #@exportClass ImputationsetConcept
+#  #@export
+#  A=c(0,1,2,3,4,5,6)
+# 
+#  #Point belongs to Imputation Set:
+#  belongsToImputationset(x=c(1.5,1,3.5),A)
+# 
+#  #Point does not belong to Imputation Set:
+#  belongsToImputationset(x=c(2.05,2,2),A)
+#  A=c(0,1,2,3,4,5,6)
+#  drawImputationset(A)
+#  A=c(0,0,0,40,50,20,100) 
+#  A=c(0,0,0,6,5,5,10) 
+#  A=c(0,0,0,0,7,7,7,7,7,7,12,12,12,12,22)
+#  
+#  imputationsetDraw(A,label=TRUE,holdOn=TRUE)
+#  
+#  But also has vice versa as goal offering functions which ensure the identification of properties which has a coalition referenced by an index.
+#  
+#  \tabular{lll}{
+#     \strong{Function Name}                        \tab \strong{Short Description}                                                  \cr
+#     \code{\link{indexCoalition}}                  \tab  Finds out index to specified coalition S                                   \cr
+#     \code{\link{indexCoalitionByBitVector}}       \tab  Finds out index to specified coalition S when S is specified as bit vector \cr
+#   }
+#   
+#   
+#  \tabular{lll}{
+#     \strong{Function Name}                        \tab \strong{Short Description}                                                                                         \cr
+#     \code{\link{getPlayersFromIndex}}             \tab Identifes by specified index the players involved in the corresponding coalition                                  \cr
+#   }
+#   has either in a bit matrix or in a game vector where n players are involved in the game
+#  #@export indexCoalition
+#         the coalition for which the corresponding index is searched
+#  A=cFuncQuotaVector(n=3,w=c(1,2,3),q=5)
+#  bm=createBitMatrix(3,A)
+#  ix_c=indexCoalition(3,S=c(1,3)) #delivers ix_c=5
+#  bm
+# #Output: 
+# #     [,1] [,2] [,3] [,4]
+# #[1,]    1    0    0    0
+# #[2,]    0    1    0    0
+# #[3,]    0    0    1    0
+# #[4,]    1    1    0    0
+# #[5,]    1    0    1    0 <=
+# #[6,]    0    1    1    0
+# #[7,]    1    1    1    1
+# #[8,]    0    0    0    1
+#  #@export initialParamCheck_indexCoalition
+#    paramCheckResult=getEmptyParamCheckResult()
+#    initialParamCheck_indexCoalition(paramCheckResult,n,S)
+#  certain coalition S has either in a bit matrix or in a game 
+#  vector where n players are involved in the game
+#         (number of bit set depicts involved players) and represents
+#         the coalition for which the corresponding index is searched
+#   has either in a bit matrix or in a game vector where n players are involved in the game
+#  #Finds out players of a row specified by 'bitIndex' in a bit matrix for 'n' players
+#  #Corresponding bit matrix for 3 players with marked row (4th column represents coalition value)
+#  #             cVal
+#  # [1,] 1 0 0    1
+#  # [2,] 0 1 0    2
+#  # [3,] 0 0 1    3
+#  # [4,] 1 1 0    4
+#  # [5,] 1 0 1    5
+#  # [6,] 0 1 1    6 <=
+#  # [7,] 1 1 1    7
+#  #Here: For bitIndex 6 the involved players should be determined (player 2 and 3)
+#  getPlayersFromIndex(n=3,6)
+#  #@export initialParamCheck_getPlayersFromIndex
+#  #@export calcDistance
+#  #Example: Bit matrix for 3 players (4th column represents coalition value)
+#  #look for start Position for firstPlayer=1, n=3 and b=2
+#  #getStartPosition(firstPlayer=1, n=3, b=2) delivers 4 as index
+#  #Now check rows it takes that bit for next player 3 is set
+#  #- here n is 2 (two players left '2' and '3') and b is 1 (1 bit left to set)
+#  calcDistance(dif=(3-1),2,1)
+#  #Now add 4 (old index) to 1 and get 5 as index where bit for player 1 and 3 is set
+#  #       [,1] [,2] [,3] [,4]
+#  # [1,]    1    0    0    0
+#  # [2,]    0    1    0    0
+#  # [3,]    0    0    1    0
+#  # [4,]    1    1    0    0
+#  # [5,]    1    0    1    0 <=
+#  # [6,]    0    1    1    0
+#  # [7,]    1    1    1    0
+#  # [8,]    0    0    0    0
+#  and firstPlayer is the player where bit is set for the first time
+#  #@export getStartPosition
+#  # Bit matrix for 3 players (4th column represents coalition value)
+#  # look for start Position for firstPlayer=2, n=3 and b=2
+#  #=> searched index is 6:
+#  getStartPosition(firstPlayer=2,n=3,b=2)
+#  # Result:> [1] 6
+#  # Corresponding bit matrix
+# 
+# #       [,1] [,2] [,3] [,4]
+# # [1,]    1    0    0    0
+# # [2,]    0    1    0    0
+# # [3,]    0    0    1    0
+# # [4,]    1    1    0    0
+# # [5,]    1    0    1    0
+# # [6,]    0    1    1    0 <=
+# # [7,]    1    1    1    0
+# # [8,]    0    0    0    0
+#  #@export indexLower
+#  #Generate bit matrix for n=3 players
+#  createBitMatrix(n=3,A=c(1:7))
+#  #Correponding bit matrix
+#  #           cVal
+#  #[1,] 1 0 0    1
+#  #[2,] 0 1 0    2
+#  #[3,] 0 0 1    3
+#  #[4,] 1 1 0    4 <= Searched row
+#  #[5,] 1 0 1    5
+#  #[6,] 0 1 1    6
+#  #[7,] 1 1 1    7
+#  #Get index of row where 3 choose 2 players are involved
+#  indexLower(n=3,b=2)
+#  #Result: [1] 4
+#  #@export initialParamCheck_indexLower
+#  #Valid parameters:
+#  paramCheckResult=getEmptyParamCheckResult()
+#  initialParamCheck_indexLower(paramCheckResult,n=3,b=2)
+#  #Invalid parameters (as n<b):
+#  paramCheckResult=getEmptyParamCheckResult()
+#  initialParamCheck_indexLower(paramCheckResult,n=2,b=3)
+#  #@export indexUpper
+#  #Generate bit matrix for n=3 players
+#  createBitMatrix(n=3,A=c(1:7))
+#  #Correponding bit matrix
+#  #           cVal
+#  #[1,] 1 0 0    1
+#  #[2,] 0 1 0    2
+#  #[3,] 0 0 1    3
+#  #[4,] 1 1 0    4
+#  #[5,] 1 0 1    5
+#  #[6,] 0 1 1    6 <= Searched row
+#  #[7,] 1 1 1    7
+#  #Get index of last row where 3 choose 2 players are involved
+#  indexUpper(n=3,b=2)
+#  #Result: [1] 6
+#  #@export initialParamCheck_indexUpper
+#  #Valid parameters:
+#  paramCheckResult=getEmptyParamCheckResult()
+#  initialParamCheck_indexUpper(paramCheckResult,n=3,b=2)
+#  #Invalid parameters (as n<b):
+#  paramCheckResult=getEmptyParamCheckResult()
+#  initialParamCheck_indexUpper(paramCheckResult,n=2,b=3)
+#  from the Johnston index 
+#  and motivated by the relation of the Shapley value and 
+#  the Shapley-Shubik index.
+#  Johnston's original work refers to a power index only.
+#  #player 1 has 3 votes
+#  #player 2 has 2 votes
+#  #player 3 has 1 vote
+#  #majority for the decision is 4 (quota)
+# 
+#  #function call with game vector:
+#  A <- generateGameVector(cFuncQuota, n = 3, w = c(3,2,1), q = 4)
+#  #OR
+#  A <- c(0,0,0,1,1,0,1)
+# 
+#  johnstonValue(A)
+# # Output:
+# #[1] 0.6666667 0.1666667 0.1666667
+# 
+#  #player 1 has 3 votes
+#  #player 2 has 2 votes
+#  #player 3 has 1 vote
+#  #majority for the decision is 4 (quota)
+# 
+#  #function call with game vector:
+#  A <- generateGameVector(cFuncQuota, n = 3, w = c(3,2,1), q = 4)
+#  #OR
+#  A <- c(0,0,0,1,1,0,1)
+# 
+#  johnstonIndex(A)
+# 
+#  #OR
+# 
+#  #function call with coalition function:
+#  johnstonIndex(v = cFuncQuota, n = 3, w = c(3,2,1), q = 4)
+# 
+#  #vulnerable coalitions
+#  #    [1] [2] [3]
+#  #[1]  1   1   0
+#  #[2]  1   0   1
+#  #[3]  1   1   1
+# 
+#  #Result:
+#  #johnstonIndex
+#  #        [,1] [,2] [,3]
+#  #         0.5  0.5  0.0
+#  #         0.5  0.0  0.5
+#  #         1.0  0.0  0.0
+#  #  total  2.0  0.5  0.5
+# 
+#  #johnston power
+#  #      [,1]      [,2]      [,3]
+#  # 0.6666667 0.1666667 0.1666667
+#  #@exportClass JohnstonConcept
+#  #@export
+#  A <- c(0,0,0,1,1,0,1)
+#  drawJohnstonValue(A)
+#  A=c(0, 0, 0, 1, 1, 0, 1) 
+#  lexicalGatelyValue(A) #returns: 1 0 0
+#  #@export
+#  #@exportClass LexicalGatelyValue
+#  A=c(0, 0, 0, 1, 1, 0, 1) 
+#  drawLexicalGatelyValue(A)
+#  linearCombinationUnanimity(c(0,0,0,60,48,30,72))
+#  as often used in the Game Theory package CoopGame and its derived packages.
+#  as often used in the Game Theory package CoopGame and its derived packages.
+#  as often used in the Game Theory package CoopGame and its derived packages.
+#  as often used in the Game Theory package CoopGame and its derived packages.
+#  modiclus(c(1, 1, 1, 2, 3, 4, 5))
+#  modiclus(c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21), FALSE)
+#  A=c(1, 1, 1, 2, 3, 4, 5)
+#  drawModiclus(A)
+#  class due to set attributes.
+#  #Example with no glpk output:
+#  nucleolus(c(1, 1, 1, 2, 3, 4, 5))
+#  
+#  #Example with glpk output:
+#  nucleolus(c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21), enableTermOutLP = TRUE)
+#  A=c(1, 1, 1, 2, 3, 4, 5)
+#  drawNucleolus(A)
+#  for often used general parameter checks therefore
+#  central definition of unique error codes and messages can be supplied.
+# 
+#  #Create a parameter check object
+#  paramCheckResult<-getEmptyParamCheckResult()
+# 
+#  #Execute parameter check
+#  #  in this case with dummy function stopOnInvalidParameterDummy_CoopGame which
+#  #  causes stop when number passed is either not in the range
+#  # between 0 and 1000 or not numeric.
+#  #stopOnInvalidParameterDummy_CoopGame(paramCheckResult, -1)
+#  #Error in stopOnParamCheckError(paramCheckResult) :
+#  #   Error Code 9991: Parameter anyParameterChecked is smaller than 0
+# 
+#  #Afterwards the encountered error is still accessible by the paramCheckResult object
+#  #Error code
+#  cat("errCode: ",paramCheckResult$errCode,"errMessage: ",paramCheckResult$errMessage)
+#  #errCode:  9991 errMessage:  Parameter anyParameterChecked is smaller than 0
+# 
+#  #Analogous for anyNumber>1000 and anyNumber is not numeric (e.g. anyNumber="200")
+# 
+#  #anyNumber>1000
+#  #stopOnInvalidParameterDummy_CoopGame(paramCheckResult,2000)
+#  #Error in stopOnParamCheckError(paramCheckResult) :
+#  #  Error Code 9992: Parameter anyParameterChecked is bigger than 1000
+# 
+#  #anyNumber is not numeric as anyNumber="200"
+#  #stopOnInvalidParameterDummy_CoopGame(paramCheckResult,"200")
+#  #Error in stopOnParamCheckError(paramCheckResult) :
+#  #  Error Code 9990: Parameter anyParameterChecked is not numeric
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Define invalid game vector A (not numeric):
+#   A=c("0","0","0","60","60","60","72")
+# #Check if game vector A is valid:
+#   stopOnInvalidGameVectorA(paramCheckResult,A)
+# #Result:
+# # Fehler in stopOnParamCheckError(paramCheckResult):
+# # Error Code 1002: Type of game vector is not numeric
+# 
+# #Define valid game vector A:
+#   A=c(0,0,0,60,60,60,72)
+# #Check if game vector A is invalid:
+#   stopOnInvalidGameVectorA(paramCheckResult,A)
+# #Result - no stop was caused therefore no error with game vector A was detected.
+#  correctly and causes stop otherwise.
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with invalid grand coalition N=c("1","2","3","4","5") (as not numeric):
+#   stopOnInvalidGrandCoalitionN(paramCheckResult, N=c("1","2","3","4","5"))
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1011: Grand coalition vector N is invalid as not numeric
+# 
+# #Execute check with valid grand coalition N=c(1,2,3,4,5) (as not numeric):
+#   stopOnInvalidGrandCoalitionN(paramCheckResult, N=c(1,2,3,4,5))
+# #Result - no stop was executed as no error detected at check of grand coalition N
+#               is specified correctly and causes stop otherwise.
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with invalid coalition S=c("1","2","3") (as not numeric):
+#   stopOnInvalidCoalitionS(paramCheckResult, S=c("1","2","3"))
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1021: Coalition vector S is invalid as not numeric
+# 
+# #Execute check with invalid coalition S=c(1,2,3,4,5) and N=c(1,2,3) (as S no subset of N):
+#   stopOnInvalidCoalitionS(paramCheckResult, S=c(1,2,3,4,5), N=c(1,2,3))
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1022: Coalition vector S is no subset of grand coalition N'
+# #Execute check with valid coalition S=c(1,2,3) and N=c(1,2,3,4,5):
+#   stopOnInvalidCoalitionS(paramCheckResult, S=c(1,2,3), N=c(1,2,3,4,5))
+# #Result - no stop was executed as no error detected at check of coalition
+# # S as subset of grand coalition N
+#  specified correctly and causes stop otherwise.
+# #Define invalid number of players n=1 (as too low needs to be at least 2):
+#   n=1
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with invalid number of players n=1 (as too low needs to be at least 2):
+# stopOnInvalidNumberOfPlayers(paramCheckResult, n=1)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1050: Number of players is invalid as below 2.
+# 
+# #Execute check with invalid number of players n=1 (as too big must not be bigger than 20):
+# stopOnInvalidNumberOfPlayers(paramCheckResult, n=21)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1051: Number of players is invalid as above 20.
+# 
+# #Execute check with valid number of players n=10 (as 1<n<21):
+# stopOnInvalidNumberOfPlayers(paramCheckResult, n=10)
+# #Result - no stop was executed as no error detected at check of number of players n
+#  (in the form of either v or A) is specified correctly and causes stop otherwise.
+# #Create valid dummy coalition function 'cFuncDummy':
+# cFuncDummy=function(S){
+#   return(length(S))
+# }
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with valid definition of coalition as function 'cFuncDummy' specified and A=NULL:
+#   stopOnInvalidDefinitionAorV(paramCheckResult, A=NULL, v=cFuncDummy)
+# #Result - no stop was executed as no error detected at check of coalition function 
+# cFuncDummy' and game vector A was detected.
+# 
+# #Execute check with valid definition of coalition function as 'NULL' specified and A=(1:7):
+#   stopOnInvalidDefinitionAorV(paramCheckResult, A=c(1:7), v=NULL)
+# #Result - no stop was executed as no error detected at check of coalition 
+# #function 'cFuncDummy' and game vector A was detected.
+# 
+# #Execute check with invalid definition of coalition function as 'cFuncDummy' and game
+# #vector A=c(1:7) (as both are specified):
+#   stopOnInvalidDefinitionAorV(paramCheckResult, A=c(1:7), v=cFuncDummy)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1061: Wrong Usage as both game vector (A=) and coalition function (v=) are specified
+#  (in the form of either v or A) is specified correctly and causes stop otherwise.
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with invalid index=8 specified for game vector 
+# #A=c(1:7) (as number of players derived from A creates conflict):
+#   stopOnInvalidIndex(paramCheckResult, index=8, n=3)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1072: Index is within the wrong range according to specified number of players n.
+# 
+# #Execute check with valid index=5 specified for game vector A=c(1:7):
+#   stopOnInvalidIndex(paramCheckResult, index=5, n=3)
+# #Result - no stop was executed as no error detected at check of parameter index.
+# 
+# #Execute check with invalid index="5" (as not numeric) specified for game vector A=c(1:7):
+#   stopOnInvalidIndex(paramCheckResult, index="5", n=3)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1071: Index is 'not numeric'.
+#  specified correctly and causes stop otherwise.
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with valid definition of n=3 choose b=2:
+#   stopOnInvalidNChooseB(paramCheckResult, n=3, b=2)
+# #Result - no stop was executed as no error detected
+# #at definition check of n choose b no error was detected.
+# 
+# #Execute check with invalid definition of n=2 choose b=3 (as n<b):
+#   stopOnInvalidNChooseB(paramCheckResult, n=2, b=3)
+# #Result:
+#   #Fehler in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1084: Number of involved players 'b' is greater than of players 'n'
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# 
+# #Execute check with invalid partition boolean=c(0,1,1,1,0,0,0):
+#   stopOnInvalidBoolean(paramCheckResult, boolean)
+# #Result:
+#   #Error in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1120: parameter boolean is invalid because it is a vector
+# 
+# #Execute check with invalid partition boolean=TRUE:
+#   stopOnInvalidBoolean(paramCheckResult, boolean)
+# #Result - no stop was executed as no error detected at check of parameter boolean
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# 
+# #Execute check with invalid partition number=c(0,1,1,1,0,0,0):
+#   stopOnInvalidNumber(paramCheckResult, number)
+# #Result:
+#   #Error in stopOnParamCheckError(paramCheckResult) :
+#   #Error Code 1120: parameter number is invalid because it is a vector
+# 
+# #Execute check with invalid partition number=1:
+#   stopOnInvalidNumber(paramCheckResult, number)
+# #Result - no stop was executed as no error detected at check of parameter number
+# 
+# #Create valid dummy coalition function 'cFuncDummy':
+# cFuncDummy=function(S){
+#   return(length(S))
+# }
+# #Create empty object for check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Execute check with valid coalition function 'cFuncDummy':
+#   stopOnInvalidCoalitionFunctionV(paramCheckResult, v=cFuncDummy)
+# #Result - no stop was executed as no error detected at check of coalition 
+# #function 'cFuncDummy' was detected.
+# 
+# #Execute check with invalid coalition function v=c(1:4) (as v no function but vector):
+#   stopOnInvalidCoalitionFunctionV(paramCheckResult, v=c(1:4))
+# #Result:
+#  #Fehler in stopOnParamCheckError(paramCheckResult) :
+#  #Error Code 1040: Coalition function v is no function
+#   and R (right gloves) are specified as parameter correctly (also regarding grand coalition).
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  #valid quota
+#  stopOnInvalidLeftRightCFuncGlove(paramCheckResult, L=c(1,3),R=c(2),N=c(1,2,3))
+#  
+#  #invalid quota
+#  stopOnInvalidLeftRightCFuncGlove(paramCheckResult, L=c(1,4),R=c(2),N=c(1,2,3))
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  #valid quota
+#  stopOnInvalidVetoPlayer(paramCheckResult, vetoPlayer=3)
+#  
+#  #invalid quota
+#  stopOnInvalidVetoPlayer(paramCheckResult, vetoPlayer="3")
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  #valid quota
+#  stopOnInvalidQuota(paramCheckResult, q=3)
+#  
+#  #invalid quota
+#  stopOnInvalidQuota(paramCheckResult, q="3")
+#  
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  stopOnInvalidWeightVector(paramCheckResult, n=3, w=c(1,2,3))
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  #valid
+#  stopOnInvalidDictator(paramCheckResult,dictator=3,n=3)
+#  
+#  #invalid as number of players is only 3 but dictator has number 4.
+#  stopOnInvalidDictator(paramCheckResult,dictator=4,n=3)
+#   is specified as parameter correctly.
+#   Validation result gets stored to object paramCheckResult 
+#   in case an error occured and causes stop otherwise.
+#  
+#  paramCheckResult=getEmptyParamCheckResult()
+#  
+#  #valid
+#  stopOnInvalidDictator(paramCheckResult,dictator=3,n=3)
+#  
+#  #invalid as number of players is only 3 but dictator has number 4.
+#  stopOnInvalidDictator(paramCheckResult,dictator=4,n=3)
+#  and a message after the check of function parameters was executed.
+#   In case parameter check was successfull the error code has the value '0'
+#   and the message is 'NULL'.
+#  representing the error code ('0' if no error) and errMessage for the error message ('NULL' if no error)
+#  initParamCheck_example=function(numberOfPlayers){
+#   paramCheckResult=getEmptyParamCheckResult()
+#   if(numberOfPlayers!=3){
+#     paramCheckResult$errMessage="The number of players is not 3 as expected"
+#     paramCheckResult$errCode=1
+#   }
+#   return(paramCheckResult)
+#  }
+# 
+#  initParamCheck_example(3)
+# #Output:
+# #$errCode
+# #[1] 0
+# #$errMessage
+# #NULL
+# initParamCheck_example(4)
+# #Output:
+# #$errCode
+# #[1] 1
+# #
+# #$errMessage
+# 
+#  on base of paramCheckResult parameter where 'errCode' <> '0' in case error occured.
+# #Create object for storing parameter check result:
+#   paramCheckResult=getEmptyParamCheckResult()
+# #Define invalid game vector A which is not of right length:
+# A=c(1:8)
+# #Check result with error gets stored to paramCheckResult and stop gets caused:
+# stopOnInvalidGameVectorA(paramCheckResult,A=A,n=3)
+# #check result with error was stored to paramCheckResult:
+# paramCheckResult
+# #Result:
+# # $errCode
+# # [1] 1001
+# #
+# # $errMessage
+# # [1] "Number of elements in A is invalid"
+#  #@export
+#  
+#  setGeneric(
+#    "specifyVRepMatrixByConcept",
+#    function(.Object,solutionConcept="SetSolutionConcept"){
+#      standardGeneric("specifyVRepMatrixByConcept")
+#    }
+#  )
+#  
+#  setMethod(
+#    "specifyVRepMatrixByConcept",
+#    signature="PayoffSpace",
+#    definition=function(.Object,solutionConcept){
+#      .Object@VRepMatrix=calculateSetSolution(solutionConcept)
+#      return(.Object)
+#    }
+#  )
+#  A<-generateGameVector(cFuncCostSharing,n=3,C=c(15,20,55,35,61,65,78))
+#  perCapitaNucleolus(A)
+#  expected_x<-c(4/6,7/6,71/6)
+#  
+#  #Example out of YOUNG 1985, p. 68
+#  A=c(0,0,0,0,9,10,12)
+#  perCapitaNucleolus(A) #[1]  0.6666667  1.1666667 10.1666667
+#  #Example out of YOUNG 1985, p. 68
+#  A=c(0,0,0,0,9,10,12)
+#  drawPerCapitaNucleolus(A)
+#  #Example 5.5.12 from Peleg/Sudhoelter, p. 96
+#  prenucleolus(c(0,0,0,10,0,0,2))
+#  #Output
+#  #[1]  3  3 -4
+#  prenucleolus(c(1, 1, 1, 2, 3, 4, 5))
+#  prenucleolus(c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21), FALSE)
+#  #@export
+#  A=c(1, 1, 1, 2, 3, 4, 5)
+#  drawPrenucleolus(A)
+#  A<-c(20,200,0,210,40,200,350)
+#  proportionalNucleolus(A)
+#  expected_x<-c(4/6,7/6,11/6)
+#  #@export
+#  A<-c(20,200,0,210,40,200,350)
+#  drawProportionalNucleolus(A)
+#  
+#  A=c(0,0,0,1,1,0,1)
+#  publicGoodIndex(A) #result: 0.50 0.25 0.25 
+#  A=c(0,0,0,1,1,0,1)
+#  publicGoodIndex(A) #result: 0.50 0.25 0.25 
+#  #@exportClass PublicGoodConcept
+#  #@export
+#  A=c(0,0,0,1,1,0,1)
+#  drawPublicGoodValue(A)
+#  A=c(0,0,0,1,1,0,1)
+#  publicHelpIndex(A) #result: 0.4285714 0.2857143 0.2857143
+#  A=c(0,0,0,1,1,0,1)
+#  publicHelpValue(A) #result: 0.4285714 0.2857143 0.2857143
+#  #@export
+#  A=c(0,0,0,1,1,0,1)
+#  drawPublicHelpValue(A) 
+#  #glove game with l={1}, r={2,3} with 3 players
+#  A=c(0,0,0,1,1,0,1)
+# 
+#  shapleyValue(A) #return (2/3, 1/6, 1/6)
+#  #glove game with l={1}, r={2,3} with 3 players
+#  A=c(0,0,0,1,1,0,1)
+# 
+#  shapleyIndex(A) #return (2/3, 1/6, 1/6)
+# # @exportClass ShapleyConcept
+#  #glove game with l={1}, r={2,3} with 3 players
+#  A=c(0,0,0,1,1,0,1)
+#  drawShapleyValue(A) 
+#  simplifiedModiclus(c(0, 0, 0, 1, 1, 0, 1))
+#  A=c(0, 0, 0, 1, 1, 0, 1)
+#  simplifiedModiclusIndex(A) #result: 0.6666667 0.1666667 0.1666667
+#  #@export
+#  A=c(0, 0, 0, 1, 1, 0, 1)
+#  drawSimplifiedModiclus(A)
+#  #Example for tau value
+#  A=c(0,0,0,2,2,3,5)
+#  result=tauValue(A) #1.250   1.875   1.875
+#  #Example for tau value
+#  A=c(0,0,0,2,2,3,5)
+#  result=tauValue(A) #1.250   1.875   1.875
+#  #@exportClass TauConcept
+# # @export
+#  A=c(0,0,5,4,8,9,12)
+#  drawTauValue(A,colour="green")
+#  #Example 1: A 3 player TU game
+#  A = c(0,1,2,3,4,5,6)
+#  webersetVertices(A)
+# 
+#  #Example 2: A 4 player TU game
+#  A = c(5,2,4,7,15,15,15,15,15,15,20,20,20,20,35)
+#  webersetVertices(A)
+#  #@exportClass WebersetConcept
+#  #@export
+#  A=c(0,1,2,3,4,5,6)
+#  
+#  #Point belongs to Weber Set:
+#  belongsToWeberset(x=c(1.5,1,3.5),A)
+#  
+#  #Point does not belong to Weber Set:
+#  belongsToWeberset(x=c(2.05,2,2),A)
+#  A = c(0,1,2,3,4,5,6)
+#  drawWeberset(A)

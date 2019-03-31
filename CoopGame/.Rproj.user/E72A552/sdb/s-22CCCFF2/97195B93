@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Visualizing convex polyhedra\n#' @description Draws a convex polyhedron with 4 players\n#' @aliases Visualizer4Set\n#' @param  A contains a game vector\n#' @param  pointsToDraw contains the points to draw\n#' @param  colour draws the polyhedron with this colour\n#' @param  label activates the label for the figure\n#' @param  name sets a name for the label\n#' @template author/FM\n\nVisualizer4Set <- function(A, pointsToDraw, colour, label, name){ \n  #Coordinates for the tetrahedron\n  X <- rbind(c(0, 0, 0),  \n             c(1, 0, 0),\n             c(0.5, 0.5 * sqrt(3), 0),\n             c(0.5, 1/6 * sqrt(3), 1/3 *sqrt(6)))\n  \n  #Draws always the imputation set\n  grandCoalition=A[length(A)]\n  beta = pointsToDraw/grandCoalition\n  \n  #Changes the barycentric coordinates in Cartesian coordinates\n  vertices <- bary2cart(X, beta)\n  #Get the convex hull\n  ConvHull <- convhulln(vertices)\n  ts.surf <- t(ConvHull)\n  #Draws with the function of rgl the set\n  rgl.triangles(vertices[ts.surf, 1], vertices[ts.surf, 2], vertices[ts.surf, 3], col = colour, alpha=0.8, smooth=FALSE, lit=FALSE)\n  \n  #Label\n  if(label == TRUE)\n  {\n    setLabels(A, pointsToDraw, name)\n  }\n  \n}",
+    "created" : 1525209085780.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3301128435",
+    "id" : "97195B93",
+    "lastKnownWriteTime" : 1517065925,
+    "last_content_update" : 1517065925,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/Visualizer4Set.R",
+    "project_path" : "R/Visualizer4Set.R",
+    "properties" : {
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

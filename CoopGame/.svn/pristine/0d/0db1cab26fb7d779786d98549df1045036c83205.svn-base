@@ -1,0 +1,26 @@
+#' @title Coalition - Class for representing coalition
+#' @description Coalition
+#' @exportClass Coalition
+
+setClass(
+  "Coalition",
+  contains = "numeric",
+  validity = function(object){
+    paramCheckResult=getEmptyParamCheckResult()
+    stopOnInvalidCoalitionS(paramCheckResult,S=(object))
+  }
+)
+
+
+
+#' @title Constructor for Coalition
+#' @description Constructor for instance of class \linkS4class{Coalition}
+#' @template author/JA
+#' @template param/S
+#' @name Coalition
+#' @export Coalition
+Coalition<-function(S){
+  retNoP=methods::new("Coalition",S)
+  methods::validObject(retNoP)
+  return(retNoP)
+}

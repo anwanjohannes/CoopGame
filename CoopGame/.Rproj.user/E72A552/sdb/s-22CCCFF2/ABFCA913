@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @slot LPRows An S4 class object (\\linkS4class{LPRows}) containing information about the rows of all later LPs.\n",
+    "created" : 1536421901695.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3535649553",
+    "id" : "ABFCA913",
+    "lastKnownWriteTime" : 1536424036,
+    "last_content_update" : 1536424036507,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/man-roxygen/slot/LPRows.R",
+    "project_path" : "man-roxygen/slot/LPRows.R",
+    "properties" : {
+    },
+    "relative_order" : 113,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

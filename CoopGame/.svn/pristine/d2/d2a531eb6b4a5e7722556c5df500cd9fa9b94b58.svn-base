@@ -1,0 +1,67 @@
+boolSkip=F
+
+#old depreciated function
+convexgame3 <- function(A){
+  
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v12=A[4]
+  v13=A[5]
+  v23=A[6]
+  v123=A[7]
+  
+  #Code orientiert sich an TugLab. Dateiname: convexgame 
+  #Funktion: convexgame3 Zeile: 86 - 92
+  
+  #Ruft die Funktion superadditivegam3 auf
+  S = superadditivegame3(A);
+  
+  if(S==0){
+    C=FALSE;
+  }else{
+    C= !((v123-v23)<(v13-v3) | (v123-v23)<(v12-v2) | (v123-v12)<(v13-v1));
+  }
+  
+  if(C == TRUE){
+    return(1);
+  }
+  else{
+    return(0);
+  }
+}
+
+superadditivegame3 <-function(A){
+  #Ein Spiel ist superadditive wenn v(S \cup T)\geq v(S)+v(T), f?r alle disjunkten Koalitionen S,T Teilmenge von N ist
+  # R?ckgabewert 1 bei superadditive
+  
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v12=A[4]
+  v13=A[5]
+  v23=A[6]
+  v123=A[7]
+  
+  
+  S= !((v13-v3)<v1 | (v12-v2)<v1 | (v23-v2)<v3 | (v123-v23)<v1 | (v123-v12)<v3 | (v123-v13)<v2); 
+  
+  if(S == TRUE){
+    return(1);
+  }
+  else{
+    return(0);
+  }
+}
+
+test_that("Check 50.1 - test isConvexGame against convexgame3" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,7,replace = TRUE)
+    result=convexgame3(P)
+    result2=isConvexGame(P)
+    expect_equal(result&1, result2$isConvexGame)
+  }
+})

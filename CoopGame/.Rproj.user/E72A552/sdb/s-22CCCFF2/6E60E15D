@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name getUtopiaPayoff\n#' @title getUtopiaPayoff\n#' @description Calculates the utopia payoff for each player. \\cr\n#' Marginal contribution of player i in grand coalition: \\deqn{M_{i} = v(N) - v(N \\ {i})}\n#' Minimum right of player i: \\deqn{m_{i} = \\max { v(S) - \\sum M_{j} } }\n#' @aliases getUtopiaPayoff\n#' @export getUtopiaPayoff\n#' @template author/JA\n#' @template author/MM\n#' @template cites/BRANZEI_ET_AL_2006\n#' @templateVar BRANZEI_ET_AL_2006_P p. 31\n#' @template param/A\n#' @return utopia payoffs for each player\n#' @examples\n#' library(CoopGame)\n#' A <- c(0,0,0,60,60,60,72)\n#' getUtopiaPayoff(A)\n#' #[1] 12 12 12\n#'\n#' library(CoopGame)\n#' B <- c(2,4,5,18,14,9,24) \n#' getUtopiaPayoff(B)\n#' #[1] 15 10  6\n\ngetUtopiaPayoff<-function(A){\n    n=getNumberOfPlayers(A)\n    N=length(A)\n    \n    M=A[N]-A[(N-1):(N-n)]\n    return(M)\n}\n\n\n\n",
+    "created" : 1536695843034.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2882698403",
+    "id" : "6E60E15D",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/getUtopiaPayoff.R",
+    "project_path" : "R/getUtopiaPayoff.R",
+    "properties" : {
+    },
+    "relative_order" : 126,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,70 @@
+#' @name getMinimumWinningCoalitions
+#' @title getMinimumWinningCoalitions
+#' @description The function getMinimumWinningCoalitions identifies all minimal winning coalitions.
+#' These coalitions are characterized by the circumstance that without any coalition's casual player the other players
+#' generate no value (then also called a losing coalition) - all players can therefore be described as critical players.
+#' @aliases getMinimumWinningCoalitions
+#' @export getMinimumWinningCoalitions
+#' @template author/JA
+#' @template cites/PETERS_2015
+#' @templateVar PETERS_2015_P p. 295
+#' @template param/bitMatrix
+#' @return Is a matrix containing all minimum winning coalitions.
+#' @examples
+#' A=generateGameVector(cFuncMaschler,n=3)
+#' bm=createBitMatrix(3,A)
+#' bm
+#'# Output:
+#'#            cVal
+#'# [1,] 1 0 0    0
+#'# [2,] 0 1 0    0
+#'# [3,] 0 0 1    0
+#'# [4,] 1 1 0   60
+#'# [5,] 1 0 1   60
+#'# [6,] 0 1 1   60
+#'# [7,] 1 1 1   72
+#'
+#'getMinimumWinningCoalitions(bm)
+#'# Output:
+#'#            cVal bmRow
+#'# [1,] 1 1 0   60     4
+#'# [2,] 1 0 1   60     5
+#'# => 4th and 5th coalition in bit matrix bm are identified as minimal 
+#'# winning coalitions regarding player 1
+
+getMinimumWinningCoalitions=function(bitMatrix){
+  paramCheckResult=getEmptyParamCheckResult()
+  initialParamCheck_getMinimumWinningCoalitions(paramCheckResult, bitMatrix)
+  criticalMatrix=bitMatrix
+  numberOfPlayers=log2(nrow(bitMatrix)+1)
+  criticalCoalitions=c()
+  rowsToBeRemoved=c()
+  minimumWinnigCoalitions=c()
+  for(player in 1:numberOfPlayers){
+    #get all critical coalitions of player 
+    criticalCoalitions=getCoalitionsWherePlayerCritical(player,bitMatrix)[,"bmRow"]
+    #define all entries as 0 for player column
+    criticalMatrix[,player]=0
+    
+    #set 1 where player is critical
+    criticalMatrix[criticalCoalitions,player]=1
+  }
+  #compare every row of bitMatrix and criticalMatrix
+  for(bmIx in 1:nrow(bitMatrix)){
+    #if coalition is mwc both rows are identical
+    if(identical(bitMatrix[bmIx,],criticalMatrix[bmIx,])){
+      minimumWinnigCoalitions=c(minimumWinnigCoalitions,bmIx)
+    }
+  }
+  return(bitMatrix[minimumWinnigCoalitions,,drop=FALSE])
+}
+
+
+
+initialParamCheck_getMinimumWinningCoalitions=function(paramCheckResult, player,ncolBitMatrix,nrowBitMatrix){
+  #TODO
+}
+
+
+
+

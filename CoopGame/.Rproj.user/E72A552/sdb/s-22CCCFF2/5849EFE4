@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name isQuasiBalancedGame\n#' @title isQuasiBalancedGame\n#' @description Determines if a game is quasi-balanced. \\cr\n#' A TU game is quasi-balanced if \\cr\n#' a) the components of its minimal rights vector are \n#' less or equal than the components of its utopia payoff \n#' vector \\cr\n#' and \\cr\n#' b) the sum of the components of its minimal rights vector \n#' is less or equal the value of the grand coalition which \n#' in turn is less or equal than the sum of the components \n#' of its utopia payoff vector. \\cr\n#' Note that any balanced game is also quasi-balanced, \n#' but not vice versa. \\cr\n#' Note that the quasi-balanced games are those games with \n#' a non-empty core cover.\n#' Note also that quasi-balancedness is sometimes in the \n#' literature also referred to as compromise-admissibility.\n#' @aliases isQuasiBalancedGame\n#' @export isQuasiBalancedGame\n#' @template author/JA\n#' @template author/JS\n#' @template cites/BRANZEI_ET_AL_2006\n#' @templateVar BRANZEI_ET_AL_2006_P p. 31 ff.\n#' @inheritParams CoopGameBaseParams\n#' @return \\code{TRUE} if the game is quasi-balanced, else \\code{FALSE}.\n#' @examples \n#' #Example of a quasi-balanced game:\n#' library(CoopGame)\n#' A=c(1,1,2,6,8,14,16)\n#' isQuasiBalancedGame(A)\n#' \n#' #Example for a game which is not quasi-balanced:\n#' library(CoopGame)\n#' A=c(1:7)\n#' isQuasiBalancedGame(A)\n#' \nisQuasiBalancedGame<-function(A){\n  isA=GamePropertyQuasiBalancedness(A)\n  return(determineProperty(isA))\n}\n\nlogicIsQuasiBalanced<-function(A){\n  retBoolQB=TRUE\n  N=length(A)\n  n=getNumberOfPlayers(A)\n  \n  mc=matrix(nrow=2,ncol=n)\n  rownames(mc)<-c(\"M\",\"m\")\n  mc[\"M\",]<-getUtopiaPayoff(A)\n  mc[\"m\",]<-getMinimalRights(A)\n  \n  sum_m=sum(mc[\"m\",])\n  sum_M=sum(mc[\"M\",])\n  \n  if(!all(mc[\"m\",]<=mc[\"M\",])){\n    retBoolQB=FALSE\n  }\n  if(!(sum_m<=A[N])){\n    retBoolQB=FALSE\n  }\n  if(!(A[N]<=sum_M)){\n    retBoolQB=FALSE\n  }\n  return(retBoolQB)\n}\n\n\n#' @title GamePropertyQuasiBalancedness\n#' @noRd\n#' @include GameProperty.R\n#' #@exportClass GamePropertyQuasiBalancedness\n\nsetClass(\n  \"GamePropertyQuasiBalancedness\",\n  contains = \"GameProperty\"\n)\n\n#' @title Constructor for GamePropertyQuasiBalancedness\n#' @noRd\n#' @template author/JA\n#' @template author/JS\n#' @name GamePropertyQuasiBalancedness\n#' #@export\nGamePropertyQuasiBalancedness<-function(A){\n  retGamePropertyQuasiBalancedness=methods::new(\"GamePropertyQuasiBalancedness\",A)\n  return(retGamePropertyQuasiBalancedness)\n}\n\n#' @rdname determineProperty-methods\n#' @aliases determineProperty,GamePropertyQuasiBalancedness-method\nsetMethod(\n  \"determineProperty\",\n  signature=\"GamePropertyQuasiBalancedness\",\n  definition=function(.Object){\n    A<-.Object@A\n    result=logicIsQuasiBalanced(A)\n    return(result)\n  }\n)\n\n\n\n",
+    "created" : 1536404948378.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "722378234",
+    "id" : "5849EFE4",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/GamePropertyQuasiBalancedness.R",
+    "project_path" : "R/GamePropertyQuasiBalancedness.R",
+    "properties" : {
+    },
+    "relative_order" : 101,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

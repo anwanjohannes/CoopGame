@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "boolSkip=T\n\nvalueConcepts<-c(\n  \"banzhafValue\",\n  \"rawBanzhafValue\",\n  \"disruptionNucleolus\",\n  \"gatelyValue\",\n  \"lexicalGatelyValue\",\n  \"modiclus\",\n  \"nucleolus\",\n  \"perCapitaNucleolus\",\n  \"prenucleolus\",\n  \"proportionalNucleolus\",\n  \"publicGoodValue\",\n  \"publicHelpChiValue\",\n  \"shapleyValue\",\n  \"simplifiedModiclus\",\n  \"tauValue\"\n)\n\nindexConcepts<-c(\n  \"rawBanzhafIndex\",\n  \"normalizedBanzhafIndex\",\n  \"nonNormalizedBanzhafIndex\",\n  \"baruaChakravartySarkarIndex\",\n  \"colemanInitiativePowerIndex\",\n  \"colemanPreventivePowerIndex\",\n  \"deeganPackelIndex\",\n  \"johnstonIndex\",\n  \"koenigBraeuningerIndex\",\n  \"nevisonIndex\",\n  \"publicGoodIndex\",\n  \"publicHelpChiIndex\",\n  \"raeIndex\"\n)\n\nsetConcepts<-c(\n  \"centroidCore\",\n  \"centroidCoreCover\",\n  \"centroidImputationSet\",\n  \"centroidReasonableSet\",\n  \"centroidWeberSet\",\n  \"coreVertices\",\n  \"coreCoverVertices\",\n  \"imputationsetVertices\",\n  \"reasonableSetVertices\",\n  \"webersetVertices\"\n  \n  \n)\n\n\ngameProperties<-c(\n  \"is1ConvexGame\",\n  \"isAdditiveGame\",\n  \"isBalancedGame\",\n  \"isConvexGame\",\n  \"isDegenerateGame\",\n  \"isEssentialGame\",\n  \"isMonotonicGame\",\n  \"isNonnegativeGame\",\n  \"isQuasiBalancedGame\",\n  \"isSemiConvexGame\",\n  \"isSimpleGame\",\n  \"isSuperadditiveGame\",\n  \"isSymmetricGame\",\n  \"isWeaklySuperadditiveGame\"\n)\n\nexecRandomTests<-function(vectorWithFunctions,n,expectedType){\n  for(i in 1:length(vectorWithFunctions)){\n    for(j in 1:100){\n     tryCatch({\n      P=sample(1:20,2^n-1,replace = TRUE)\n      vFun=match.fun(vectorWithFunctions[i])\n      res=vFun(P)\n      if(typeof(res)!=expectedType){\n        print(paste(c(\"Unexpected return:\",vectorWithFunctions[i],\":\",res,P),collapse = \",\"))\n      }\n     }, error=function(e){\n       print(paste(c(\"Error with:\",vectorWithFunctions[i],\":\",P),collapse = \",\"))\n       NULL\n     }, warning=function(){\n        NULL\n     })\n    }\n  }\n}\n\ntest_that(\"Check 83.1 - Check game properties\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  \n  execRandomTests(gameProperties,3,\"logical\")\n  execRandomTests(gameProperties,4,\"logical\")\n  execRandomTests(gameProperties,5,\"logical\")\n  execRandomTests(gameProperties,6,\"logical\")\n  \n})\n\ntest_that(\"Check 83.2 - Value concepts\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  \n  execRandomTests(valueConcepts,3,\"numeric\")\n  \n})\n",
+    "created" : 1534237718046.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "510053438",
+    "id" : "A62FAFD2",
+    "lastKnownWriteTime" : 1536779688,
+    "last_content_update" : 1536779688236,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/tests/testthat/test_83_checking_point_concepts.R",
+    "project_path" : "tests/testthat/test_83_checking_point_concepts.R",
+    "properties" : {
+    },
+    "relative_order" : 46,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

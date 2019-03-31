@@ -1,0 +1,66 @@
+---
+title: "SetSolutionConcepts"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+# Set Solution Concepts
+
+The field of cooperative game theory is exciting.
+
+## The various evolutionary dynamics available in EvolutionaryGames
+
+The basic game-theoretic model of biological natural selection is 
+the replicator dynamic [@geometry]. Still, various alternative 
+dynamics have been proposed and investigated for different applications. 
+Our package currently focusses on continuous dynamics only. 
+The following itemization states which evolutionary dynamics are 
+currently available in our package EvolutionaryGames:
+
+- **Replicator.R** : The standard replicator dynamic
+- **BNN.R** : The Brown-von Neumann-Nash dynamic 
+- **BR.R** : The Best Reponse dynamic by Gilboa and Matsui 
+- **ILogit.R** : The imitative Logit dynamic by Weibull 
+It requires the parameter `eta`. 
+- **Logit.R** : The Logit dynamic by Fudenberg and Levine. It 
+requires the parameter `eta`.
+- **MSReplicator.R** : The Maynard-Smith dynamic 
+- **Smith.R** : The Smith dynamic 
+
+## Drawing phase diagrams for two, three and four strategies
+
+### Two Strategies
+Drawing phase diagrams for single-population games 
+with two, three or 
+four phenotypes with different dynamics is the main feature of 
+the package EvolutionaryGames.
+We start with a rather simple Hawk-Dove game we studied before
+when analyzing for its ESS. Using **phaseDiagram2S.R** we 
+obtain a phase diagram for the 
+population share of hawks invading a population of doves under 
+the replicator dynamics.
+
+For similar phase diagrams, see e.g. the book by Peters [@PetersBook].  
+
+### Three Strategies
+In the phase diagrams for the three strategies the user 
+may specify the following parameters for **phaseDiagram3S.R**:
+
+- `A`: A Numeric matrix of size $3$ x $3$ representing the number of 
+strategies of a symmetric matrix game.    
+- `dynamic`: A function representing an evolutionary dynamic.  
+- `params`: A numeric vector with additional parameters for the 
+evolutionary dynamic, like e.g. in the cases of the Logit or ILogit 
+dynamics.  
+- `trajectories`: A numeric matrix of size $m$ x $3$. Each row represents 
+the initial values for the trajectory to be examined.  
+- `contour`: A logical value that handles contour diagram presentation. 
+By default `FALSE`, a nicely coloured contour plot will only be 
+shown if the user sets `contour = TRUE`.  
+- `vectorField`: A logical value that handles vector field presentation. 
+By default `FALSE`, a vector field will only be 
+shown if the user sets `vectorField = TRUE`. 
+- `strategies`: A vector of strings of length $3$ 
+specifying the names of all strategies. By default 
+`strategies = c("1","2","3")`. 

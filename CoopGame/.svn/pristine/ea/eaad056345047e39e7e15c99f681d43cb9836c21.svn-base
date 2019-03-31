@@ -1,0 +1,1 @@
+#' @references Tijs S.H., and Lipperts F.A.S. (1982) "The hypercube and the core cover of n-person cooperative games", Cahiers du Centre d' Etudes de Researche Operationelle 24 <%=TIJS_LIPPERTS_1982_P%>

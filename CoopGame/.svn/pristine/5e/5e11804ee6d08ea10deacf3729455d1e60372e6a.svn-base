@@ -1,0 +1,283 @@
+#Date: 20160212
+#File description of test_bitMatrix.R:
+#File aims at offering tests for parameter check functions
+# -stopOnInvalidGameVectorA (errCode range: 1000-1009) - check 43.1 & 43.2
+# -stopOnInvalidGrandCoalitionN (errCode range: 1010-1019) - check 43.3 & 43.4
+# -stopOnInvalidCoalitionS (errCode range: 1020-1029) - check 43.5 & 43.6
+# -stopOnInvalidCoalitionFunctionV (errCode range: 1040-1049) - check 43.7 & 43.8
+# -stopOnInvalidNumberOfPlayers (errCode range: 1050-1059) - check 43.9 & 43.10
+# -stopOnInvalidDefinitionAorV (errCode range: 1060-1069) - check 43.11 & 43.12
+# -stopOnInvalidIndex (errCode range: 1070-1079) - check 43.13 & 43.14
+# -stopOnInvalidNChooseB (errCode range: 1080-1089) - check 43.15 & 43.16
+
+
+boolSkip=F
+
+test_that("Check 43.1 - stopOnInvalidGameVectorA check if stops on invalid A" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1000: Game vector A is invalid as 'NULL'
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=c()))
+  #Test Error Code 1001: Number of elements in A is invalid
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=c(1:6)))
+  #Error Code 1002: Type of game vector is not numeric
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=c("1","2","3","4","5","6","7")))
+  #Error Code 1003: Game vector A has different number of players than in n specified
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=c(1:15),n = 5))
+})
+
+test_that("Check 43.2 - stopOnInvalidGameVectorA check if does not stop on valid A" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #Define some valid game vectors
+  validGameVectors=list()
+  validGameVectors[[1]]=c(1:7)
+  validGameVectors[[2]]=c(rep(0,3),rep(60,3),70)
+  validGameVectors[[3]]=generateGameVector(cFuncApex,n=3,numberOfPlayers=3,apexPlayer=1)
+
+  validGameVectors[[4]]=c(1:15)
+  validGameVectors[[5]]=c(rep(0,4),rep(60,6),rep(96,4),108)
+  validGameVectors[[6]]=generateGameVector(cFuncApex,n=4,numberOfPlayers=4,apexPlayer=1)
+
+  validGameVectors[[7]]=c(1:31)
+  validGameVectors[[8]]=generateGameVector(cFuncApex,n=5,numberOfPlayers=5,apexPlayer=1)
+
+  validGameVectors[[9]]=c(1:63)
+  validGameVectors[[10]]=generateGameVector(cFuncApex,n=6,numberOfPlayers=6,apexPlayer=1)
+
+  for(i in 1:length(validGameVectors)){
+    expect_silent(stopOnInvalidGameVectorA(paramCheckResult,A=validGameVectors[[i]]))
+  }
+})
+
+
+test_that("Check 43.3 - stopOnInvalidGrandCoalitionN check if it stops on invalid grand coalition N" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1010: Grand coalition vector N is invalid as 'NULL'
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N=c()))
+  #Test Error Code 1011: Grand coalition vector N is invalid as not numeric
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N=c("1","2","3")))
+})
+
+test_that("Check 43.4 - stopOnInvalidGrandCoalitionN check if it does not stop on valid grand coalition N" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  #Define some valid grand coalitions
+  validGrandCoalitions=list()
+  validGrandCoalitions[[1]]=c(1:5)
+  validGrandCoalitions[[2]]=c(1:6)
+
+  for(i in 1:length(validGrandCoalitions)){
+    expect_silent(stopOnInvalidGrandCoalitionN(paramCheckResult,N=validGrandCoalitions[[i]]))
+  }
+})
+
+
+
+test_that("Check 43.5 - stopOnInvalidCoalitionS check if it stops on invalid coalition S" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1020: Coalition vector S is invalid as 'NULL'
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=c()))
+  #Test Error Code 1021: Coalition vector S is invalid as not numeric
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=c("1","2","3")))
+  #Test Error Code 1022: Coalition vector S is no subset of grand coalition N'
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=c(4:5),N=c(2:4)))
+  #Test Error Code 1023: The number of players in S cannot be greater than the number of players in N
+  expect_error(stopOnInvalidCoalitionS(paramCheckResult,S=c(1:5),n =3 ))
+
+})
+
+test_that("Check 43.6 - stopOnInvalidCoalitionS check if it does not stop on valid coalition S" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #No stop on numeric S
+  expect_silent(stopOnInvalidCoalitionS(paramCheckResult,S=c(1,2)))
+  expect_silent(stopOnInvalidCoalitionS(paramCheckResult,S=c(1:6)))
+  #No stop when S is subset of grand coalition N
+  expect_silent(stopOnInvalidCoalitionS(paramCheckResult,S=c(1),N=c(1,2)))
+  #No stop when number of players in S is smaller or equal than the number of players in N
+  expect_silent(stopOnInvalidCoalitionS(paramCheckResult,S=c(1),n=4))
+  expect_silent(stopOnInvalidCoalitionS(paramCheckResult,S=c(1,2,3,4),n=4))
+
+})
+
+
+
+test_that("Check 43.7 - stopOnInvalidCoalitionFunctionV check if it stops when coalition function is invalid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #Test Error Code 1040: Coalition function v is no function
+  expect_error(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=c()))
+  expect_error(stopOnInvalidCoalitionFunctionV(paramCheckResult,v="ABC"))
+  expect_error(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=1))
+})
+
+
+test_that("Check 43.8 - stopOnInvalidCoalitionFunctionV check if it does not stop when coalition function is valid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #No stop when coalition function v is valid
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncApex))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncCardinality))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncDivideTheDollar))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncGlove))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncMajoritySingleVeto))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncMaschler))
+  expect_silent(stopOnInvalidCoalitionFunctionV(paramCheckResult,v=cFuncQuota))
+
+})
+
+test_that("Check 43.9 - stopOnInvalidNumberOfPlayers check if it stops on invalid number of players" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1050: Number of players is invalid as below 2.
+  expect_error(stopOnInvalidNumberOfPlayers(paramCheckResult,n = 1) )
+  #Test Error Code 1051: Number of players is invalid as above 20.
+  expect_error(stopOnInvalidNumberOfPlayers(paramCheckResult,n = 100) )
+})
+
+test_that("Check 43.10 - stopOnInvalidNumberOfPlayers check if does not stop on valid number of players" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #No stop on valid number of players
+  expect_silent(stopOnInvalidNumberOfPlayers(paramCheckResult,n = 4) )
+  expect_silent(stopOnInvalidNumberOfPlayers(paramCheckResult,n = 10) )
+})
+
+
+
+test_that("Check 43.11 - stopOnInvalidDefinitionAorV check if it stops when A or V are invalid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1060: Wrong Usage as at least either a game vector (A=) or a coalition function (v=) must be specified
+  expect_error(stopOnInvalidDefinitionAorV(paramCheckResult, A=NULL,v=NULL))
+  #Error Code 1061: Wrong Usage as both game vector (A=) and coalition function (v=) are specified
+  expect_error(stopOnInvalidDefinitionAorV(paramCheckResult, A=c(1:7),v=cFuncQuota))
+})
+
+test_that("Check 43.12 - stopOnInvalidDefinitionAorV check if it does not stop when A or V are valid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #No stop when either a game vector (A=) or a coalition function (v=) are specified
+  expect_silent(stopOnInvalidDefinitionAorV(paramCheckResult, A=c(1:7),v=NULL))
+  expect_silent(stopOnInvalidDefinitionAorV(paramCheckResult, A=NULL,v=cFuncQuota))
+})
+
+
+test_that("Check 43.13 - stopOnInvalidIndex check if it does stop when index is invalid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #Test Error Code 1071: Index is 'NULL'.
+  expect_error(stopOnInvalidIndex(paramCheckResult,index=NULL))
+  #Test  Error Code 1071: Index is 'not numeric'.
+  expect_error(stopOnInvalidIndex(paramCheckResult,index="4"))
+  #Error Code 1072: Index is within the wrong range according to specified number of players n.
+  expect_error(stopOnInvalidIndex(paramCheckResult,index=32,n=5))
+})
+
+test_that("Check 43.14 - stopOnInvalidIndex check if it does not stop when index is valid" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+  #No stop when index is numeric (except other reasons).
+  expect_silent(stopOnInvalidIndex(paramCheckResult,index=2))
+  expect_silent(stopOnInvalidIndex(paramCheckResult,index=4))
+  #No stop when index is in valid range according to specified number of players n.
+  expect_silent(stopOnInvalidIndex(paramCheckResult,index=25,n=5))
+})
+
+test_that("Check 43.15 - stopOnInvalidNChooseB check if it stops when n choose b is specified invalidly" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #Test Error Code 1080: Number of players 'n' is 'NULL'
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n=NULL,b=0))
+
+  #Test Error Code 1081: Number of players 'b' is 'NULL'
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n=3,b=NULL))
+
+  #Test Error Code 1082: Number of players 'n' is 'not numeric'
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n="6",b=2))
+
+  #Test Error Code 1083: Number of players 'b' is 'not numeric'
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n=6,b="2"))
+
+  #Test Error Code 1084: Number of involved players 'b' is greater than of players 'n'
+  expect_error(stopOnInvalidNChooseB(paramCheckResult,n=2,b=4))
+
+})
+
+test_that("Check 43.16 - stopOnInvalidNChooseB check if it does not stop when n choose b is specified validly" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #No stop when n and b are specified validly
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=3))
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=4))
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=5))
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=6))
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=7))
+  expect_silent(stopOnInvalidNChooseB(paramCheckResult,n=12,b=12))
+})
+
+test_that("Check 43.17 - stopOnInvalidPartitioningP check if it does not stop when partition p is specified validly" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #Test Error Code 1110: Number of players 'n' is 'NULL'
+  expect_error(stopOnInvalidPartitioningP(paramCheckResult,P=c(0,1,1,1,0,0,0)))
+
+  #Test Error Code 1111: Number of players 'b' is 'NULL'
+  expect_error(stopOnInvalidPartitioningP(paramCheckResult,P=c(0,0,0,1,0,0,0)))
+})
+test_that("Check 43.18 - stopOnInvalidPartitioningP check if it stops when partition p is specified invalidly" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  paramCheckResult=getEmptyParamCheckResult()
+
+  #No stop when partition p is specified validly
+  expect_silent(stopOnInvalidPartitioningP(paramCheckResult,P=c(0,0,1,1,0,0,0)))
+  expect_silent(stopOnInvalidPartitioningP(paramCheckResult,P=c(1,1,1,0,0,0,0)))
+  expect_silent(stopOnInvalidPartitioningP(paramCheckResult,P=c(0,0,0,0,0,0,1)))
+  expect_silent(stopOnInvalidPartitioningP(paramCheckResult,P=c(1,0,0,0,0,1,0)))
+  expect_silent(stopOnInvalidPartitioningP(paramCheckResult,P=c(0,1,0,0,1,0,0)))
+})

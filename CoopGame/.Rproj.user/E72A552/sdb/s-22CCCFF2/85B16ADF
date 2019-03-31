@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Calculation of the Nucleolus\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n##### The Calculation of the Nucleolus {#H_TCOTN}\nIn the **calculateNucleolus** method it leads to the immediate abort of the Nucleolous calculation, if no solution is available for the linear program. For this case, the calculation also provides no solution value.\nIf the old target function also matches the new target function value, the method returns **TRUE**. The return of **TRUE** in **calculateNucleolus** then leads to leaving the loop and the last calculated primitive solution of the linear program corresponds to the solution for the nucleolus and is returned.\nTo determine which entries needs to be updated, the **getLPDualSolutionPos** method is supplied. It is used both in the **updateLPMatrix** and in the **updateLPRows** method and returns the indices of the entries, which show a positive value for the dual solution.\nIn **updateLPMatrix**, for the constraints, for which there is an optimal solution, the structure variable to be minimized for the excess is set to the value '0'.\nIn addition to adjusting the coefficient matrix, the barrier values and types for the constraints are also updated by **updateLPRows** for the entries identified by **getLPDualsSolutionPos**.\nThe identified constraints are typed as equality conditions.\nFor determining the barrier value, the **getLPRowsBoundsFunc** method is called for each respective constraint and the corresponding value is determined.\nIn the case of the nucleolus, the **getLPRowsBoundsFunc** method determines the lower and upper bound for the constraints.\nIn the following, the implementations of the other solution concepts related to the nucleolus are discussed, whereby here only a highlighting of the respective differences takes place.",
+    "created" : 1537467194869.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1897239748",
+    "id" : "85B16ADF",
+    "lastKnownWriteTime" : 1537467444,
+    "last_content_update" : 1537467444558,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/05/04/01/02/#The_Calculation_of_the_Nucleolus.Rmd",
+    "project_path" : "vignettes/chapters/07/05/04/01/02/#The_Calculation_of_the_Nucleolus.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 151,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

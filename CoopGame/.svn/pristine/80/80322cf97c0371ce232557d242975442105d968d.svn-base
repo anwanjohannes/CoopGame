@@ -1,0 +1,196 @@
+boolSkip=F
+
+#depreciated functions
+imputationvertices3 <-function(A){
+  
+  #Code orientiert sich an TugLab. Dateiname: imputationvertices 
+  #Funktion: imputationvertices4 Zeile: 85-111
+  
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v123=A[7]
+  
+  #Aufruf der essentialgame3 Funktion fuer 3Spieler
+  ED=essentialgame3(A);
+  
+  if(ED[1]==0){
+    vertices=c();
+  }
+  if(ED[2]==1){
+    vertices=c(v1, v2, v3); 
+    return(vertices)
+  }
+  else{
+    ver1= c(v123-v2-v3, v2, v3);
+    ver2= c(v1, v123-v1-v3, v3);
+    ver3= c(v1, v2, v123-v1-v2);
+    vertices= (rbind(ver1,ver2,ver3))
+    return(vertices)
+  } 
+}
+imputationvertices4 <-function(A){
+  
+  #Code orientiert sich an TugLab. Dateiname: imputationvertices 
+  #Funktion: imputationvertices3 Zeile: 65-80
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v4=A[4]
+  v12=A[5]
+  v13=A[6]
+  v14=A[7]
+  v23=A[8]  
+  v24=A[9]
+  v34=A[10]
+  v123=A[11]
+  v124=A[12]
+  v134=A[13]
+  v234=A[14]
+  v1234=A[15]
+  
+  #Aufruf der essentialgame4 Funktion fuer 4Spieler
+  ED=essentialgame4(A);
+  
+  
+  if(ED[1]==0){
+    vertices=c() 
+  }
+  if(ED[2]==1){
+    vertices=c(v1, v2, v3, v4)
+    return(vertices)
+  }
+  else{
+    ver1= c(v1, v2, v3);
+    ver2= c(v1, v2, v1234-v1-v2-v4)
+    ver3= c(v1234-v2-v3-v4, v2, v3)
+    ver4= c(v1, v1234-v1-v3-v4, v3)
+    vertices= (rbind(ver1,ver2,ver3,ver4))
+    
+    #loescht die doppelten Zeilen in der Matrix
+    vertices=unique(vertices)
+    
+    #ruft die Funktion efficiency auf um die Matrix zu vervollstaendigen
+    vertices= efficiency(vertices, v1234)
+    return(vertices)
+  } 
+  
+  
+}
+
+
+essentialgame3 <-function(A){
+  
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v123=A[7]
+  
+  #Code orientiert sich an TugLab. Dateiname: essentialgame
+  #Funktion: essentialgame3 Zeile: 85-86
+  E= !((v1+v2+v3)>v123);
+  D=((v1+v2+v3)==v123);
+  
+  
+  if(E == TRUE & D == TRUE){
+    ED=c(1,1)
+    return(ED)
+  }
+  if(E == TRUE & D == FALSE){
+    ED=c(1,0)
+    return(ED)
+  }
+  if(E == FALSE & D == TRUE){
+    ED=c(0,1)
+    return(ED)
+  }
+  else{
+    ED=c(0,0)
+    return(ED)
+  }
+}
+
+
+essentialgame4 <- function(A){
+  
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v4=A[4]
+  v1234=A[15]
+  
+  #Code orientiert sich an TugLab. Dateiname: essentialgame
+  #Funktion: essentialgame4 Zeile: 96-97
+  E=!((v1+v2+v3+v4)>v1234);
+  D=((v1+v2+v3+v4)==v1234);
+  
+  
+  if(E == TRUE & D == TRUE){
+    ED=c(1,1)
+    return(ED)
+  }
+  if(E == TRUE & D == FALSE){
+    ED=c(1,0)
+    return(ED)
+  }
+  if(E == FALSE & D == TRUE){
+    ED=c(0,1)
+    return(ED)
+  }
+  #Bei False ist die Imputationsmenge leer. R?ckgabewert 0
+  else{
+    ED=c(0,0)
+    return(ED)
+  }
+}
+
+
+efficiency <- function(b,vn){
+  
+  #Formel von TugLab. Dateiname: efficiency Funktion: efficiency Zeile: 50-56
+  
+  #ermittelt die Spaltenlaenge
+  rowlength= dim(b)[2];
+  if (rowlength==2) {
+    #berechnet die letzte Spalte 
+    lastcol = vn-b[,1]-b[,2]
+    #verbindet die Matrix b mit der letzten Spalte
+    mat = cbind(b,lastcol);
+    
+  }
+  else if (rowlength==3){
+    
+    lastcol = vn-b[,1]-b[,2]-b[,3]
+    
+    mat = cbind(b,lastcol);
+  }
+  else {
+    print("Vector b exceeds the dimensions");
+  }
+}
+
+
+
+#[1] 20 16 11  3  6 18 12
+test_that("Check 56.1 - test imputationVertices against imputationvertices3" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,7,replace = TRUE)
+    result=imputationvertices3(P)
+    result2=imputationVertices(P)
+    expect_equal(result, result2)
+  }
+})
+test_that("Check 56.2 - test imputationVertices against imputationvertices4" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,15,replace = TRUE)
+    result=imputationvertices4(P)
+    result2=imputationVertices(P)
+    expect_equal(result, result2)
+  }
+})

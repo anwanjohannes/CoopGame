@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Class SetSolutionConcept\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n### The Class SetSolutionConcept\nFrom the class **SetSolutionConcept** all set valued solution concepts in CoopGame are derived. Out of this reason it implements the **calculateSolution** of the parent class and also provides the additional methods **calculateSetSolution** and **getSolutionVertices**.\nWhile **calculateSetSolution** determines the set solution by calling the method **getSetSolutionVertices** and creates a **PayoffSpace** object, **calculateSolution** is solely a wrapper of **calculateSetSolution**. \nThe class **PayoffSpace** represents the set solution by its slot **VRepMatrix** a matrix where each row represents one vertex of the convex polyhedron. Furthermore by **isElementOfPayoffSpace** a method is supplied by the class **PayoffSpace** to check if an allocation x is located within the corresponding convex polyhedron.\nAs an example for how to implement a set solution class **CoreConcept** is looked upon.\n```{r, eval=FALSE}\nsetClass(\n  \"CoreConcept\",\n  contains = \"SetSolutionConcept\"\n)\n```\nThe method **getSetSolutionVertices** needs to be implemented as it provides the logic for retrieving the vertices of the convex polyhedron representing the core solution of a cooperative TU-game. \n```{r, eval=FALSE}\nsetMethod(\n  \"getSetSolutionVertices\",\n  signature=\"CoreConcept\",\n  definition=function(.Object){\n    A<-.Object@A\n    VRep=(logicCoreVertices(A))\n    return(VRep)\n  }\n)\n```\nThe logic for retrieving the core vertices is here defined inside the function **logicCoreVertices**.\nBy the definition of the wrapper functions **coreVertices**, **belongsToCore** and **drawCore** the user easily can easily determine the core solution, check if an allocation belongs to the core and visualize the core solution.\n```{r, eval=FALSE}\n#Defining one game\nA = c(0,0,0,60,80,100,135)\n\n#Determining the vertices of the core\ncore_vertices = coreVertices(A)\n\n#Check if allocation x=(20,45,70) belongs to core\nbelongsToCore(x=c(20,45,70),A)\n\n#Visualize the core\ndrawCore(A)\n\n\n\n\n```",
+    "created" : 1537391753626.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1864662511",
+    "id" : "BCDDF4A6",
+    "lastKnownWriteTime" : 1538064322,
+    "last_content_update" : 1538064322567,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/04/01/#The_Class_SetSolutionConcept.Rmd",
+    "project_path" : "vignettes/chapters/07/04/01/#The_Class_SetSolutionConcept.Rmd",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 144,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

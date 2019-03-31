@@ -1,0 +1,87 @@
+boolSkip=T
+
+
+
+balancedgame3 <- function(A){
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v12=A[4]
+  v13=A[5]
+  v23=A[6]
+  v123=A[7]
+  
+  #Code orientiert sich anTugLab. Dateiname: balancedgame
+  #Funktion: balancedgame3 Zeile: 106
+  B=! (v123<(v1+v2+v3) | v123<(v1+v23) | v123<(v2+v13) | v123<(v3+v12) | v123<1/2*(v12+v13+v23));
+  
+  if(B == TRUE){
+    return(1)
+  }
+  else{
+    return(0)
+  }
+}
+
+
+balancedgame4 <- function(A){
+  v1=A[1]
+  v2=A[2]
+  v3=A[3]
+  v4=A[4]
+  v12=A[5]
+  v13=A[6]
+  v14=A[7]
+  v23=A[8]  
+  v24=A[9]
+  v34=A[10]
+  v123=A[11]
+  v124=A[12]
+  v134=A[13]
+  v234=A[14]
+  v1234=A[15]
+  
+  #Code orientiert sich an TugLab. Dateiname: balancedgame 
+  #Funktion: balancedgame4 Zeile: 129 - 135
+  B= !(v1234<(v1+v2+v3+v4) |
+         v1234<(v1+v234) | v1234<(v2+v134) | v1234<(v3+v124) | v1234<(v4+v123) |
+         v1234<(v1+v2+v34) | v1234<(v1+v3+v24) | v1234<(v1+v4+v23) | v1234<(v2+v3+v14) | v1234<(v2+v4+v13) | v1234<(v3+v4+v12) | 
+         v1234<1/3*(v123+v124+v134+v234) | 
+         v1234<(1/3*(v12+v13+v14)+2/3*(v234)) | v1234<(1/3*(v12+v23+v24)+2/3*(v134)) | v1234<(1/3*(v23+v13+v34)+2/3*(v124)) | v1234<(1/3*(v24+v34+v14)+2/3*(v123)) |
+         v1234<1/2*(v12+v134+v234) | v1234<1/2*(v13+v124+v234) | v1234<1/2*(v14+v123+v234) | v1234<1/2*(v23+v134+v124) | 
+         v1234<1/2*(v24+v134+v123) | v1234<1/2*(v34+v123+v124));
+  
+  if(B == TRUE){
+    return(1)
+  }
+  else{
+    return(0)
+  }
+  
+}
+
+
+test_that("Check 47.1 - test isBalancedGame against balancedgame3" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,7,replace = TRUE)
+    result=balancedgame3(P)
+    result2=isBalancedGame(P)
+    expect_equal(result&1, result2)
+  }
+})
+
+
+test_that("Check 47.2 - test isBalancedGame against balancedgame4" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  for(i in 1:1000){
+    P=sample(1:20,15,replace = TRUE)
+    result=balancedgame4(P)
+    result2=isBalancedGame(P)
+    expect_equal(result&1, result2)
+  }
+})

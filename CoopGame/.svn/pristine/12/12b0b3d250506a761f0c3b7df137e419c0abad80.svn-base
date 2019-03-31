@@ -1,0 +1,24 @@
+---
+title: "The_exmplary_Usage_of_`cFuncGlove`"
+author: "Johannes Anwander"
+date: "31 März 2018"
+output: pdf_document
+---
+
+### The exemplary Usage of cFuncGlove
+The user can easily create one object of `cFuncGlove` by using the wrapper function which is named same as the class `cFuncGlove`.
+```{r, echo = TRUE}
+cFuncGlove(n=3,L=c(1,2),R=3)
+```
+For retrieving the game vector object also one wrapper function is provided to the user as well as for the coalition value of one certain coalition.
+```{r, echo = TRUE}
+cFuncGloveVector(n=3,L=c(1,2),R=3)
+```
+Below we show one example where the coalition S of player 1 and 2 can not generate one match as they both only have left gloves.
+```{r, echo = TRUE}
+cFuncGloveValue(S=c(1,2),L=c(1,2),R=3)
+```
+Instead of the previous example here player 1 and 2 together retrieve one pair of gloves because player 1 keeps one left and player 2 one right glove. 
+```{r, echo = TRUE}
+cFuncGloveValue(S=c(1,2),L=c(1,3),R=2)
+```

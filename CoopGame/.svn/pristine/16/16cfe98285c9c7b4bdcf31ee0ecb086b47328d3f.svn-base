@@ -1,0 +1,56 @@
+boolSkip=F
+
+
+
+
+test_that("Check 67.1 - testing constructing of class Nucleolus" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  
+  A=c(1, 1, 1, 2, 3, 4, 5)
+  pn=Nucleolus(A)
+  
+  pn2=new("Nucleolus",A=A)
+  
+  expect_equal(pn,pn2)
+
+})
+
+
+test_that("Check 67.2 - testing calculation of class Nucleolus against old implementation" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  
+  A=c(1, 1, 1, 2, 3, 4, 5)
+  
+  
+  expect_equal(nucleolus(A),nucleolusOLD(A))
+  
+})
+
+test_that("Check 67.3 - testing calculation of class Nucleolus against old implementation" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  
+  A=c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21)
+  
+  expect_equal(nucleolus(A),nucleolusOLD(A))
+  
+})
+
+
+test_that("Check 67.4 - testing calculation of Nucleolus with game vector A=(2,6,5,15,1,18,14) " ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A<-c(2,6,5,15,1,18,14)
+  expected_x=c(2,7,5)
+  
+  expect_equal(nucleolus(A, enableTermOutLP = F),expected_x)
+  
+})
+
+

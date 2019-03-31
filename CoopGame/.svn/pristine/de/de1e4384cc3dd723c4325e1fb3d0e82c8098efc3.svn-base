@@ -1,0 +1,15 @@
+---
+title: "Solving Linear Programmes in CoopGame"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### Solving Linear Programmes in CoopGame
+
+The following section provides a brief overview of the GLPK Library and the R-Packet glpkAPI, which serves as an interface to GLPK in CoopGame.
+GLPK is a widely used library written in ANSI C for solving linear programs. GLPK was developed by Andrew O. Makhorin at the Russian Aerospace University in Moscow and published in 2000 as part of the GNU project under GPLv3 (THE GNU PROJECT 2017).
+GLPK's stand-alone LP / MIP solver offers the opportunity for a linear problem to solve the primitive and dual solution. 
+The R package glpkAPI (TODO_REF FRITZEMEIER ET AL. 2015) offers the possibility of accessing GLPK for the calculation of linear programs in CoopGame via its interface.
+The package CoopGame uses the package glpkAPI to access GLPK thereby the logic for handling the linear programme is imposed to the class (TODO_LINK) LPCoopGameUtils and is extensively needed for the Nucleolus Derivates.
+

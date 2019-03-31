@@ -1,0 +1,12 @@
+---
+title: "The Implementation of the Simplified Modiclus"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+#### The Implementation of the Simplified Modiclus {#TIOFTSIMMOD}
+Like the Modiclus, Simplified Modiclus lexicographically minimizes the maximum differences in excess. In contrast to Modiclus, however, not all differences of the surplus are considered, but only the one to the complement coalitions. The number of secondary conditions is therefore identical to that of the nucleolus.
+Again, the two methods initLPMatrix and initLPRows are overwritten.
+Codebsp. 55 shows the overwritten method initLPMatrix, which serves to initialize the coeffi-cient matrix.
+The initialization of the right side of the linear program is achieved by overriding the initLPRows method.

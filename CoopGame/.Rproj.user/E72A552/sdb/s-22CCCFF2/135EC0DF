@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name prenucleolus\n#' @title prenucleolus for n-player TU games\n#' @description Computes the prenucleolus of a TU game with n players.\n#' @aliases prenucleolus\n#' @export prenucleolus\n#' @template author/DG\n#' @template author/JA\n#' @template author/JS\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 107 ff.\n#' @inheritParams CoopGameBaseParams\n#' @template param/enableTermOutLP\n#' @return Numeric vector of length n representing the prenucleolus.\n#' @examples\n#' #Example 5.5.12 from Peleg/Sudhoelter, p. 96\n#' prenucleolus(c(0,0,0,10,0,0,2))\n#' #Output\n#' #[1]  3  3 -4\n#' prenucleolus(c(1, 1, 1, 2, 3, 4, 5))\n#' prenucleolus(c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21), FALSE)\n\nprenucleolus <- function(A, enableTermOutLP = FALSE){\n  pcn=PreNucleolus(A=A)\n  return(calculateNucleolus(pcn,enableTermOutLP=enableTermOutLP))\n}\n\n\n#' @title Constructor for PreNucleolus\n#' @noRd\n#' @template author/DG\n#' @name PreNucleolus\n#' #@export\nPreNucleolus<-function(A){\n  retPreNucleolus=methods::new(\"PreNucleolus\",A)\n  return(retPreNucleolus)\n}\n\n#' @title PreNucleolus - S4 class for Prenucleolus Concept\n#' @description An S4 class for Prenucleolus Concept\n#' @noRd\n#' @template author/DG\n#' @include NucleolusBase.R\n# @exportClass PreNucleolus\nsetClass(\n  \"PreNucleolus\",\n  contains=\"NucleolusBase\"\n)\n\n#' @rdname initLPBndsObjCoefs-methods\n#' @aliases initLPBndsObjCoefs,PreNucleolus-method\nsetMethod(\n  \"initLPBndsObjCoefs\",\n  signature=\"PreNucleolus\",\n  definition=function(.Object){\n    lpCoopGameUtils<-.Object@LPCoopGameUtils\n    n=getNumberOfPlayers(.Object@A)\n    setClb(lpCoopGameUtils)<- rep(-Inf, n + 1)\n    setCub(lpCoopGameUtils)<- rep(Inf, n + 1)\n    setCtype(lpCoopGameUtils)<- rep(GLP_FR, n + 1)\n    setObj(lpCoopGameUtils)<- c(rep(0, n), 1)\n    eval.parent(substitute(.Object@LPCoopGameUtils<-lpCoopGameUtils))\n  }\n)\n\n#' @rdname checkGamePreconditions-methods\n#' @aliases checkGamePreconditions,PreNucleolus-method\nsetMethod(\n  \"checkGamePreconditions\",\n  signature=\"PreNucleolus\",\n  definition=function(.Object){\n    if(!all(.Object@A>=0)){\n      stop(\"Stopped as at least on coalition value smaller than 0.\") \n    }\n  }\n)\n\n#' @name drawPrenucleolus\n#' @title drawPrenucleolus for 3 or 4 players\n#' @description drawPrenucleolus draws the prenucleolus for 3 or 4 players.\n#' @aliases drawPrenucleolus\n#' @export drawPrenucleolus\n#' @template author/JA\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 107 ff.\n#' @inheritParams CoopGameBaseParams\n#' @inheritParams visualize\n#' @examples\n#' A=c(1, 1, 1, 2, 3, 4, 5)\n#' drawPrenucleolus(A)\ndrawPrenucleolus<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = \"Prenucleolus\"){\n  A=GameVector(A)\n  pcn=prenucleolus(A);\n  visualize(A, pointsToDraw=pcn, holdOn=holdOn, colour = colour , label=label, name = name)\n}\n",
+    "created" : 1525208726860.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1523257100",
+    "id" : "135EC0DF",
+    "lastKnownWriteTime" : 1534236723,
+    "last_content_update" : 1534236723151,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/PreNucleolus.R",
+    "project_path" : "R/PreNucleolus.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

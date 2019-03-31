@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The_exmplary_Usage_of_`cFuncGlove`\"\nauthor: \"Johannes Anwander\"\ndate: \"31 März 2018\"\noutput: pdf_document\n---\n\n### The exemplary Usage of cFuncGlove\nThe user can easily create one object of `cFuncGlove` by using the wrapper function which is named same as the class `cFuncGlove`.\n```{r, echo = TRUE}\ncFuncGlove(n=3,L=c(1,2),R=3)\n```\nFor retrieving the game vector object also one wrapper function is provided to the user as well as for the coalition value of one certain coalition.\n```{r, echo = TRUE}\ncFuncGloveVector(n=3,L=c(1,2),R=3)\n```\nBelow we show one example where the coalition S of player 1 and 2 can not generate one match as they both only have left gloves.\n```{r, echo = TRUE}\ncFuncGloveValue(S=c(1,2),L=c(1,2),R=3)\n```\nInstead of the previous example here player 1 and 2 together retrieve one pair of gloves because player 1 keeps one left and player 2 one right glove. \n```{r, echo = TRUE}\ncFuncGloveValue(S=c(1,2),L=c(1,3),R=2)\n```",
+    "created" : 1534239033855.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3591584687",
+    "id" : "940C31AF",
+    "lastKnownWriteTime" : 1537736174,
+    "last_content_update" : 1537736174,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/02/02/#The_exemplary_Usage_of_cFuncGlove.Rmd",
+    "project_path" : "vignettes/chapters/07/02/02/#The_exemplary_Usage_of_cFuncGlove.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 51,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

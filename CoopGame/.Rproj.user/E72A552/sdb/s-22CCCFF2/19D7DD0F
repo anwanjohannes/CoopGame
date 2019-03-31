@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name nucleolus\n#' @title nucleolus for n-player TU games\n#' @description Computes the nucleolus of a TU game with n players.\n#' @aliases nucleolus\n#' @export nucleolus\n#' @template author/JA\n#' @template author/DG\n#' @template cites/SCHMEIDLER_1969\n#' @templateVar SCHMEIDLER_1969_P pp. 1163--1170\n#' @template cites/KOHLBERG_1971\n#' @templateVar KOHLBERG_1971_P pp. 62--66\n#' @template cites/KOPELOWITZ_1967\n#' @template cites/MEGIDDO_1974\n#' @templateVar MEGIDDO_1974_P pp. 355--358\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 82 ff.\n#' @inheritParams CoopGameBaseParams\n#' @template param/enableTermOutLP\n#' @return Numeric vector of length n representing the nucleolus.\n#' @examples\n#' #Example with no glpk output:\n#' nucleolus(c(1, 1, 1, 2, 3, 4, 5))\n#' \n#' #Example with glpk output:\n#' nucleolus(c(0, 0, 0, 0, 5, 5, 8, 9, 10, 8, 13, 15, 16, 17, 21), enableTermOutLP = TRUE)\n\nnucleolus <- function(A, enableTermOutLP = FALSE){\n  nuc=Nucleolus(A=A)\n  return(calculateNucleolus(nuc,enableTermOutLP=enableTermOutLP))\n} \n\n\n#' @title Constructor for Nucleolus\n#' @noRd\n#' @template author/DG\n#' @name Nucleolus\n# @export\nNucleolus<-function(A){\n  retNucleolus=methods::new(\"Nucleolus\",A=A)\n  return(retNucleolus)\n}\n\n#' @title Nucleolus\n#' @noRd\n#' @template author/JA\n#' @template author/DG\n#' @description An S4 class for various solving the Nucleolus concept\n#' @include NucleolusBase.R\n# @exportClass Nucleolus\n\nsetClass(\n  \"Nucleolus\",\n  contains=\"NucleolusBase\"\n)\n\n#' @name drawNucleolus\n#' @title drawNucleolus for n players\n#' @description drawNucleolus draws the nucleolus for 3 or 4 players.\n#' @aliases drawNucleolus\n#' @export drawNucleolus\n#' @template author/JA\n#' @template cites/SCHMEIDLER_1969\n#' @templateVar SCHMEIDLER_1969_P pp. 1163--1170\n#' @template cites/KOHLBERG_1971\n#' @templateVar KOHLBERG_1971_P pp. 62--66\n#' @template cites/KOPELOWITZ_1967\n#' @template cites/MEGIDDO_1974\n#' @templateVar MEGIDDO_1974_P pp. 355--358\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 82 ff.\n#' @inheritParams CoopGameBaseParams\n#' @inheritParams visualize\n#' @examples\n#' A=c(1, 1, 1, 2, 3, 4, 5)\n#' drawNucleolus(A)\ndrawNucleolus<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = \"Nucleolus\"){\n  A=GameVector(A)\n  nuc=nucleolus(A);\n  visualize(A, pointsToDraw=nuc, holdOn=holdOn, colour = colour , label=label, name = name)\n}\n\n",
+    "created" : 1536426842735.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2563135544",
+    "id" : "19D7DD0F",
+    "lastKnownWriteTime" : 1537819503,
+    "last_content_update" : 1537819503,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/Nucleolus.R",
+    "project_path" : "R/Nucleolus.R",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 115,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

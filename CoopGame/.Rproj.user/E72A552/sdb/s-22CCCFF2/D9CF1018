@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title CoopGameCFunc - Virtual class for coalition functions\n#' @description A virtual class for the implementation of various \n#' game function concepts like e.g. apex games or cost sharing games, \n#' which can be recognized in CoopGame by the prefix 'cFunc'.\n#' @include GameVector.R\n#' @include Coalition.R\n#' @include NumberOfPlayers.R\n#' @template slot/A\n#' @template slot/n\n#' @exportClass CoopGameCFunc\nsetClass(\n  \"CoopGameCFunc\",\n  representation(A=\"GameVector\", n=\"NumberOfPlayers\", \"VIRTUAL\"),\n  validity=function(object){\n    paramCheckResult=getEmptyParamCheckResult()\n    stopOnInvalidGameVectorA(paramCheckResult,object@A)\n    stopOnInvalidNumberOfPlayers(paramCheckResult,object@n)\n  }\n)\n\nsetMethod(\n  f=\"initialize\",\n  signature = \"CoopGameCFunc\",\n  definition=function(.Object,n,...){\n    .Object@n=NumberOfPlayers(n)\n    bitMatrix = createBitMatrix(n)[,1:n]\n    A<-c()\n    i<-1\n    N<-((2^n)-1)\n    while(i<=N){\n      currCoal<-which(bitMatrix[i,]&1)\n      A[i] = getCoalitionValue(.Object,S=currCoal, ...)\n      i<-i+1\n    }\n    .Object@A=GameVector(A=A)\n    methods::validObject(.Object)\n    return(.Object)\n  }\n)\n\n#' @title Method getCoalitionValue\n#' @description This method returns the coalition value of a given coalition S.\n#' @rdname getCoalitionValue-methods\n#' @docType methods\n#' @template author/JA\n#' @template param/Object\n#' @template param/S\n#' @template param/others\n#' @exportMethod getCoalitionValue\nsetGeneric(\n  \"getCoalitionValue\",\n  function(.Object,S=\"numeric\",...){\n    standardGeneric(\"getCoalitionValue\")\n  }\n)\n\n\n\n",
+    "created" : 1536402992540.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4159035175",
+    "id" : "D9CF1018",
+    "lastKnownWriteTime" : 1536422828,
+    "last_content_update" : 1536422828,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/CoopGameCFunc.R",
+    "project_path" : "R/CoopGameCFunc.R",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 97,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

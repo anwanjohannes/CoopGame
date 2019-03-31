@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @slot LPMatrix An S4 class object (\\linkS4class{LPMatrix}) with the numeric values of the constraint coefficients.\n",
+    "created" : 1536421796266.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1184066534",
+    "id" : "F708ECE7",
+    "lastKnownWriteTime" : 1536424102,
+    "last_content_update" : 1536424102538,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/man-roxygen/slot/LPMatrix.R",
+    "project_path" : "man-roxygen/slot/LPMatrix.R",
+    "properties" : {
+    },
+    "relative_order" : 111,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

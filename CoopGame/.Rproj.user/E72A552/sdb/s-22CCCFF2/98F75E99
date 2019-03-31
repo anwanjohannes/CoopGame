@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @slot .Object instance of class <%=OBJECT_CLASSNAME%>\n",
+    "created" : 1536421891759.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "517847208",
+    "id" : "98F75E99",
+    "lastKnownWriteTime" : 1512652041,
+    "last_content_update" : 1512652041,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/man-roxygen/slot/Object.R",
+    "project_path" : "man-roxygen/slot/Object.R",
+    "properties" : {
+    },
+    "relative_order" : 112,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

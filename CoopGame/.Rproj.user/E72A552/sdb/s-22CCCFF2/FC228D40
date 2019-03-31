@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "boolSkip=F\n\ntest_that(\"Check 81.1 - isMonotonicGame with 3 players, return FALSE\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=c(10,20,80,40,50,20,110)\n  result=isMonotonicGame(A)\n  expect_equal(result, FALSE)\n})\n\ntest_that(\"Check 81.2 - isMonotonicGame with 3 players, return TRUE\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=c(10,10,10,40,50,70,100)\n  result=isMonotonicGame(A)\n  expect_equal(result, TRUE)\n})\n\ntest_that(\"Check 81.3 - isMonotonicGame with 3 players, return TRUE\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=1:7\n  result=isMonotonicGame(A)\n  expect_equal(result, TRUE)\n})\n\ntest_that(\"Check 81.4 - isMonotonicGame with 3 players, return TRUE\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=c(5,2,3,5,6,7,12)\n  result=isMonotonicGame(A)\n  expect_equal(result, TRUE)\n})\n\ntest_that(\"Check 81.5 - isMonotonicGame with 3 players, return FALSE\" ,{\n  if(boolSkip){\n    skip(\"Test was skipped\")\n  }\n  A=c(5.1,2,3,5,6,7,12)\n  result=isMonotonicGame(A)\n  expect_equal(result, FALSE)\n})",
+    "created" : 1534237665458.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1538645957",
+    "id" : "FC228D40",
+    "lastKnownWriteTime" : 1504136552,
+    "last_content_update" : 1504136552,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/tests/testthat/test_81_isMonotonicGame.R",
+    "project_path" : "tests/testthat/test_81_isMonotonicGame.R",
+    "properties" : {
+    },
+    "relative_order" : 45,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

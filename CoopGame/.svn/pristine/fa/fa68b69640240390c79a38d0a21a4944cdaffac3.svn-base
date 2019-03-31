@@ -1,0 +1,94 @@
+#' @name isConvexGame
+#' @title isConvexGame - check out if TU game is convex.
+#' @description isConvexGame checks if a TU game is convex.
+#'  A TU game is convex if and only if each player's marginal 
+#' contribution to any coalition is monotone nondecreasing 
+#' with respect to set-theoretic inclusion.
+#' @aliases isConvexGame
+#' @export isConvexGame
+#' @template author/JA
+#' @template author/JS
+#' @template cites/PELEG_ET_SUDHOELTER_2007
+#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 10
+#' @inheritParams CoopGameBaseParams
+#' @return TRUE or FALSE 
+#' @examples
+#' #Stictly convex game (WIESE D.2.7 - p. 100)
+#' A=c(0,0,0,1,2,1,4)
+#' isConvexGame(A)
+#'
+#' #Nonconvex game
+#' A=c(1:7)
+#' isConvexGame(A)
+isConvexGame<-function(A){
+  isC=GamePropertyConvexity(A)
+  return(determineProperty(isC))
+}
+
+logicIsConvexGame=function(A){
+  result=list(isConvexGame=TRUE, setsCVal=NULL, sets=NULL)
+  n=getNumberOfPlayers(A)
+  bm=createBitMatrix(n)
+
+
+  for(i in 1:length(A)){
+    S=getPlayersFromBMRow(bm[i,])
+    for(j in (1):length(A)){
+      T=getPlayersFromBMRow(bm[j,])
+      vS=A[indexCoalition(n,S)]
+      vT=A[indexCoalition(n,T)]
+      vSplusvT=vS+vT
+      vSunionT=A[indexCoalition(n,union(S,T))]
+      SintersectT=intersect(S,T)
+      if(length(SintersectT)!=0){
+        vSintersectT=A[indexCoalition(n, SintersectT)]
+      }else{
+        vSintersectT=0
+      }
+
+      if(!((vSunionT+vSintersectT)>=vSplusvT)){
+        SunionT=union(S,T)
+        result$setsCVal=c(vSunionT=vSunionT,vSintersectT=vSintersectT,vS=vS,vT=vT)
+        result$sets=list(S=S,T=T,SunionT=SunionT,SintersectT=SintersectT)
+        result$isConvexGame=FALSE
+        return(result)
+      }
+    }
+  }
+  return(result)
+}
+
+#' @title GamePropertyConvexity
+#' @noRd
+#' @include GameProperty.R
+#' #@exportClass GamePropertyConvexity
+
+setClass(
+  "GamePropertyConvexity",
+  contains = "GameProperty"
+)
+
+#' @title Constructor for GamePropertyConvexity
+#' @noRd
+#' @template author/JA
+#' @name GamePropertyConvexity
+#' #@export
+GamePropertyConvexity<-function(A){
+  retGamePropertyConvexity=methods::new("GamePropertyConvexity",A)
+  return(retGamePropertyConvexity)
+}
+
+#' @rdname determineProperty-methods
+#' @aliases determineProperty,GamePropertyConvexity-method
+setMethod(
+  "determineProperty",
+  signature="GamePropertyConvexity",
+  definition=function(.Object){
+    A<-.Object@A
+    result=logicIsConvexGame(A)
+    return(result)
+  }
+)
+
+
+

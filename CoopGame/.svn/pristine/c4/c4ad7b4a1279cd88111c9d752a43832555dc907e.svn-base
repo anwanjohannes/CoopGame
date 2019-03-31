@@ -1,0 +1,11 @@
+---
+title: "The Implementation of the Modiclus"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+#### The Implementation of the Modiclus {#TIOTMOD}
+The differences between the implementation of the Modiclus and that of the nucleolus prove to be very extensive.
+In contrast to the nucleolus, the modiclus minimizes lexicographically not the maximum value for the excess but its differences; a mere overriding of the `determineExcessCoefficients` is no longer sufficient. In addition, the number of constraints considered increases by a multiple. The entire coefficient matrix and the corresponding right column of the initial linear program must be adapted. For this the two methods `initLPMatrix` and `initLPRows` are overwritten by the class `Modiclus`.
+The initialization of the right side of the linear program is accomplished by overriding the `initLPRows` method.

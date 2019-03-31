@@ -1,0 +1,1 @@
+#' @references Littlechild S.C. and Vaidya K.G. (1976) "The propensity to disrupt and the disruption nucleolus of a characteristic function game", Int. Journal of Game Theory 5(2) <%=LITTLECHILD_ET_VAIDYA_1976_P%>

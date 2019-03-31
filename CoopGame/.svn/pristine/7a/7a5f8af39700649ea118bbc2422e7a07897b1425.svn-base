@@ -1,0 +1,10 @@
+---
+title: "The Implementation of the Disruption Nucleolus"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+#### The Implementation of the Disruption Nucleolus
+The Disruption Nucleolus is the solution concept which lexicographically minimizes the maximum Propensities To Disrupt for all coalitions. Since the initial program for minimizing the maximum propensity to disruption is non-linear, the equivalent linear program is used for determination and the method determineExcessCoefficients is overwritten. The assignment of the coefficients for the structure variable to be minimized here corresponds to the expression [V (N) -V (S) -V (N-S)] from the first condition of formula TODO.
+Since the decision variable t to be minimized from the equivalent linear program is additionally limited to the range -1 <t <0, the method initLPBndsObjCoefs must also be overwritten. 

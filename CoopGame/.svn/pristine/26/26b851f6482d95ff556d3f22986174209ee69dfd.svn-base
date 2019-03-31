@@ -1,0 +1,85 @@
+boolSkip=F
+
+
+test_that("Check 16.1 - getCoalitionsWherePlayerCritical test for getting correct referencing" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+
+  #Section for test customization - start
+  usedCoaFuncName=cFuncMaschler
+  numberOfPLayers=3
+  bmRowNumber=5
+  #each vector in rbind represents player with references to the coalitions he is a critical player
+  expectedValues=rbind(c(4,5),c(4,6),c(5,6))
+  #Section for test customization - end
+
+  A=generateGameVector(usedCoaFuncName, n = numberOfPLayers)
+  bm=createBitMatrix(n=numberOfPLayers,A)
+  bmRowList=list()
+
+  for(i in 1:numberOfPLayers){
+    bmRowList[[i]]=getCoalitionsWherePlayerCritical(player = i, bm)[,bmRowNumber]
+    #Remove names for easier comparison between expected with real findings
+    names(bmRowList[[i]])=NULL
+  }
+
+  #Test if set of column bmRow (referencing the Bit Matrix) is equal to expected referenced entries
+  for(i in 1:numberOfPLayers){
+    expect_equal(c(bmRowList[[i]]), expectedValues[i,])
+  }
+
+})
+
+test_that("Check 16.2 - getCoalitionsWherePlayerCritical" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+
+  #Section for test customization - start
+  usedCoaFuncName=cFuncMaschler
+  numberOfPLayers=4
+  bmRowNumber=6
+  #each vector in rbind represents player with references to the coalitions he is a critical player
+  expectedValues=rbind(c(5,6,7),c(5,8,9),c(6,8,10),c(7,9,10))
+  #Section for test customization - end
+
+  A=generateGameVector(usedCoaFuncName, n = numberOfPLayers)
+  bm=createBitMatrix(n=numberOfPLayers,A)
+  bmRowList=list()
+
+  for(i in 1:numberOfPLayers){
+    bmRowList[[i]]=getCoalitionsWherePlayerCritical(player = i, bm)[,bmRowNumber]
+    #Remove names for easier comparison between expected with real findings
+    names(bmRowList[[i]])=NULL
+  }
+
+  #Test if set of column bmRow (referencing the Bit Matrix) is equal to expected referenced entries
+  for(i in 1:numberOfPLayers){
+    expect_equal(c(bmRowList[[i]]), expectedValues[i,])
+  }
+
+})
+
+
+test_that("Check 16.3 - getCoalitionsWherePlayerCritical test for unforeseen abort" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+
+  #Section for test customization - start
+  usedCoaFuncName=cFuncMaschler
+  numberOfPLayers=sample(1:10,1)
+  bmRowNumber=numberOfPLayers+2
+  #each vector in rbind represents player with references to the coalitions he is a critical player
+
+  A=generateGameVector(usedCoaFuncName, n = numberOfPLayers)
+  bm=createBitMatrix(n=numberOfPLayers,A)
+
+  for(i in 1:numberOfPLayers){
+    getCoalitionsWherePlayerCritical(player = i, bm)[,bmRowNumber]
+  }
+
+})
+
+

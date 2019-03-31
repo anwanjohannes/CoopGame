@@ -1,0 +1,25 @@
+#' @title CoopGameSolution - Virtual class for point valued solution concepts
+#' @description Virtual class for point valued solution concepts
+#' @include CoopGameBase.R
+#' @exportClass CoopGameSolution
+
+setClass(
+  "CoopGameSolution",
+  representation("VIRTUAL"),
+  contains = "CoopGameBase"
+)
+
+#' @title calculateSolution
+#' @noRd
+#' @description calculateSolution 
+#' @name calculateSolution
+#' @template author/JA
+#' @template author/JS
+#' @exportMethod calculateSolution
+setGeneric(
+  "calculateSolution",
+  function(.Object){
+    standardGeneric("calculateSolution")
+  }
+)
+

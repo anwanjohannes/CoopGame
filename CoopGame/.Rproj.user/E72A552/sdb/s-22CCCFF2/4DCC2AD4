@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Implementation of the Lexical Gately Point\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n#### The Implementation of the Lexical Gately Point\nLike the Disruption Nucleolus, the Lexical Gately point also lexicographically minimizes the maximum propensities to disruption, but ignoring all coalitions. For this reason, the parent class **LexicalGatelyValue** is also named **DisruptionNucleolus**.\nThe Lexical Gately point is limited as a unique variant of the Gately point only on the one-coalitions, so only the method **determineExcessCoefficients** must be overwritten.\n",
+    "created" : 1537467834418.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1439040252",
+    "id" : "4DCC2AD4",
+    "lastKnownWriteTime" : 1537735381,
+    "last_content_update" : 1537735381134,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/05/04/07/#The_Implementation_of_the_Lexical_Gately_Point.Rmd",
+    "project_path" : "vignettes/chapters/07/05/04/07/#The_Implementation_of_the_Lexical_Gately_Point.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 154,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

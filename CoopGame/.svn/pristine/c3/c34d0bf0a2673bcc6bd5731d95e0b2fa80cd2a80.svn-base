@@ -1,0 +1,71 @@
+#' @name isImputation
+#' @title isImputation for proving the imputation criteria
+#' @description isImputation checks if a given allocation x is an imputation.
+#' @aliases isImputation
+#' @export isImputation
+#' @template author/JA
+#' @inheritParams CoopGameBaseParams
+#' @template param/x
+#' @return boolean indicating if allocation fits imputation criteria
+#' @examples 
+#' 
+#' #no imputation
+#' isImputation(x=c(1,1,1),A=c(1:7))
+#'
+isImputation<-function(x,A){
+  tv=AllocationPropertyImputation(A,x=x)
+  return(determineProperty(tv))
+}
+
+logicIsImputation<-function(A,x){
+  n=getNumberOfPlayers(A)
+  retVal=TRUE
+  
+  #check pareto x1+..+xn = v(N)
+  if(sum(x)!=A[length(A)]){
+    print("Constraint for pareto efficiency is hurt")
+    retVal=FALSE
+  #individual rationality
+  }else if(!all(A[1:n]<=x,TRUE)){
+    print("Constraint for individual rationality is hurt")
+    retVal=FALSE
+  }
+  return(retVal)
+  
+}
+
+
+
+#' @title AllocationPropertyImputation -  class for checking imputation property
+#' @description Class for implementation of imputation concept 
+#' @include GameProperty.R
+#' @exportClass AllocationPropertyImputation
+
+setClass(
+  "AllocationPropertyImputation",
+  contains = "AllocationProperty"
+)
+
+#' @title Constructor for AllocationPropertyImputation
+#' @noRd
+#' @template author/JA
+#' @name AllocationPropertyImputation
+#' #@export
+AllocationPropertyImputation<-function(A,x=x){
+  retAP=methods::new("AllocationPropertyImputation",A,x=x)
+  return(retAP)
+}
+
+#' @rdname determineProperty-methods
+#' @aliases determineProperty,AllocationPropertyImputation-method
+setMethod(
+  "determineProperty",
+  signature="AllocationPropertyImputation",
+  definition=function(.Object){
+    A<-.Object@A
+    x<-.Object@x
+    return(logicIsImputation(A,x))
+  }
+)
+
+

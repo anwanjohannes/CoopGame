@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Design of the Class NucleolusBase\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n#### The Design of the Class NucleolusBase\n\nThe virtual class **NucleolusBase** contains as class attributes the game vector **A** and an object of the class **LPCoopGameUtils**.\nIn addition, the class defines with **initLPBndsObjCoefs**, **initLPMatrix**, **initLPRows** as well as **determineExcessCoefficients** methods to intervene in the initialization and **updateLPBndsObjCoefs**, **updateLPMatrix**, **updateLPRows**, **getLPDualSolutionPos** and **getLPRowsBoundsFunc** in the update of the linear program.\nThe **checkAbort** method, on the other hand, controls the circumstances under which the responsible method **calculateNucleolus** should be aborted prematurely during the calculation if either the calculation is complete or no solution is available.\nAll derivatives later inherit from the class **NucleolusBase** and, if there are differences, the responsible method is simply overwritten.\nFurthermore, the solution procedure with the object initialization in the initialize and the logic within the method **calculateNucleolus** will be given special attention because here all important prerequisites are created and later the essential steps for the calculation of the nucleolus or its derivative are executed.",
+    "created" : 1537392520714.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2374829072",
+    "id" : "D3420F",
+    "lastKnownWriteTime" : 1537392676,
+    "last_content_update" : 1537392676235,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/05/03/01/#The_Design_of_the_Class_NucleolusBase.Rmd",
+    "project_path" : "vignettes/chapters/07/05/03/01/#The_Design_of_the_Class_NucleolusBase.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 148,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

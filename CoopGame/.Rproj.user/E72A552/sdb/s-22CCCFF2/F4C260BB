@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @name getExcessCoefficients\n#' @title getExcessCoefficients\n#' @description getExcessCoefficients\n#' @aliases getExcessCoefficients\n#' @export getExcessCoefficients\n#' @template author/JA\n#' @template author/JS\n#' @template cites/PELEG_ET_SUDHOELTER_2007\n#' @templateVar PELEG_ET_SUDHOELTER_2007_P p. 58\n#' @template cites/DRIESSEN_1998\n#' @templateVar DRIESSEN_1998_P p. 12\n#' @template param/A \n#' @template param/x\n#' @return numeric vector containing the excess coefficients for every coalition\n#' @examples \n#' library(CoopGame)\n#' getExcessCoefficients(c(0,0,0,60,48,30,72), c(24,24,24))\n#' #[1] -24 -24 -24  12   0 -18   0\n#' \n\ngetExcessCoefficients=function(A,x){\n  paramCheckResult=getEmptyParamCheckResult()\n  initialParamCheck_getExcessCoefficients(paramCheckResult, A,x)\n  N=length(A);\n  n<-getNumberOfPlayers(A)\n\n  excessCoefficients=sapply(1:N,function(i){\n    involvedPlayers=getPlayersFromIndex(n,i)\n    return(A[i]-sum(x[involvedPlayers]))\n  })\n  \n  return(excessCoefficients);\n\n}\n\ninitialParamCheck_getExcessCoefficients=function(paramCheckResult,A,x){\n  stopOnInvalidGameVectorA(paramCheckResult, A)\n  stopOnInvalidAllocation(paramCheckResult,x)\n}\n",
+    "created" : 1525209224099.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "856292307",
+    "id" : "F4C260BB",
+    "lastKnownWriteTime" : 1537215659,
+    "last_content_update" : 1537215659,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R/getExcessCoefficients.R",
+    "project_path" : "R/getExcessCoefficients.R",
+    "properties" : {
+    },
+    "relative_order" : 22,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

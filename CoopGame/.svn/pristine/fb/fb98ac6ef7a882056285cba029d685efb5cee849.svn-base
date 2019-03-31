@@ -1,0 +1,13 @@
+---
+title: "The Implementation of the Nucleolus"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+#### The Implementation of the Nucleolus {#H_TIOTN}
+The concept of the nucleolus served as a guide to the logic of calculating the derivatives in the NucleolusBase class.
+For the realization of the nucleolus it was therefore sufficient to specify the class NucleolusBase only for the class Nucleolus without any adaptation, since the logic here always agrees with that of the Nucleolus concept, as long as no overriding of a method takes place.
+If an abstract consideration of the class NucleolusBase emerged, we will briefly review the implemented logic in Nucleolus Base with regard to the realization of the Nucleolus concept.
+
+

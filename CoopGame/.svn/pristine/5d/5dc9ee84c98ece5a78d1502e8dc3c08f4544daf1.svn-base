@@ -1,0 +1,135 @@
+#' @name shapleyValue
+#' @title shapley for n players
+#' @description Calculates the Shapley Value for n players with formula from Lloyd Shapley.
+#' @aliases shapleyValue
+#' @export shapleyValue
+#' @template author/AT
+#' @template cites/PETERS_2015
+#' @templateVar PETERS_2015_P p. 156 ff.
+#' @inheritParams CoopGameBaseParams
+#' @return calculated shapley value for given game vector with n players
+#' @examples
+#' #glove game with l={1}, r={2,3} with 3 players
+#' A=c(0,0,0,1,1,0,1)
+#'
+#' shapleyValue(A) #return (2/3, 1/6, 1/6)
+shapleyValue<-function(A){
+  sv=ShapleyConcept(A)
+  return(calculatePointSolution(sv))
+}
+
+#' @name shapleyIndex
+#' @title shapley for n players
+#' @description Calculates the Shapley index for n players.
+#' @aliases shapleyIndex
+#' @export shapleyIndex
+#' @template author/AT
+#' @template cites/PETERS_2015
+#' @templateVar PETERS_2015_P p. 156 ff.
+#' @inheritParams CoopGameBaseParams
+#' @return calculated shapley index for given game
+#' @examples
+#' #glove game with l={1}, r={2,3} with 3 players
+#' A=c(0,0,0,1,1,0,1)
+#'
+#' shapleyIndex(A) #return (2/3, 1/6, 1/6)
+shapleyIndex<-function(A){
+  si=ShapleyConcept(A)
+  return(calculatePowerIndex(si))
+}
+
+logicShapleyValue <- function(A) {
+  numberOfPlayers=getNumberOfPlayers(A)
+  
+  shapley<-c()
+  
+  coalitions<-list()
+
+  
+  bitMatrix=createBitMatrix(n = numberOfPlayers, A)
+  bitMatrix<-rbind(bitMatrix, 0)
+  
+  i<-1
+  j<-1
+  #go through each player
+  while(i<=numberOfPlayers){
+    #get all coalitions the current player is not part of
+    vectorWithIndx<-which(!(bitMatrix[, i]&1))
+    #save up in a list for result
+    currCoal<-bitMatrix[vectorWithIndx,]
+    coalitions[[i]]<-currCoal
+    
+    shapleyForPlayer = 0
+    while(j<=nrow(currCoal)){
+      curCoalSet = which(currCoal[j,1:numberOfPlayers]&1)
+      mightiness = sum(currCoal[j,1:numberOfPlayers])
+      #formula:sum(|C|!(n-|C|-1)!/n! *(v(Cv{i})-v(C)))
+      shapleyForPlayer = shapleyForPlayer +
+        ((factorial(mightiness)*(factorial(numberOfPlayers-mightiness-1))/factorial(numberOfPlayers))
+         *(A[indexCoalition(numberOfPlayers,union(i,curCoalSet))]
+           -currCoal[[j, "cVal"]]))
+      
+      j<-j+1
+    }
+    
+    j<-1
+    shapley[i] = shapleyForPlayer
+    
+    i<-i+1
+  }
+  
+  # return(list(coalitions = coalitions, shapleyValue=shapley))
+  return(shapley)
+}
+
+#' @title ShapleyConcept - S4 class for shapley concept
+#' @noRd
+#' @include PointSolutionConcept.R
+#'# @exportClass ShapleyConcept
+
+setClass(
+  "ShapleyConcept",
+  contains = "PointSolutionConcept"
+)
+
+
+setMethod(
+  "calculatePointSolution",
+  signature="ShapleyConcept",
+  definition=function(.Object){
+    A<-.Object@A
+    return(logicShapleyValue(A))
+  }
+)
+
+#' @title Constructor for ShapleyConcept
+#' @noRd
+#' @template author/JA
+#' @name ShapleyConcept
+ShapleyConcept<-function(A){
+  retShapleyConcept=methods::new("ShapleyConcept",A)
+  return(retShapleyConcept)
+}
+
+
+
+#' @name drawShapleyValue
+#' @title drawShapleyValue for 3 or 4 players
+#' @description drawShapleyValue draws the Shapley Value for 3 or 4 players.
+#' @aliases drawShapleyValue
+#' @export drawShapleyValue
+#' @template author/AT
+#' @template cites/PETERS_2015
+#' @templateVar PETERS_2015_P p. 156 ff.
+#' @inheritParams CoopGameBaseParams
+#' @inheritParams visualize
+#' @examples
+#' #glove game with l={1}, r={2,3} with 3 players
+#' A=c(0,0,0,1,1,0,1)
+#' drawShapleyValue(A) 
+drawShapleyValue<-function(A,holdOn=FALSE, colour = NA , label=TRUE, name = "Shapley value"){
+  A=GameVector(A)
+  shapleyValue=shapleyValue(A);
+  visualize(A, pointsToDraw=shapleyValue, holdOn=holdOn, colour = colour , label=label, name = name)
+}
+

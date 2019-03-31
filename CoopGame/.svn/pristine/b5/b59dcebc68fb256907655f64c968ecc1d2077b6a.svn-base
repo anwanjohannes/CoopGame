@@ -1,0 +1,88 @@
+boolSkip=F
+
+test_that("Check 83.1 - Wrong Lemaire" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  
+  
+  A<-c(46125,17437.5,5812.5,69187.5,53812.5,30750,90000)
+  expected_x=c(52687.50, 24468.75, 12843.75)
+  result=nucleolus(A)
+  expect_equal(result,expected_x)
+  
+  #non quasi-balanced
+  A=c(3,4,5,9,10,11,14.5)
+  
+  
+  #
+  A=c(3,4,5,9,10,11,14)
+  A=c(0,0,0,1,1,1,1)
+  A=c(1:7)
+  
+  
+  #> johnstonIndex(A)
+  #[1] 0 0 0
+  #> johnstonValue(A)
+  #[1] NaN NaN NaN
+  
+  for(i in 1:1000){
+    P=sample(1:20,15,replace = TRUE)
+    result=nucleolusOLD(P)
+    result2=prenucleolusOLD(P)
+    print(P)
+    expect_equal(result, result2)
+  }
+  
+  A1=NULL
+  A2=1:6
+  A3=c("1","2","3","4","5","6","7")
+  A4=1:15;
+  
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A1))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A2))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A3))
+  expect_error(stopOnInvalidGameVectorA(paramCheckResult,A=A4,n=3))
+})
+
+test_that("Check 81.2 - isMonotonicGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  N1=NULL
+  N2="3"
+  paramCheckResult=getEmptyParamCheckResult()
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N1))
+  expect_error(stopOnInvalidGrandCoalitionN(paramCheckResult,N=N2)) #TODO
+  
+})
+
+test_that("Check 81.3 - isMonotonicGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  S1=NULL
+  S2=c("1","2")
+  S3=c(1,2,3,4); N=c(1,2,3)
+  paramCheckResult=c()
+  expect_error(result, TRUE)
+})
+
+test_that("Check 81.4 - isMonotonicGame with 3 players, return TRUE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(5,2,3,5,6,7,12)
+  result=isMonotonicGame(A)
+  expect_equal(result, TRUE)
+})
+
+test_that("Check 81.5 - isMonotonicGame with 3 players, return FALSE" ,{
+  if(boolSkip){
+    skip("Test was skipped")
+  }
+  A=c(5.1,2,3,5,6,7,12)
+  result=isMonotonicGame(A)
+  expect_equal(result, FALSE)
+})

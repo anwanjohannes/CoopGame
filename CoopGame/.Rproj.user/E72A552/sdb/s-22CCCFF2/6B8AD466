@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"The Class CoopGameSolution\"\nauthor: \"Johannes Anwander\"\ndate: \"28 Januar 2018\"\noutput: pdf_document\n---\n\n\n## The Class CoopGameSolution\nThe virtual class **CoopGameSolution** represents solution concepts in the package CoopGame and can again be subdivided into point valued and set valued solution concepts.\nThe point valued solution concepts are derived from the class **PointSolutionConcept**, the point based from **SetSolutionConcept**.\nFor the identification of a concept's solution the method **calculateSolution** is provided.\nHereinafter the classes **PointSolutionConcept** and **SetSolutionConcept** are presented.\n",
+    "created" : 1537391673565.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "372262097",
+    "id" : "6B8AD466",
+    "lastKnownWriteTime" : 1537391743,
+    "last_content_update" : 1537391743489,
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/vignettes/chapters/07/04/#The_Class_CoopGameSolution.Rmd",
+    "project_path" : "vignettes/chapters/07/04/#The_Class_CoopGameSolution.Rmd",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 143,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

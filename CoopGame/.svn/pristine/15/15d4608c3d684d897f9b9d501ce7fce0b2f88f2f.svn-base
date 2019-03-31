@@ -1,0 +1,42 @@
+---
+title: "The Class GameProperty"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+### The Class GameProperty
+Classes in CoopGame implementing game properties are derived from GameProperty and have the prefix GameProperty in their class-name. 
+One example for one implemented game property in CoopGame is GamePropertyEssentiality which checks if a game is essential. Therefore 
+GamePropertyEssentiality implements the method determineProperty.
+
+```{r, eval = FALSE}
+setMethod(
+  "determineProperty",
+  signature="GamePropertyEssentiality",
+  definition=function(.Object){
+    A<-.Object@A
+    result=logicIsEssentialGame(A)
+    return(result)
+  }
+)
+```
+In the function providing the logic for this game property check it is proved if the sum reached by all single coalitions exceeds the value of the grand coalition.
+In case the value of the grand coalition is surpassed the game is not essential otherwise it is.
+TODO JOCHEN TODO
+```{r, eval = FALSE}
+logicIsEssentialGame <- function(A) {
+  numberOfPlayers <- getNumberOfPlayers(A)
+  isEssential <- FALSE
+  scVal <- sum(A[1:numberOfPlayers])
+  gcVal <- A[length(A)]
+
+  if (gcVal >= scVal) {
+    isEssential <- TRUE
+  } else {
+    isEssential <- FALSE
+  }
+
+  return(isEssential)
+}
+```

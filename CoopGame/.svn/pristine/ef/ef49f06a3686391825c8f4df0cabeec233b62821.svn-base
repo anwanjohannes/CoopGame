@@ -1,0 +1,17 @@
+---
+title: "The Class CoopGameCFunc"
+author: "Johannes Anwander"
+date: "28 Januar 2018"
+output: pdf_document
+---
+
+## The Class CoopGameCFunc
+The game vector represents the cooperative game and either can be created by the user
+definining each coalition value himself or using one of the provided coalition function classes
+which is derived from the virtual class CoopGameCFunc.
+The class CoopGameCFunc posseses two slots to keep the game vector and the number of players - these are the essential information and is in common with all coalition functions.
+The method initialize uses its getCoalitionValue method for initialization of an object derived from CoopGameCFunc.
+Hereby the getCoalitionValue method determines for every possible coalition the corresponding coalition value.
+For a new coalition function class it is therefore sufficient to define a new class which heritates from CoopGameCFunc and extend the slots regarding the additional information needed for identifying all possible coalition values.
+All coalition functions in the package CoopGame provide the user wrapper functions for creating an S4 object of the coalition function (same naming as class), retrieving the corresponding game vector to a coalition function (naming <classname>Vector) as well as for the value of a single coalition (naming <classname>Value).
+For a better understanding of the coalition function concept (naming with prefix cFunc) examplary cFuncGlove, which implements the glove game (TODO_REF), is reviewed in the following section.
