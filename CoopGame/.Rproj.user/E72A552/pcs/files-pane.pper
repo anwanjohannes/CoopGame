@@ -1,17 +1,9 @@
 {
-    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/SVN_REPO/CoopGame/R",
+    "path" : "C:/Users/Johannes/Dropbox/UNIVERSITAET/Master_Inf/MASTER_ARBEIT/GIT_HUB/CoopGame",
     "sortOrder" : [
         {
             "ascending" : true,
             "columnIndex" : 2
-        },
-        {
-            "ascending" : false,
-            "columnIndex" : 4
-        },
-        {
-            "ascending" : false,
-            "columnIndex" : 3
         }
     ]
 }
