@@ -1,1 +1,0 @@
-#' @slot LPRows an S4 class (\linkS4class{LPRows}) containing information about the rows of all later LPs.
